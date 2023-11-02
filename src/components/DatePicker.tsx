@@ -1,10 +1,11 @@
-import { ReactElement, createElement } from "react";
+import { ReactElement, createElement, useCallback } from "react";
 import DatePicker from "react-datepicker";
 import { WebIcon } from "mendix";
-// import { Icon } from "mendix/components/web/Icon";
+import { Icon } from "mendix/components/web/Icon";
 
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
+import { DisableDateModeEnum } from "typings/ReactDatePickerProps";
 
 interface DatePickerProps {
     //System
@@ -15,67 +16,102 @@ interface DatePickerProps {
     setDate: (newDate: Date | null) => void;
     readonly: boolean;
     //Disable Dates
-    //
+    minDate: Date | undefined;
+    maxDate: Date | undefined;
+    disableDateMode: DisableDateModeEnum;
+    disabledDays: Date[];
+    disableSunday: boolean;
+    disableMonday: boolean;
+    disableTuesday: boolean;
+    disableWednesday: boolean;
+    disableThursday: boolean;
+    disableFriday: boolean;
+    disableSaturday: boolean;
     // Customization
     icon: WebIcon;
 }
 
 const DatePickerComp = (props: DatePickerProps): ReactElement => {
+    /* eslint-disable */
+    // @ts-ignore
+    const { languageTag = "en-US", patterns, firstDayOfWeek } = window.mx.session.getConfig().locale;
+    /* eslint-enable */
+
+    const filterDate = useCallback(
+        (date: Date): boolean => {
+            const exp =
+                (!props.disableSunday && date.getDay() === 0) ||
+                (!props.disableMonday && date.getDay() === 1) ||
+                (!props.disableTuesday && date.getDay() === 2) ||
+                (!props.disableWednesday && date.getDay() === 3) ||
+                (!props.disableThursday && date.getDay() === 4) ||
+                (!props.disableFriday && date.getDay() === 5) ||
+                (!props.disableSaturday && date.getDay() === 6);
+            console.info(date.getDay(), exp);
+            return exp;
+        },
+        [
+            props.disableSunday,
+            props.disableMonday,
+            props.disableTuesday,
+            props.disableWednesday,
+            props.disableThursday,
+            props.disableFriday,
+            props.disableSaturday
+        ]
+    );
+
     return (
-        <DatePicker
-            allowSameDay={false}
-            ariaLabelledBy={`${props.id}-label`}
-            autoFocus={false}
-            //calendarStartDay={props.calendarStartDay}
-            className={classNames("form-control")}
-            // dateFormat={dateFormats}
-            disabled={props.readonly}
-            disabledKeyboardNavigation={false}
-            dropdownMode="select"
-            enableTabLoop
-            // endDate={props.enableRange ? props.rangeValues?.[1] : undefined}
-            isClearable
-            // locale={props.locale}
-            onChange={date => props.setDate(date)}
-            placeholderText={props.placeholder}
-            popperPlacement="bottom-end"
-            popperProps={{
-                strategy: "fixed"
-            }}
-            popperModifiers={[
-                {
-                    name: "offset",
-                    options: {
-                        offset: [0, 0]
+        <div className="mendix-react-datepicker">
+            <DatePicker
+                allowSameDay={false}
+                ariaLabelledBy={`${props.id}-label`}
+                autoFocus={false}
+                calendarStartDay={firstDayOfWeek}
+                className={classNames("form-control")}
+                dateFormat={patterns.date}
+                disabled={props.readonly}
+                disabledKeyboardNavigation={false}
+                dropdownMode="select"
+                enableTabLoop
+                // endDate={props.enableRange ? props.rangeValues?.[1] : undefined}
+                isClearable
+                locale={languageTag}
+                onChange={date => props.setDate(date)}
+                placeholderText={props.placeholder.length > 0 ? props.placeholder : patterns.date}
+                popperPlacement="bottom-end"
+                popperProps={{
+                    strategy: "fixed"
+                }}
+                popperModifiers={[
+                    {
+                        name: "offset",
+                        options: {
+                            offset: [0, 0]
+                        }
                     }
-                }
-            ]}
-            preventOpenOnFocus
-            readOnly={props.readonly}
-            // startDate={props.enableRange ? props.rangeValues?.[0] : undefined}
-            selected={props.date}
-            // selectsRange={props.enableRange}
-            // shouldCloseOnSelect={false}
-            showMonthDropdown
-            showPopperArrow={false}
-            showYearDropdown
-            strictParsing
-            useWeekdaysShort={false}
-            icon={
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
-                    <mask id="ipSApplication0">
-                        <g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
-                            <path strokeLinecap="round" d="M40.04 22v20h-32V22"></path>
-                            <path
-                                fill="#fff"
-                                d="M5.842 13.777C4.312 17.737 7.263 22 11.51 22c3.314 0 6.019-2.686 6.019-6a6 6 0 0 0 6 6h1.018a6 6 0 0 0 6-6c0 3.314 2.706 6 6.02 6c4.248 0 7.201-4.265 5.67-8.228L39.234 6H8.845l-3.003 7.777Z"
-                            ></path>
-                        </g>
-                    </mask>
-                    <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSApplication0)"></path>
-                </svg>
-            }
-        />
+                ]}
+                preventOpenOnFocus
+                readOnly={props.readonly}
+                // startDate={props.enableRange ? props.rangeValues?.[0] : undefined}
+                selected={props.date}
+                // selectsRange={props.enableRange}
+                // shouldCloseOnSelect={false}
+                showMonthDropdown
+                showPopperArrow={false}
+                showYearDropdown
+                strictParsing
+                useWeekdaysShort={false}
+                minDate={props.minDate}
+                maxDate={props.maxDate}
+                includeDates={props.disableDateMode === "INCLUDE" ? props.disabledDays : undefined}
+                excludeDates={props.disableDateMode === "EXCLUDE" ? props.disabledDays : undefined}
+                filterDate={filterDate}
+            />
+            <div className="calendar-icon">
+                <Icon icon={props.icon} />
+            </div>
+        </div>
     );
 };
 

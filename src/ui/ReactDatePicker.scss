@@ -1,0 +1,11 @@
+.mendix-react-datepicker {
+    position: relative;
+    .calendar-icon {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+    .react-datepicker__day--disabled {
+        background-color: cornsilk;
+    }
+}

@@ -11,10 +11,21 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             readonly={false}
             icon={props.icon || { type: "glyph", iconClass: "glyphicon-calendar" }}
             placeholder={""}
+            minDate={undefined}
+            maxDate={undefined}
+            disableDateMode={"OFF"}
+            disabledDays={[]}
+            disableSunday={false}
+            disableMonday={false}
+            disableTuesday={false}
+            disableWednesday={false}
+            disableThursday={false}
+            disableFriday={false}
+            disableSaturday={false}
         />
     );
 }
 
 export function getPreviewCss(): string {
-    return require("./ui/ReactDatePicker.css");
+    return require("./ui/ReactDatePicker.scss");
 }

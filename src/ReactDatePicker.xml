@@ -66,7 +66,7 @@
                     <description></description>
                 </property>
                 <property key="disableDatesAttribute" type="attribute"
-                    dataSource="disableDatesDatasource">
+                    dataSource="disableDatesDatasource" required="true">
                     <caption>Disable attribute</caption>
                     <description></description>
                     <attributeTypes>

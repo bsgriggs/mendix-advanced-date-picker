@@ -11,7 +11,7 @@
     "license": "MIT",
     "config": {
         "projectPath": "../../",
-        "mendixHost": "http://localhost:8080",
+        "mendixHost": "http://localhost:8082",
         "developmentPort": 3000
     },
     "packagePath": "mendix",
@@ -31,7 +31,8 @@
     },
     "dependencies": {
         "classnames": "^2.2.6",
-        "react-datepicker": "^4.21.0"
+        "react-datepicker": "^4.21.0",
+        "sass": "^1.69.5"
     },
     "resolutions": {
         "react": "18.2.0",
