@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mendix.reactdatepicker.ReactDatePicker" pluginWidget="true" needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>React Date Picker</name>
+    <description>My widget description</description>
+    <icon />
+    <properties>
+        <propertyGroup caption="General">
+            <propertyGroup caption="Label">
+                <systemProperty key="Label" />
+                <property key="placeholder" type="textTemplate" required="false">
+                    <caption>Placeholder</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US"></translation>
+                    </translations>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Data source">
+                <property key="selectionType" type="enumeration" defaultValue="SINGLE">
+                    <caption>Selection type</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="SINGLE">Single</enumerationValue>
+                        <enumerationValue key="MULTI">Muliple</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="dateAttribute" type="attribute" required="true" onChange="onChange">
+                    <caption>Date attribute</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Disable Dates">
+            <propertyGroup caption="Disable range">
+                <property key="minDate" type="expression" required="false">
+                    <caption>Min date</caption>
+                    <description></description>
+                    <returnType type="DateTime" />
+                </property>
+                <property key="maxDate" type="expression" required="false">
+                    <caption>Min date</caption>
+                    <description></description>
+                    <returnType type="DateTime" />
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Disable specific days">
+                <property key="disableDateMode" type="enumeration" defaultValue="OFF">
+                    <caption>Disable mode</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="OFF">Off</enumerationValue>
+                        <enumerationValue key="INCLUDE">Include</enumerationValue>
+                        <enumerationValue key="EXCLUDE">Exclude</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="disableDatesDatasource" type="datasource" isList="true"
+                    required="false">
+                    <caption>Disable datasource</caption>
+                    <description></description>
+                </property>
+                <property key="disableDatesAttribute" type="attribute"
+                    dataSource="disableDatesDatasource">
+                    <caption>Disable attribute</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Disable days of the week">
+                <property key="disableSunday" type="expression" required="true" defaultValue="false">
+                    <caption>Disable Sunday?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="disableMonday" type="expression" required="true" defaultValue="false">
+                    <caption>Disable Monday?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="disableTuesday" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Disable Tuesday?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="disableWednesday" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Disable Wednesday?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="disableThursday" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Disable Thursday?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="disableFriday" type="expression" required="true" defaultValue="false">
+                    <caption>Disable Friday?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="disableSaturday" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Disable Saturday?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Customization">
+            <propertyGroup caption="Style">
+                <property key="icon" type="icon" required="false">
+                    <caption>Icon</caption>
+                    <description></description>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Events">
+            <propertyGroup caption="Events">
+                <property key="onChange" type="action">
+                    <caption>On change</caption>
+                    <description></description>
+                </property>
+                <property key="onEnter" type="action">
+                    <caption>On enter</caption>
+                    <description></description>
+                </property>
+                <property key="onLeave" type="action">
+                    <caption>On leave</caption>
+                    <description></description>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Common">
+            <propertyGroup caption="Common">
+                <systemProperty key="Name" />
+                <systemProperty key="TabIndex" />
+            </propertyGroup>
+            <propertyGroup caption="Visibility">
+                <systemProperty key="Visibility" />
+            </propertyGroup>
+            <propertyGroup caption="Editbility">
+                <systemProperty key="Editability" />
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>
