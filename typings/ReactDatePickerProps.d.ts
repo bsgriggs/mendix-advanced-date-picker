@@ -39,6 +39,8 @@ export interface ReactDatePickerContainerProps {
     customChildren: ReactNode;
     clearable: DynamicValue<boolean>;
     monthsToDisplay: DynamicValue<Big>;
+    showWeekNumbers: DynamicValue<boolean>;
+    showPreviousMonth: DynamicValue<boolean>;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -69,6 +71,8 @@ export interface ReactDatePickerPreviewProps {
     customChildren: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     clearable: string;
     monthsToDisplay: string;
+    showWeekNumbers: string;
+    showPreviousMonth: string;
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;

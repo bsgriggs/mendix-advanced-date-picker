@@ -172,6 +172,18 @@
                     <description></description>
                     <returnType type="Integer" />
                 </property>
+                <property key="showWeekNumbers" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Show week numbers?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="showPreviousMonth" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Show previous months?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">

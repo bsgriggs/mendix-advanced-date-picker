@@ -9,11 +9,12 @@ X- Children content (Widgets)
 X- Clearable (yes, style button; no, prevent keyboard clear)
 !- close on scroll (yes/no) !would have to manually do because of open state
 X- option to show multiple months (int expression)
+X- show previous months
 - custom date render? (copy from Jonny) maybe 
 - custom date format (enum to set custom, text template)
 X- test range
-- option to disable keyboard navigation (bool expression)
-- option to display week numbers (bool expression)
+!- option to disable keyboard navigation (bool expression) ! people shouldn't do this ... ever
+X- option to display week numbers (bool expression)
 - exclude/include date interval? data source with 2 date attrs
 - pick month/full month/quarter/year (enum)
     - month columns 2->4

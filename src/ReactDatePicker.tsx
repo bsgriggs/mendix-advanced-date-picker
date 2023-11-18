@@ -43,7 +43,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     );
 
     const monthsToDisplay = useMemo(() => {
-        const propMonthsToDisplay = Number(props.monthsToDisplay);
+        const propMonthsToDisplay = Number(props.monthsToDisplay.value);
         return propMonthsToDisplay > 0 ? propMonthsToDisplay : 1;
     }, [props.monthsToDisplay]);
 
@@ -100,6 +100,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 customChildren={props.useCustomChildren && props.customChildren}
                 clearable={props.clearable.value === true || props.selectionType === "MULTI"}
                 monthsToDisplay={monthsToDisplay}
+                showWeekNumbers={props.showWeekNumbers.value === true}
+                showPreviousMonths={props.showPreviousMonth.value === true}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

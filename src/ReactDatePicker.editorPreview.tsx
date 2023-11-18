@@ -33,6 +33,8 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             customChildren={undefined}
             clearable
             monthsToDisplay={1}
+            showWeekNumbers
+            showPreviousMonths
         />
     );
 }
