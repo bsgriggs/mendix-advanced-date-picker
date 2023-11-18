@@ -139,6 +139,19 @@
                     <caption>Icon</caption>
                     <description></description>
                 </property>
+                <property key="showTodayButton" type="expression" required="true"
+                    defaultValue="true">
+                    <caption>Show today button?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="todayButtonText" type="textTemplate" required="false">
+                    <caption>todayButtonText</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Today</translation>
+                    </translations>
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">

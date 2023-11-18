@@ -31,6 +31,8 @@ export interface ReactDatePickerContainerProps {
     disableFriday: DynamicValue<boolean>;
     disableSaturday: DynamicValue<boolean>;
     icon?: DynamicValue<WebIcon>;
+    showTodayButton: DynamicValue<boolean>;
+    todayButtonText?: DynamicValue<string>;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -55,6 +57,8 @@ export interface ReactDatePickerPreviewProps {
     disableFriday: string;
     disableSaturday: string;
     icon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
+    showTodayButton: string;
+    todayButtonText: string;
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;

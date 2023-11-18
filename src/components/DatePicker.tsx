@@ -35,6 +35,8 @@ interface DatePickerProps {
     disableSaturday: boolean;
     // Customization
     icon: WebIcon;
+    showTodayButton: boolean;
+    todayButtonText: string;
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -175,6 +177,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             break;
                     }
                 }}
+                todayButton={props.showTodayButton ? props.todayButtonText : undefined}
             />
             <button
                 aria-controls={id}

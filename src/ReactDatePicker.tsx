@@ -89,6 +89,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 disableSaturday={props.disableSaturday.value === true}
                 open={open}
                 setOpen={setOpen}
+                showTodayButton={props.showTodayButton.value === true}
+                todayButtonText={props.todayButtonText?.value || ""}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

@@ -28,6 +28,8 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             endDate={new Date()}
             open={false}
             setOpen={() => {}}
+            showTodayButton={true}
+            todayButtonText=""
         />
     );
 }
