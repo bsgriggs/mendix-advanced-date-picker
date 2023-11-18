@@ -8,7 +8,7 @@ X- on blur event (action)
 X- Children content (Widgets)
 X- Clearable (yes, style button; no, prevent keyboard clear)
 !- close on scroll (yes/no) !would have to manually do because of open state
-- option to show multiple months (int expression)
+X- option to show multiple months (int expression)
 - custom date render? (copy from Jonny) maybe 
 - custom date format (enum to set custom, text template)
 X- test range
