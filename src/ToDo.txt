@@ -4,14 +4,14 @@ ToDo
 X- min max dates should apply filters on data source
 X- style icon properly
 X- On Calendar Open / Close (actions) (use with a state to only load data sources while open)
-- on blur event (action)
+X- on blur event (action)
 - Children content (Widgets)
 - Clearable (yes, style button; no, prevent keyboard clear)
-- close on scroll (yes/no)
+- close on scroll (yes/no) !would have to manually do because of open state
 - option to show multiple months (int expression)
 - custom date render? (copy from Jonny)
 - custom date format (enum to set custom, text template)
-- test range
+X- test range
 - option to disable keyboard navigation (bool expression)
 - option to display week numbers (bool expression)
 - exclude/include date interval? data source with 2 date attrs
