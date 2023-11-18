@@ -2,6 +2,7 @@ $focus-outline: -webkit-focus-ring-color auto 1px;
 
 .mendix-react-datepicker {
     display: flex;
+    width: 100%;
     .react-datepicker-wrapper {
         flex-grow: 1;
     }

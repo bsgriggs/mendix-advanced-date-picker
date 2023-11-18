@@ -160,6 +160,12 @@
                     <caption>Custom children</caption>
                     <description></description>
                 </property>
+                <property key="clearable" type="expression" required="true"
+                    defaultValue="true">
+                    <caption>Clearable?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">

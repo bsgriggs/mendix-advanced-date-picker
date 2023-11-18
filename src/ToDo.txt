@@ -5,9 +5,9 @@ X- min max dates should apply filters on data source
 X- style icon properly
 X- On Calendar Open / Close (actions) (use with a state to only load data sources while open)
 X- on blur event (action)
-- Children content (Widgets)
-- Clearable (yes, style button; no, prevent keyboard clear)
-    - close on scroll (yes/no) !would have to manually do because of open state
+X- Children content (Widgets)
+X- Clearable (yes, style button; no, prevent keyboard clear)
+!- close on scroll (yes/no) !would have to manually do because of open state
 - option to show multiple months (int expression)
 - custom date render? (copy from Jonny) maybe 
 - custom date format (enum to set custom, text template)

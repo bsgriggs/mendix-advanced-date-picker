@@ -36,6 +36,7 @@ export interface ReactDatePickerContainerProps {
     todayButtonText?: DynamicValue<string>;
     useCustomChildren: boolean;
     customChildren: ReactNode;
+    clearable: DynamicValue<boolean>;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -64,6 +65,7 @@ export interface ReactDatePickerPreviewProps {
     todayButtonText: string;
     useCustomChildren: boolean;
     customChildren: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    clearable: string;
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;

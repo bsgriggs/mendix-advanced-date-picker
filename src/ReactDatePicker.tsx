@@ -8,6 +8,9 @@ import { Alert } from "./components/Alert";
 
 export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElement {
     const [open, setOpen] = useState(false);
+    const [placeholder, setPlaceholder] = useState("");
+
+    useEffect(() => setPlaceholder(props.placeholder?.value || ""), [props.placeholder]);
 
     //Ensure the list of disabled days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
@@ -42,6 +45,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     const onChangeHandler = useCallback(
         (newDate: Date | [Date | null, Date | null] | null) => {
             if (newDate !== null) {
+                console.info("setting", newDate);
                 if (Array.isArray(newDate)) {
                     //is Selection Type Multi
                     props.startDateAttribute.setValue(newDate[0] || undefined);
@@ -49,13 +53,10 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 } else {
                     props.dateAttribute.setValue(newDate);
                 }
+            } else if (props.clearable.value === true) {
+                props.dateAttribute?.setValue(undefined);
             } else {
-                if (props.selectionType === "SINGLE") {
-                    props.dateAttribute.setValue(undefined);
-                } else {
-                    props.startDateAttribute.setValue(undefined);
-                    props.endDateAttribute.setValue(undefined);
-                }
+                setPlaceholder(props.dateAttribute?.displayValue);
             }
         },
         [props.dateAttribute, props.startDateAttribute, props.endDateAttribute]
@@ -66,7 +67,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
             <DatePicker
                 {...props}
                 tabIndex={props.tabIndex || 0}
-                placeholder={props.placeholder?.value as string}
+                placeholder={placeholder}
                 date={props.dateAttribute?.value ? (props.dateAttribute.value as Date) : null}
                 startDate={props.startDateAttribute?.value ? (props.startDateAttribute.value as Date) : null}
                 endDate={props.endDateAttribute?.value ? (props.endDateAttribute.value as Date) : null}
@@ -92,6 +93,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 showTodayButton={props.showTodayButton.value === true}
                 todayButtonText={props.todayButtonText?.value || ""}
                 customChildren={props.useCustomChildren && props.customChildren}
+                clearable={props.clearable.value === true || props.selectionType === "MULTI"}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}
