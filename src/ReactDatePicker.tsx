@@ -31,6 +31,9 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         }
     }, [open]);
 
+    //Focus and blur events
+    useEffect(() => (open ? props.onEnter?.execute() : props.onLeave?.execute()), [open]);
+
     const disabledDays = useMemo(
         () => props.disableDatesDatasource?.items?.map(obj => props.disableDatesAttribute?.get(obj).value as Date),
         [props.disableDatesDatasource, props.disableDatesAttribute]
