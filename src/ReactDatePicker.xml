@@ -166,6 +166,12 @@
                     <description></description>
                     <returnType type="Boolean" />
                 </property>
+                <property key="monthsToDisplay" type="expression" required="true"
+                    defaultValue="1">
+                    <caption>Months to display</caption>
+                    <description></description>
+                    <returnType type="Integer" />
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">

@@ -39,6 +39,7 @@ interface DatePickerProps {
     todayButtonText: string;
     customChildren: ReactNode | undefined;
     clearable: boolean;
+    monthsToDisplay: number;
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -181,6 +182,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 }}
                 todayButton={props.showTodayButton ? props.todayButtonText : undefined}
                 isClearable={props.clearable}
+                monthsShown={props.monthsToDisplay}
             >
                 {props.customChildren}
             </DatePicker>

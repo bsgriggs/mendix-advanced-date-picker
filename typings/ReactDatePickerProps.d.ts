@@ -5,6 +5,7 @@
  */
 import { ComponentType, ReactNode } from "react";
 import { ActionValue, DynamicValue, EditableValue, ListValue, ListAttributeValue, WebIcon } from "mendix";
+import { Big } from "big.js";
 
 export type SelectionTypeEnum = "SINGLE" | "MULTI";
 
@@ -37,6 +38,7 @@ export interface ReactDatePickerContainerProps {
     useCustomChildren: boolean;
     customChildren: ReactNode;
     clearable: DynamicValue<boolean>;
+    monthsToDisplay: DynamicValue<Big>;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -66,6 +68,7 @@ export interface ReactDatePickerPreviewProps {
     useCustomChildren: boolean;
     customChildren: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     clearable: string;
+    monthsToDisplay: string;
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;

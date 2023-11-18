@@ -42,6 +42,11 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         [props.disableDatesDatasource, props.disableDatesAttribute]
     );
 
+    const monthsToDisplay = useMemo(() => {
+        const propMonthsToDisplay = Number(props.monthsToDisplay);
+        return propMonthsToDisplay > 0 ? propMonthsToDisplay : 1;
+    }, [props.monthsToDisplay]);
+
     const onChangeHandler = useCallback(
         (newDate: Date | [Date | null, Date | null] | null) => {
             if (newDate !== null) {
@@ -94,6 +99,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 todayButtonText={props.todayButtonText?.value || ""}
                 customChildren={props.useCustomChildren && props.customChildren}
                 clearable={props.clearable.value === true || props.selectionType === "MULTI"}
+                monthsToDisplay={monthsToDisplay}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

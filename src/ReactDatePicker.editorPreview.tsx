@@ -32,6 +32,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             todayButtonText=""
             customChildren={undefined}
             clearable
+            monthsToDisplay={1}
         />
     );
 }
