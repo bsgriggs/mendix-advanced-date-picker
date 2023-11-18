@@ -6,6 +6,9 @@
         top: 1rem;
     }
     .react-datepicker__day--disabled {
-        background-color: cornsilk;
+        background-color: #c8c8c8;
+    }
+    .react-datepicker__day--outside-month {
+        color: #555;
     }
 }

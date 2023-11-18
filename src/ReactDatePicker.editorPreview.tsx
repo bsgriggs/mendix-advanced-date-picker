@@ -6,6 +6,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
     return (
         <DatePicker
             id=""
+            tabIndex={0}
             date={new Date()}
             setDate={() => {}}
             readonly={false}
@@ -22,6 +23,9 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             disableThursday={false}
             disableFriday={false}
             disableSaturday={false}
+            selectionType={props.selectionType}
+            startDate={new Date()}
+            endDate={new Date()}
         />
     );
 }

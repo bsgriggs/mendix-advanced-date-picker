@@ -16,6 +16,8 @@ export interface ReactDatePickerContainerProps {
     placeholder?: DynamicValue<string>;
     selectionType: SelectionTypeEnum;
     dateAttribute: EditableValue<Date>;
+    startDateAttribute: EditableValue<Date>;
+    endDateAttribute: EditableValue<Date>;
     minDate?: DynamicValue<Date>;
     maxDate?: DynamicValue<Date>;
     disableDateMode: DisableDateModeEnum;
@@ -38,6 +40,8 @@ export interface ReactDatePickerPreviewProps {
     placeholder: string;
     selectionType: SelectionTypeEnum;
     dateAttribute: string;
+    startDateAttribute: string;
+    endDateAttribute: string;
     minDate: string;
     maxDate: string;
     disableDateMode: DisableDateModeEnum;

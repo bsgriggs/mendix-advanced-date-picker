@@ -35,6 +35,22 @@
                         <attributeType name="DateTime" />
                     </attributeTypes>
                 </property>
+                <property key="startDateAttribute" type="attribute" required="true"
+                    onChange="onChange">
+                    <caption>Start date attribute</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+                <property key="endDateAttribute" type="attribute" required="true"
+                    onChange="onChange">
+                    <caption>End date attribute</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Disable Dates">
@@ -126,20 +142,25 @@
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">
-            <propertyGroup caption="Events">
+            <propertyGroup caption="On change">
                 <property key="onChange" type="action">
                     <caption>On change</caption>
                     <description></description>
                 </property>
+            </propertyGroup>
+            <propertyGroup caption="On enter">
                 <property key="onEnter" type="action">
                     <caption>On enter</caption>
                     <description></description>
                 </property>
+            </propertyGroup>
+            <propertyGroup caption="On leave">
                 <property key="onLeave" type="action">
                     <caption>On leave</caption>
                     <description></description>
                 </property>
             </propertyGroup>
+
         </propertyGroup>
         <propertyGroup caption="Common">
             <propertyGroup caption="Common">

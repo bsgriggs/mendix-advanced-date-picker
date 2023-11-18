@@ -5,15 +5,19 @@ import { Icon } from "mendix/components/web/Icon";
 
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
-import { DisableDateModeEnum } from "typings/ReactDatePickerProps";
+import { DisableDateModeEnum, SelectionTypeEnum } from "typings/ReactDatePickerProps";
 
 interface DatePickerProps {
     //System
     id: string;
+    tabIndex: number;
     //General
     placeholder: string;
+    selectionType: SelectionTypeEnum;
     date: Date | null;
-    setDate: (newDate: Date | null) => void;
+    setDate: (newDate: Date | [Date | null, Date | null] | null) => void;
+    startDate: Date | null;
+    endDate: Date | null;
     readonly: boolean;
     //Disable Dates
     minDate: Date | undefined;
@@ -39,16 +43,16 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
 
     const filterDate = useCallback(
         (date: Date): boolean => {
-            const exp =
-                (!props.disableSunday && date.getDay() === 0) ||
-                (!props.disableMonday && date.getDay() === 1) ||
-                (!props.disableTuesday && date.getDay() === 2) ||
-                (!props.disableWednesday && date.getDay() === 3) ||
-                (!props.disableThursday && date.getDay() === 4) ||
-                (!props.disableFriday && date.getDay() === 5) ||
-                (!props.disableSaturday && date.getDay() === 6);
-            console.info(date.getDay(), exp);
-            return exp;
+            const day = date.getDay();
+            return (
+                (!props.disableSunday && day === 0) ||
+                (!props.disableMonday && day === 1) ||
+                (!props.disableTuesday && day === 2) ||
+                (!props.disableWednesday && day === 3) ||
+                (!props.disableThursday && day === 4) ||
+                (!props.disableFriday && day === 5) ||
+                (!props.disableSaturday && day === 6)
+            );
         },
         [
             props.disableSunday,
@@ -64,6 +68,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
     return (
         <div className="mendix-react-datepicker">
             <DatePicker
+                id={props.id}
+                tabIndex={props.tabIndex}
                 allowSameDay={false}
                 ariaLabelledBy={`${props.id}-label`}
                 autoFocus={false}
@@ -73,9 +79,6 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 disabled={props.readonly}
                 disabledKeyboardNavigation={false}
                 dropdownMode="select"
-                enableTabLoop
-                // endDate={props.enableRange ? props.rangeValues?.[1] : undefined}
-                isClearable
                 locale={languageTag}
                 onChange={date => props.setDate(date)}
                 placeholderText={props.placeholder.length > 0 ? props.placeholder : patterns.date}
@@ -91,12 +94,11 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                         }
                     }
                 ]}
-                preventOpenOnFocus
                 readOnly={props.readonly}
-                // startDate={props.enableRange ? props.rangeValues?.[0] : undefined}
+                selectsRange={props.selectionType === "MULTI"}
+                startDate={props.startDate ? props.startDate : undefined}
+                endDate={props.endDate ? props.endDate : undefined}
                 selected={props.date}
-                // selectsRange={props.enableRange}
-                // shouldCloseOnSelect={false}
                 showMonthDropdown
                 showPopperArrow={false}
                 showYearDropdown

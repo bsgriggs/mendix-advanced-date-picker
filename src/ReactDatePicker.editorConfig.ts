@@ -106,6 +106,12 @@ export function getProperties(
     if (_values.disableDateMode === "OFF") {
         hidePropertiesIn(defaultProperties, _values, ["disableDatesDatasource", "disableDatesAttribute"]);
     }
+    if (_values.selectionType === "SINGLE") {
+        hidePropertiesIn(defaultProperties, _values, ["startDateAttribute", "endDateAttribute"]);
+    } else {
+        hidePropertiesIn(defaultProperties, _values, ["dateAttribute"]);
+    }
+
     return defaultProperties;
 }
 
