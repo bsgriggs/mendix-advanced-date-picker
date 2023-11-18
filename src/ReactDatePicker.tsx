@@ -91,6 +91,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 setOpen={setOpen}
                 showTodayButton={props.showTodayButton.value === true}
                 todayButtonText={props.todayButtonText?.value || ""}
+                customChildren={props.useCustomChildren && props.customChildren}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

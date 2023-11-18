@@ -7,16 +7,16 @@ X- On Calendar Open / Close (actions) (use with a state to only load data source
 X- on blur event (action)
 - Children content (Widgets)
 - Clearable (yes, style button; no, prevent keyboard clear)
-- close on scroll (yes/no) !would have to manually do because of open state
+    - close on scroll (yes/no) !would have to manually do because of open state
 - option to show multiple months (int expression)
-- custom date render? (copy from Jonny)
+- custom date render? (copy from Jonny) maybe 
 - custom date format (enum to set custom, text template)
 X- test range
 - option to disable keyboard navigation (bool expression)
 - option to display week numbers (bool expression)
 - exclude/include date interval? data source with 2 date attrs
 - pick month/full month/quarter/year (enum)
--- month columns 2->4
+    - month columns 2->4
 - month dropdown short or long
 - highlight dates (data source with attr)
 - holidays (data source with date and string attr) 
@@ -25,6 +25,7 @@ X- test range
 - open to date (date expression)
 - portal version (yes/no)
 - today button (yes/no)
+- open boolean attr
 
 - date time
 - exclude/include time interval

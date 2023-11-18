@@ -112,6 +112,10 @@ export function getProperties(
         hidePropertiesIn(defaultProperties, _values, ["dateAttribute"]);
     }
 
+    if (!_values.useCustomChildren) {
+        hidePropertiesIn(defaultProperties, _values, ["customChildren"]);
+    }
+
     return defaultProperties;
 }
 

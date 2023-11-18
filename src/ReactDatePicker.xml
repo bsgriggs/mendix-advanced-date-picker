@@ -152,6 +152,14 @@
                         <translation lang="en_US">Today</translation>
                     </translations>
                 </property>
+                <property key="useCustomChildren" type="boolean" defaultValue="false">
+                    <caption>Use custom children?</caption>
+                    <description></description>
+                </property>
+                <property key="customChildren" type="widgets" required="true">
+                    <caption>Custom children</caption>
+                    <description></description>
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">

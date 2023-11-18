@@ -1,4 +1,4 @@
-import { ReactElement, createElement, useCallback, useRef, useMemo } from "react";
+import { ReactElement, createElement, useCallback, useRef, useMemo, ReactNode } from "react";
 import DatePicker from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
@@ -37,6 +37,7 @@ interface DatePickerProps {
     icon: WebIcon;
     showTodayButton: boolean;
     todayButtonText: string;
+    customChildren: ReactNode | undefined;
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -178,7 +179,9 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     }
                 }}
                 todayButton={props.showTodayButton ? props.todayButtonText : undefined}
-            />
+            >
+                {props.customChildren}
+            </DatePicker>
             <button
                 aria-controls={id}
                 aria-haspopup

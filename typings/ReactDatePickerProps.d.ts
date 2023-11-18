@@ -3,6 +3,7 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
+import { ComponentType, ReactNode } from "react";
 import { ActionValue, DynamicValue, EditableValue, ListValue, ListAttributeValue, WebIcon } from "mendix";
 
 export type SelectionTypeEnum = "SINGLE" | "MULTI";
@@ -33,6 +34,8 @@ export interface ReactDatePickerContainerProps {
     icon?: DynamicValue<WebIcon>;
     showTodayButton: DynamicValue<boolean>;
     todayButtonText?: DynamicValue<string>;
+    useCustomChildren: boolean;
+    customChildren: ReactNode;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -59,6 +62,8 @@ export interface ReactDatePickerPreviewProps {
     icon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
     showTodayButton: string;
     todayButtonText: string;
+    useCustomChildren: boolean;
+    customChildren: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;
