@@ -1,14 +1,20 @@
+$focus-outline: -webkit-focus-ring-color auto 1px;
+
 .mendix-react-datepicker {
-    position: relative;
-    .calendar-icon {
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
+    display: flex;
+    .react-datepicker-wrapper {
+        flex-grow: 1;
     }
     .react-datepicker__day--disabled {
         background-color: #c8c8c8;
     }
     .react-datepicker__day--outside-month {
         color: #555;
+    }
+    .react-datepicker__navigation,
+    .react-datepicker__day {
+        &:focus-visible {
+            outline: $focus-outline;
+        }
     }
 }

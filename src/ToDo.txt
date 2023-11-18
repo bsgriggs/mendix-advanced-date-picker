@@ -1,0 +1,35 @@
+================
+ToDo
+================
+X- min max dates should apply filters on data source
+X- style icon properly
+X- On Calendar Open / Close (actions) (use with a state to only load data sources while open)
+- on blur event (action)
+- Children content (Widgets)
+- Clearable (yes, style button; no, prevent keyboard clear)
+- close on scroll (yes/no)
+- option to show multiple months (int expression)
+- custom date render? (copy from Jonny)
+- custom date format (enum to set custom, text template)
+- test range
+- option to disable keyboard navigation (bool expression)
+- option to display week numbers (bool expression)
+- exclude/include date interval? data source with 2 date attrs
+- pick month/full month/quarter/year (enum)
+-- month columns 2->4
+- month dropdown short or long
+- highlight dates (data source with attr)
+- holidays (data source with date and string attr) 
+- inline - always show calendar instead of input (bool expression)
+- show popper arrow (yes/no)
+- open to date (date expression)
+- portal version (yes/no)
+- today button (yes/no)
+
+- date time
+- exclude/include time interval
+- show time input (bool expression)
+
+- time 
+- exclude/include time interval
+- show time input (bool expression)

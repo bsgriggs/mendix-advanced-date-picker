@@ -26,6 +26,8 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             selectionType={props.selectionType}
             startDate={new Date()}
             endDate={new Date()}
+            open={false}
+            setOpen={() => {}}
         />
     );
 }
