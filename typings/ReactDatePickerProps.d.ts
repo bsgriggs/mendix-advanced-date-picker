@@ -9,7 +9,9 @@ import { Big } from "big.js";
 
 export type SelectionTypeEnum = "SINGLE" | "MULTI";
 
-export type DisableDateModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
+export type SpecificDaysModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
+
+export type IntervalDaysModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 
 export interface ReactDatePickerContainerProps {
     name: string;
@@ -22,9 +24,13 @@ export interface ReactDatePickerContainerProps {
     endDateAttribute: EditableValue<Date>;
     minDate?: DynamicValue<Date>;
     maxDate?: DynamicValue<Date>;
-    disableDateMode: DisableDateModeEnum;
-    disableDatesDatasource?: ListValue;
-    disableDatesAttribute?: ListAttributeValue<Date>;
+    specificDaysMode: SpecificDaysModeEnum;
+    specificDaysDatasource: ListValue;
+    specificDaysAttribute: ListAttributeValue<Date>;
+    intervalDaysMode: IntervalDaysModeEnum;
+    intervalDaysDatasource: ListValue;
+    intervalDaysStart: ListAttributeValue<Date>;
+    intervalDaysEnd: ListAttributeValue<Date>;
     disableSunday: DynamicValue<boolean>;
     disableMonday: DynamicValue<boolean>;
     disableTuesday: DynamicValue<boolean>;
@@ -56,9 +62,13 @@ export interface ReactDatePickerPreviewProps {
     endDateAttribute: string;
     minDate: string;
     maxDate: string;
-    disableDateMode: DisableDateModeEnum;
-    disableDatesDatasource: {} | { caption: string } | { type: string } | null;
-    disableDatesAttribute: string;
+    specificDaysMode: SpecificDaysModeEnum;
+    specificDaysDatasource: {} | { caption: string } | { type: string } | null;
+    specificDaysAttribute: string;
+    intervalDaysMode: IntervalDaysModeEnum;
+    intervalDaysDatasource: {} | { caption: string } | { type: string } | null;
+    intervalDaysStart: string;
+    intervalDaysEnd: string;
     disableSunday: string;
     disableMonday: string;
     disableTuesday: string;

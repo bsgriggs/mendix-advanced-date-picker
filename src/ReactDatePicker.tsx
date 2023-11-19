@@ -10,37 +10,65 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     const [open, setOpen] = useState(false);
     const [placeholder, setPlaceholder] = useState("");
 
+    //Seperated so the placeholder can be set to the current value if props.clearable is off
     useEffect(() => setPlaceholder(props.placeholder?.value || ""), [props.placeholder]);
 
-    //Ensure the list of disabled days is only retrieved if the menu is open and only get days inside the min/max range
+    //Ensure the list of specific days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
-        if (props.disableDateMode !== "OFF" && props.disableDatesDatasource && props.disableDatesAttribute) {
-            props.disableDatesDatasource?.setLimit(open ? Infinity : 0);
+        if (props.specificDaysMode !== "OFF") {
+            props.specificDaysDatasource.setLimit(open ? Infinity : 0);
             if (props.minDate || props.maxDate) {
                 const filter = [];
                 if (props.minDate?.value !== undefined) {
                     filter.push(
-                        greaterThanOrEqual(attribute(props.disableDatesAttribute.id), literal(props.minDate.value))
+                        greaterThanOrEqual(attribute(props.specificDaysAttribute.id), literal(props.minDate.value))
                     );
                 }
                 if (props.maxDate?.value !== undefined) {
                     filter.push(
-                        lessThanOrEqual(attribute(props.disableDatesAttribute.id), literal(props.maxDate.value))
+                        lessThanOrEqual(attribute(props.specificDaysAttribute.id), literal(props.maxDate.value))
                     );
                 }
-
-                props.disableDatesDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
+                props.specificDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
             }
         }
     }, [open]);
 
+    const specificDays = useMemo(
+        () => props.specificDaysDatasource?.items?.map(obj => props.specificDaysAttribute.get(obj).value as Date),
+        [props.specificDaysDatasource, props.specificDaysAttribute]
+    );
+
+    //Ensure the list of interval days is only retrieved if the menu is open and only get days inside the min/max range
+    useEffect(() => {
+        if (props.intervalDaysMode !== "OFF") {
+            props.intervalDaysDatasource.setLimit(open ? Infinity : 0);
+            if (props.minDate || props.maxDate) {
+                const filter = [];
+                if (props.minDate?.value !== undefined) {
+                    filter.push(
+                        greaterThanOrEqual(attribute(props.intervalDaysStart.id), literal(props.minDate.value))
+                    );
+                }
+                if (props.maxDate?.value !== undefined) {
+                    filter.push(lessThanOrEqual(attribute(props.intervalDaysEnd.id), literal(props.maxDate.value)));
+                }
+                props.intervalDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
+            }
+        }
+    }, [open]);
+
+    const intervalDays = useMemo(
+        () =>
+            props.intervalDaysDatasource?.items?.map(obj => ({
+                start: props.intervalDaysStart.get(obj).value as Date,
+                end: props.intervalDaysEnd.get(obj).value as Date
+            })),
+        [props.intervalDaysDatasource, props.intervalDaysStart, props.intervalDaysEnd]
+    );
+
     //Focus and blur events
     useEffect(() => (open ? props.onEnter?.execute() : props.onLeave?.execute()), [open]);
-
-    const disabledDays = useMemo(
-        () => props.disableDatesDatasource?.items?.map(obj => props.disableDatesAttribute?.get(obj).value as Date),
-        [props.disableDatesDatasource, props.disableDatesAttribute]
-    );
 
     const monthsToDisplay = useMemo(() => {
         const propMonthsToDisplay = Number(props.monthsToDisplay.value);
@@ -85,7 +113,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 icon={props.icon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
                 minDate={props.minDate?.value}
                 maxDate={props.maxDate?.value}
-                disabledDays={disabledDays || []}
+                specificDays={specificDays || []}
+                intervalDays={intervalDays || []}
                 disableSunday={props.disableSunday.value === true}
                 disableMonday={props.disableMonday.value === true}
                 disableTuesday={props.disableTuesday.value === true}

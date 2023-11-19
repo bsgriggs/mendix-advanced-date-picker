@@ -103,8 +103,15 @@ export function getProperties(
     _values: ReactDatePickerPreviewProps,
     defaultProperties: Properties /*, target: Platform*/
 ): Properties {
-    if (_values.disableDateMode === "OFF") {
-        hidePropertiesIn(defaultProperties, _values, ["disableDatesDatasource", "disableDatesAttribute"]);
+    if (_values.specificDaysMode === "OFF") {
+        hidePropertiesIn(defaultProperties, _values, ["specificDaysDatasource", "specificDaysAttribute"]);
+    }
+    if (_values.intervalDaysMode === "OFF") {
+        hidePropertiesIn(defaultProperties, _values, [
+            "intervalDaysDatasource",
+            "intervalDaysStart",
+            "intervalDaysEnd"
+        ]);
     }
     if (_values.selectionType === "SINGLE") {
         hidePropertiesIn(defaultProperties, _values, ["startDateAttribute", "endDateAttribute"]);

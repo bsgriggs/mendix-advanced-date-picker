@@ -7,7 +7,7 @@ import { registerLocale } from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
-import { DisableDateModeEnum, SelectionTypeEnum } from "typings/ReactDatePickerProps";
+import { IntervalDaysModeEnum, SpecificDaysModeEnum, SelectionTypeEnum } from "typings/ReactDatePickerProps";
 
 interface DatePickerProps {
     //System
@@ -24,8 +24,10 @@ interface DatePickerProps {
     //Disable Dates
     minDate: Date | undefined;
     maxDate: Date | undefined;
-    disableDateMode: DisableDateModeEnum;
-    disabledDays: Date[];
+    specificDaysMode: SpecificDaysModeEnum;
+    specificDays: Date[];
+    intervalDaysMode: IntervalDaysModeEnum;
+    intervalDays: Array<{ start: Date; end: Date }>;
     disableSunday: boolean;
     disableMonday: boolean;
     disableTuesday: boolean;
@@ -160,8 +162,10 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 useWeekdaysShort={false}
                 minDate={props.minDate}
                 maxDate={props.maxDate}
-                includeDates={props.disableDateMode === "INCLUDE" ? props.disabledDays : undefined}
-                excludeDates={props.disableDateMode === "EXCLUDE" ? props.disabledDays : undefined}
+                includeDates={props.specificDaysMode === "INCLUDE" ? props.specificDays : undefined}
+                excludeDates={props.specificDaysMode === "EXCLUDE" ? props.specificDays : undefined}
+                includeDateIntervals={props.intervalDaysMode === "INCLUDE" ? props.intervalDays : undefined}
+                excludeDateIntervals={props.intervalDaysMode === "EXCLUDE" ? props.intervalDays : undefined}
                 filterDate={filterDate}
                 open={props.open}
                 onInputClick={() => props.setOpen(true)}

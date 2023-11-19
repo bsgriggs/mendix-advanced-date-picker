@@ -35,8 +35,7 @@
                         <attributeType name="DateTime" />
                     </attributeTypes>
                 </property>
-                <property key="startDateAttribute" type="attribute" required="true"
-                    onChange="onChange">
+                <property key="startDateAttribute" type="attribute" required="true">
                     <caption>Start date attribute</caption>
                     <description></description>
                     <attributeTypes>
@@ -54,7 +53,7 @@
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Disable Dates">
-            <propertyGroup caption="Disable range">
+            <propertyGroup caption="Min and Max">
                 <property key="minDate" type="expression" required="false">
                     <caption>Min date</caption>
                     <description></description>
@@ -66,9 +65,9 @@
                     <returnType type="DateTime" />
                 </property>
             </propertyGroup>
-            <propertyGroup caption="Disable specific days">
-                <property key="disableDateMode" type="enumeration" defaultValue="OFF">
-                    <caption>Disable mode</caption>
+            <propertyGroup caption="Specific days">
+                <property key="specificDaysMode" type="enumeration" defaultValue="OFF">
+                    <caption>Specific days mode</caption>
                     <description></description>
                     <enumerationValues>
                         <enumerationValue key="OFF">Off</enumerationValue>
@@ -76,14 +75,46 @@
                         <enumerationValue key="EXCLUDE">Exclude</enumerationValue>
                     </enumerationValues>
                 </property>
-                <property key="disableDatesDatasource" type="datasource" isList="true"
-                    required="false">
-                    <caption>Disable datasource</caption>
+                <property key="specificDaysDatasource" type="datasource" isList="true"
+                    required="true">
+                    <caption>Specific days datasource</caption>
                     <description></description>
                 </property>
-                <property key="disableDatesAttribute" type="attribute"
-                    dataSource="disableDatesDatasource" required="true">
-                    <caption>Disable attribute</caption>
+                <property key="specificDaysAttribute" type="attribute"
+                    dataSource="specificDaysDatasource" required="true">
+                    <caption>Specific days attribute</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Interval days">
+                <property key="intervalDaysMode" type="enumeration" defaultValue="OFF">
+                    <caption>Interval days mode</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="OFF">Off</enumerationValue>
+                        <enumerationValue key="INCLUDE">Include</enumerationValue>
+                        <enumerationValue key="EXCLUDE">Exclude</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="intervalDaysDatasource" type="datasource" isList="true"
+                    required="true">
+                    <caption>Interval days datasource</caption>
+                    <description></description>
+                </property>
+                <property key="intervalDaysStart" type="attribute"
+                    dataSource="intervalDaysDatasource" required="true">
+                    <caption>Interval days start</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+                <property key="intervalDaysEnd" type="attribute"
+                    dataSource="intervalDaysDatasource" required="true">
+                    <caption>Interval days end</caption>
                     <description></description>
                     <attributeTypes>
                         <attributeType name="DateTime" />
@@ -146,7 +177,7 @@
                     <returnType type="Boolean" />
                 </property>
                 <property key="todayButtonText" type="textTemplate" required="false">
-                    <caption>todayButtonText</caption>
+                    <caption>Today button text</caption>
                     <description></description>
                     <translations>
                         <translation lang="en_US">Today</translation>

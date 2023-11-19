@@ -14,8 +14,10 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             placeholder={""}
             minDate={undefined}
             maxDate={undefined}
-            disableDateMode={"OFF"}
-            disabledDays={[]}
+            specificDaysMode={"OFF"}
+            specificDays={[]}
+            intervalDaysMode={"OFF"}
+            intervalDays={[]}
             disableSunday={false}
             disableMonday={false}
             disableTuesday={false}
