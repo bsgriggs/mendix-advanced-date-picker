@@ -42,6 +42,7 @@ interface DatePickerProps {
     monthsToDisplay: number;
     showWeekNumbers: boolean;
     showPreviousMonths: boolean;
+    showArrow: boolean;
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -152,7 +153,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 endDate={props.endDate ? props.endDate : undefined}
                 selected={props.date}
                 showMonthDropdown
-                showPopperArrow={false}
+                showPopperArrow={props.showArrow}
                 showYearDropdown
                 strictParsing
                 useWeekdaysShort={false}

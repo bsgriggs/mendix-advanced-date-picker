@@ -22,10 +22,10 @@ X- option to display week numbers (bool expression)
 - highlight dates (data source with attr)
 - holidays (data source with date and string attr) 
 - inline - always show calendar instead of input (bool expression)
-- show popper arrow (yes/no)
+X- show popper arrow (yes/no)
 - open to date (date expression)
 - portal version (yes/no)
-- today button (yes/no)
+X- today button (yes/no)
 - open boolean attr
 
 - date time

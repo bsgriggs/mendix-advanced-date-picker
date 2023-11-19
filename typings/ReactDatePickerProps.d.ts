@@ -41,6 +41,7 @@ export interface ReactDatePickerContainerProps {
     monthsToDisplay: DynamicValue<Big>;
     showWeekNumbers: DynamicValue<boolean>;
     showPreviousMonth: DynamicValue<boolean>;
+    showArrow: boolean;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -73,6 +74,7 @@ export interface ReactDatePickerPreviewProps {
     monthsToDisplay: string;
     showWeekNumbers: string;
     showPreviousMonth: string;
+    showArrow: boolean;
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;
