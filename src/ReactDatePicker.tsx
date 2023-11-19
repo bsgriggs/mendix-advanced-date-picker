@@ -102,6 +102,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 monthsToDisplay={monthsToDisplay}
                 showWeekNumbers={props.showWeekNumbers.value === true}
                 showPreviousMonths={props.showPreviousMonth.value === true}
+                showInline={props.showInline.value === true}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

@@ -36,6 +36,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             showWeekNumbers
             showPreviousMonths
             showArrow
+            showInline={false}
         />
     );
 }

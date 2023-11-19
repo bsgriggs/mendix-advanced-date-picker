@@ -188,6 +188,12 @@
                     <caption>Show arrow?</caption>
                     <description></description>
                 </property>
+                <property key="showInline" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Show Inline?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">

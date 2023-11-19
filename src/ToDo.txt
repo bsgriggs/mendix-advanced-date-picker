@@ -21,7 +21,7 @@ X- option to display week numbers (bool expression)
 - month dropdown short or long
 - highlight dates (data source with attr)
 - holidays (data source with date and string attr) 
-- inline - always show calendar instead of input (bool expression)
+X- inline - always show calendar instead of input (bool expression)
 X- show popper arrow (yes/no)
 - open to date (date expression)
 - portal version (yes/no)

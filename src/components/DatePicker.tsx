@@ -43,6 +43,7 @@ interface DatePickerProps {
     showWeekNumbers: boolean;
     showPreviousMonths: boolean;
     showArrow: boolean;
+    showInline: boolean;
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -188,26 +189,29 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 monthsShown={props.monthsToDisplay}
                 showWeekNumbers={props.showWeekNumbers}
                 showPreviousMonths={props.showPreviousMonths}
+                inline={props.showInline}
             >
                 {props.customChildren}
             </DatePicker>
-            <button
-                aria-controls={id}
-                aria-haspopup
-                ref={buttonRef}
-                className="btn btn-default btn-calendar spacing-outer-left"
-                onClick={buttonClick}
-                onKeyDown={e => {
-                    if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        buttonClick();
-                    }
-                }}
-            >
-                {/*@ts-ignore*/}
-                <Icon key={props.icon} icon={props.icon} />
-            </button>
+            {!props.showInline && (
+                <button
+                    aria-controls={id}
+                    aria-haspopup
+                    ref={buttonRef}
+                    className="btn btn-default btn-calendar spacing-outer-left"
+                    onClick={buttonClick}
+                    onKeyDown={e => {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            buttonClick();
+                        }
+                    }}
+                >
+                    {/*@ts-ignore*/}
+                    <Icon key={props.icon} icon={props.icon} />
+                </button>
+            )}
         </div>
     );
 };
