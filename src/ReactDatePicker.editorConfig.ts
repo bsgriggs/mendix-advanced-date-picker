@@ -1,5 +1,5 @@
 import { ReactDatePickerPreviewProps } from "../typings/ReactDatePickerProps";
-import { hidePropertiesIn } from "@mendix/pluggable-widgets-tools";
+import { hidePropertiesIn, hidePropertyIn } from "@mendix/pluggable-widgets-tools";
 export type Platform = "web" | "desktop";
 
 export type Properties = PropertyGroup[];
@@ -113,6 +113,9 @@ export function getProperties(
             "intervalDaysEnd"
         ]);
     }
+    if (_values.specificTimesMode === "OFF") {
+        hidePropertiesIn(defaultProperties, _values, ["specificTimesDatasource", "specificTimeAttribute"]);
+    }
     if (_values.selectionType === "SINGLE") {
         hidePropertiesIn(defaultProperties, _values, ["startDateAttribute", "endDateAttribute"]);
     } else {
@@ -121,6 +124,29 @@ export function getProperties(
 
     if (!_values.useCustomChildren) {
         hidePropertiesIn(defaultProperties, _values, ["customChildren"]);
+    }
+
+    if (
+        _values.dateFormat === "MONTH" ||
+        _values.dateFormat === "YEAR" ||
+        _values.dateFormat === "TIME" ||
+        _values.dateFormat === "QUARTER"
+    ) {
+        hidePropertiesIn(defaultProperties, _values, ["showTodayButton", "todayButtonText"]);
+    }
+    if (_values.dateFormat !== "CUSTOM") {
+        hidePropertyIn(defaultProperties, _values, "customDateFormat");
+    }
+    // Check if time attributes are not needed
+    if (_values.dateFormat !== "CUSTOM" && _values.dateFormat !== "TIME" && _values.dateFormat !== "DATETIME") {
+        hidePropertiesIn(defaultProperties, _values, ["timeInterval", "timeCaption"]);
+        hidePropertiesIn(defaultProperties, _values, [
+            "minTime",
+            "maxTime",
+            "specificTimesMode",
+            "specificTimesDatasource",
+            "specificTimeAttribute"
+        ]);
     }
 
     return defaultProperties;

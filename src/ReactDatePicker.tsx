@@ -13,32 +13,6 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     //Seperated so the placeholder can be set to the current value if props.clearable is off
     useEffect(() => setPlaceholder(props.placeholder?.value || ""), [props.placeholder]);
 
-    //Ensure the list of specific days is only retrieved if the menu is open and only get days inside the min/max range
-    useEffect(() => {
-        if (props.specificDaysMode !== "OFF") {
-            props.specificDaysDatasource.setLimit(open || props.showInline ? Infinity : 0);
-            if (props.minDate || props.maxDate) {
-                const filter = [];
-                if (props.minDate?.value !== undefined) {
-                    filter.push(
-                        greaterThanOrEqual(attribute(props.specificDaysAttribute.id), literal(props.minDate.value))
-                    );
-                }
-                if (props.maxDate?.value !== undefined) {
-                    filter.push(
-                        lessThanOrEqual(attribute(props.specificDaysAttribute.id), literal(props.maxDate.value))
-                    );
-                }
-                props.specificDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
-            }
-        }
-    }, [open, props.showInline]);
-
-    const specificDays = useMemo(
-        () => props.specificDaysDatasource?.items?.map(obj => props.specificDaysAttribute.get(obj).value as Date),
-        [props.specificDaysDatasource, props.specificDaysAttribute]
-    );
-
     //Ensure the list of interval days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
         if (props.intervalDaysMode !== "OFF") {
@@ -65,6 +39,44 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 end: props.intervalDaysEnd.get(obj).value as Date
             })),
         [props.intervalDaysDatasource, props.intervalDaysStart, props.intervalDaysEnd]
+    );
+
+    //Ensure the list of specific days is only retrieved if the menu is open and only get days inside the min/max range
+    useEffect(() => {
+        if (props.specificDaysMode !== "OFF") {
+            props.specificDaysDatasource.setLimit(open || props.showInline ? Infinity : 0);
+            if (props.minDate || props.maxDate) {
+                const filter = [];
+                if (props.minDate?.value !== undefined) {
+                    filter.push(
+                        greaterThanOrEqual(attribute(props.specificDaysAttribute.id), literal(props.minDate.value))
+                    );
+                }
+                if (props.maxDate?.value !== undefined) {
+                    filter.push(
+                        lessThanOrEqual(attribute(props.specificDaysAttribute.id), literal(props.maxDate.value))
+                    );
+                }
+                props.specificDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
+            }
+        }
+    }, [open, props.showInline]);
+
+    const specificDays = useMemo(
+        () => props.specificDaysDatasource?.items?.map(obj => props.specificDaysAttribute.get(obj).value as Date),
+        [props.specificDaysDatasource, props.specificDaysAttribute]
+    );
+
+    //Ensure the list of specific times is only retrieved if the menu is open and only get days inside the min/max range
+    useEffect(() => {
+        if (props.specificTimesMode !== "OFF") {
+            props.specificTimesDatasource.setLimit(open || props.showInline ? Infinity : 0);
+        }
+    }, [open, props.showInline]);
+
+    const specificTimes = useMemo(
+        () => props.specificTimesDatasource?.items?.map(obj => props.specificTimeAttribute.get(obj).value as Date),
+        [props.specificTimesDatasource, props.specificTimeAttribute]
     );
 
     //Focus and blur events
@@ -112,7 +124,10 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 icon={props.icon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
                 minDate={props.minDate?.value}
                 maxDate={props.maxDate?.value}
+                minTime={props.minTime?.value}
+                maxTime={props.maxTime?.value}
                 specificDays={specificDays || []}
+                specificTimes={specificTimes || []}
                 intervalDays={intervalDays || []}
                 disableSunday={props.disableSunday.value === true}
                 disableMonday={props.disableMonday.value === true}
@@ -123,7 +138,13 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 disableSaturday={props.disableSaturday.value === true}
                 open={open}
                 setOpen={setOpen}
-                showTodayButton={props.showTodayButton.value === true}
+                showTodayButton={
+                    props.dateFormat !== "MONTH" &&
+                    props.dateFormat !== "YEAR" &&
+                    props.dateFormat !== "TIME" &&
+                    props.dateFormat !== "QUARTER" &&
+                    props.showTodayButton.value === true
+                }
                 todayButtonText={props.todayButtonText?.value || ""}
                 customChildren={props.useCustomChildren && props.customChildren}
                 clearable={props.clearable.value === true || props.selectionType === "MULTI"}
@@ -131,6 +152,9 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 showWeekNumbers={props.showWeekNumbers.value === true}
                 showPreviousMonths={props.showPreviousMonth.value === true}
                 showInline={props.showInline.value === true}
+                customDateFormat={(props.customDateFormat?.value as string) || ""}
+                timeInterval={Number(props.timeInterval.value)}
+                timeCaption={props.timeCaption.value as string}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

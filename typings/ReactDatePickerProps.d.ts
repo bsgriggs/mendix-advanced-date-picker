@@ -7,17 +7,25 @@ import { ComponentType, ReactNode } from "react";
 import { ActionValue, DynamicValue, EditableValue, ListValue, ListAttributeValue, WebIcon } from "mendix";
 import { Big } from "big.js";
 
+export type DateFormatEnum = "DATE" | "MONTH" | "QUARTER" | "YEAR" | "TIME" | "DATETIME" | "CUSTOM";
+
 export type SelectionTypeEnum = "SINGLE" | "MULTI";
 
 export type SpecificDaysModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 
 export type IntervalDaysModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 
+export type SpecificTimesModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
+
 export interface ReactDatePickerContainerProps {
     name: string;
     tabIndex?: number;
     id: string;
     placeholder?: DynamicValue<string>;
+    dateFormat: DateFormatEnum;
+    timeInterval: DynamicValue<Big>;
+    timeCaption: DynamicValue<string>;
+    customDateFormat: DynamicValue<string>;
     selectionType: SelectionTypeEnum;
     dateAttribute: EditableValue<Date>;
     startDateAttribute: EditableValue<Date>;
@@ -38,6 +46,11 @@ export interface ReactDatePickerContainerProps {
     disableThursday: DynamicValue<boolean>;
     disableFriday: DynamicValue<boolean>;
     disableSaturday: DynamicValue<boolean>;
+    minTime?: DynamicValue<Date>;
+    maxTime?: DynamicValue<Date>;
+    specificTimesMode: SpecificTimesModeEnum;
+    specificTimesDatasource: ListValue;
+    specificTimeAttribute: ListAttributeValue<Date>;
     icon?: DynamicValue<WebIcon>;
     showTodayButton: DynamicValue<boolean>;
     todayButtonText?: DynamicValue<string>;
@@ -56,6 +69,10 @@ export interface ReactDatePickerContainerProps {
 export interface ReactDatePickerPreviewProps {
     readOnly: boolean;
     placeholder: string;
+    dateFormat: DateFormatEnum;
+    timeInterval: string;
+    timeCaption: string;
+    customDateFormat: string;
     selectionType: SelectionTypeEnum;
     dateAttribute: string;
     startDateAttribute: string;
@@ -76,6 +93,11 @@ export interface ReactDatePickerPreviewProps {
     disableThursday: string;
     disableFriday: string;
     disableSaturday: string;
+    minTime: string;
+    maxTime: string;
+    specificTimesMode: SpecificTimesModeEnum;
+    specificTimesDatasource: {} | { caption: string } | { type: string } | null;
+    specificTimeAttribute: string;
     icon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
     showTodayButton: string;
     todayButtonText: string;

@@ -5,6 +5,7 @@ import { ReactDatePickerPreviewProps } from "../typings/ReactDatePickerProps";
 export function preview(props: ReactDatePickerPreviewProps): ReactElement {
     return (
         <DatePicker
+            {...props}
             id=""
             tabIndex={0}
             date={new Date()}
@@ -14,9 +15,9 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             placeholder={""}
             minDate={undefined}
             maxDate={undefined}
-            specificDaysMode={"OFF"}
+            minTime={undefined}
+            maxTime={undefined}
             specificDays={[]}
-            intervalDaysMode={"OFF"}
             intervalDays={[]}
             disableSunday={false}
             disableMonday={false}
@@ -25,7 +26,6 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             disableThursday={false}
             disableFriday={false}
             disableSaturday={false}
-            selectionType={props.selectionType}
             startDate={new Date()}
             endDate={new Date()}
             open={false}
@@ -39,6 +39,8 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             showPreviousMonths
             showArrow
             showInline={false}
+            timeInterval={15}
+            specificTimes={[]}
         />
     );
 }

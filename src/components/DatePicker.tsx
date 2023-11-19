@@ -7,7 +7,13 @@ import { registerLocale } from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
-import { IntervalDaysModeEnum, SpecificDaysModeEnum, SelectionTypeEnum } from "typings/ReactDatePickerProps";
+import {
+    IntervalDaysModeEnum,
+    SpecificDaysModeEnum,
+    SelectionTypeEnum,
+    DateFormatEnum,
+    SpecificTimesModeEnum
+} from "typings/ReactDatePickerProps";
 
 interface DatePickerProps {
     //System
@@ -15,13 +21,17 @@ interface DatePickerProps {
     tabIndex: number;
     //General
     placeholder: string;
+    dateFormat: DateFormatEnum;
+    timeInterval: number;
+    timeCaption: string;
+    customDateFormat: string;
     selectionType: SelectionTypeEnum;
     date: Date | null;
     setDate: (newDate: Date | [Date | null, Date | null] | null) => void;
     startDate: Date | null;
     endDate: Date | null;
     readonly: boolean;
-    //Disable Dates
+    //Selectable Dates
     minDate: Date | undefined;
     maxDate: Date | undefined;
     specificDaysMode: SpecificDaysModeEnum;
@@ -35,6 +45,11 @@ interface DatePickerProps {
     disableThursday: boolean;
     disableFriday: boolean;
     disableSaturday: boolean;
+    //Selectable Times
+    minTime: Date | undefined;
+    maxTime: Date | undefined;
+    specificTimesMode: SpecificTimesModeEnum;
+    specificTimes: Date[];
     // Customization
     icon: WebIcon;
     showTodayButton: boolean;
@@ -58,7 +73,7 @@ interface Locale {
 const DatePickerComp = (props: DatePickerProps): ReactElement => {
     const ref = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const id = useMemo(() => `datepicker_` + Math.random(), []);
+    // const id = useMemo(() => `datepicker_` + Math.random(), []);
 
     const buttonClick = useCallback(() => {
         props.setOpen(!props.open);
@@ -79,6 +94,24 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         }
         return language;
     }, []);
+
+    const dateFormat = useMemo(
+        () =>
+            props.dateFormat === "DATE"
+                ? patterns.date
+                : props.dateFormat === "DATETIME"
+                ? patterns.datetime
+                : props.dateFormat === "TIME"
+                ? patterns.time
+                : props.dateFormat === "YEAR"
+                ? "yyyy"
+                : props.dateFormat === "MONTH"
+                ? "MMMM yyyy"
+                : props.dateFormat === "QUARTER"
+                ? "yyyy QQQ"
+                : props.customDateFormat,
+        [props.dateFormat, props.customDateFormat]
+    );
 
     const filterDate = useCallback(
         (date: Date): boolean => {
@@ -126,7 +159,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 autoFocus={false}
                 calendarStartDay={firstDayOfWeek}
                 className={classNames("form-control")}
-                dateFormat={patterns.date}
+                dateFormat={dateFormat}
                 disabled={props.readonly}
                 disabledKeyboardNavigation={false}
                 dropdownMode="select"
@@ -137,7 +170,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     }
                     props.setDate(date);
                 }}
-                placeholderText={props.placeholder.length > 0 ? props.placeholder : patterns.date}
+                placeholderText={props.placeholder.length > 0 ? props.placeholder : dateFormat}
                 popperPlacement="bottom-end"
                 popperProps={{
                     strategy: "fixed"
@@ -162,8 +195,12 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 useWeekdaysShort={false}
                 minDate={props.minDate}
                 maxDate={props.maxDate}
+                minTime={props.minTime}
+                maxTime={props.maxTime}
                 includeDates={props.specificDaysMode === "INCLUDE" ? props.specificDays : undefined}
                 excludeDates={props.specificDaysMode === "EXCLUDE" ? props.specificDays : undefined}
+                includeTimes={props.specificTimesMode === "INCLUDE" ? props.specificTimes : undefined}
+                excludeTimes={props.specificTimesMode === "EXCLUDE" ? props.specificTimes : undefined}
                 includeDateIntervals={props.intervalDaysMode === "INCLUDE" ? props.intervalDays : undefined}
                 excludeDateIntervals={props.intervalDaysMode === "EXCLUDE" ? props.intervalDays : undefined}
                 filterDate={filterDate}
@@ -194,12 +231,29 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 showWeekNumbers={props.showWeekNumbers}
                 showPreviousMonths={props.showPreviousMonths}
                 inline={props.showInline}
+                showMonthYearPicker={props.dateFormat === "MONTH"}
+                showQuarterYearPicker={props.dateFormat === "QUARTER"}
+                showYearPicker={props.dateFormat === "YEAR"}
+                showTimeSelect={
+                    props.dateFormat === "DATETIME" ||
+                    props.dateFormat === "TIME" ||
+                    (props.dateFormat === "CUSTOM" &&
+                        (props.customDateFormat.includes("H") ||
+                            props.customDateFormat.includes("h") ||
+                            props.customDateFormat.includes("m") ||
+                            props.customDateFormat.includes("s") ||
+                            props.customDateFormat.includes("z") ||
+                            props.customDateFormat.includes("a")))
+                }
+                showTimeSelectOnly={props.dateFormat === "TIME"}
+                timeIntervals={props.timeInterval}
+                timeCaption={props.timeCaption}
             >
                 {props.customChildren}
             </DatePicker>
             {!props.showInline && (
                 <button
-                    aria-controls={id}
+                    aria-controls={props.id}
                     aria-haspopup
                     ref={buttonRef}
                     className="btn btn-default btn-calendar spacing-outer-left"

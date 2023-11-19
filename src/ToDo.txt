@@ -11,14 +11,14 @@ X- Clearable (yes, style button; no, prevent keyboard clear)
 X- option to show multiple months (int expression)
 X- show previous months
 - custom date render? (copy from Jonny) maybe 
-- custom date format (enum to set custom, text template)
+X- custom date format (enum to set custom, text template)
 X- test range
 !- option to disable keyboard navigation (bool expression) ! people shouldn't do this ... ever
 X- option to display week numbers (bool expression)
 X- exclude/include date interval? data source with 2 date attrs
-- pick month/full month/quarter/year (enum)
-    - month columns 2->4
-- month dropdown short or long
+X- pick month/full month/quarter/year (enum)
+    !- month columns 2->4
+!- month dropdown short or long
 - highlight dates (data source with attr)
 - holidays (data source with date and string attr) 
 X- inline - always show calendar instead of input (bool expression)
@@ -28,10 +28,13 @@ X- show popper arrow (yes/no)
 X- today button (yes/no)
 - open boolean attr
 
-- date time
+X- date time
 - exclude/include time interval
-- show time input (bool expression)
+!- show time input (bool expression)
 
-- time 
+X- time 
 - exclude/include time interval
-- show time input (bool expression)
+!- show time input (bool expression)
+
+- Styling cleanup
+- prop organization

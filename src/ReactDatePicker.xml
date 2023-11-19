@@ -20,6 +20,35 @@
                 </property>
             </propertyGroup>
             <propertyGroup caption="Data source">
+                <property key="dateFormat" type="enumeration" defaultValue="DATE">
+                    <caption>Date format</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="DATE">Date</enumerationValue>
+                        <enumerationValue key="MONTH">Month</enumerationValue>
+                        <enumerationValue key="QUARTER">Quarter</enumerationValue>
+                        <enumerationValue key="YEAR">Year</enumerationValue>
+                        <enumerationValue key="TIME">Time</enumerationValue>
+                        <enumerationValue key="DATETIME">Date and Time</enumerationValue>
+                        <enumerationValue key="CUSTOM">Custom</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="timeInterval" type="expression" required="true" defaultValue="15">
+                    <caption>Time interval</caption>
+                    <description></description>
+                    <returnType type="Integer" />
+                </property>
+                <property key="timeCaption" type="textTemplate" required="true">
+                    <caption>Time caption</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Time</translation>
+                    </translations>
+                </property>
+                <property key="customDateFormat" type="textTemplate" required="true">
+                    <caption>Custom date format</caption>
+                    <description></description>
+                </property>
                 <property key="selectionType" type="enumeration" defaultValue="SINGLE">
                     <caption>Selection type</caption>
                     <description></description>
@@ -52,7 +81,7 @@
                 </property>
             </propertyGroup>
         </propertyGroup>
-        <propertyGroup caption="Disable Dates">
+        <propertyGroup caption="Selectable Dates">
             <propertyGroup caption="Min and Max">
                 <property key="minDate" type="expression" required="false">
                     <caption>Min date</caption>
@@ -163,6 +192,45 @@
                 </property>
 
             </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Selectable Times">
+            <propertyGroup caption="Min and Max">
+                <property key="minTime" type="expression" required="false">
+                    <caption>Min time</caption>
+                    <description></description>
+                    <returnType type="DateTime" />
+                </property>
+                <property key="maxTime" type="expression" required="false">
+                    <caption>Min time</caption>
+                    <description></description>
+                    <returnType type="DateTime" />
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Specific times">
+                <property key="specificTimesMode" type="enumeration" defaultValue="OFF">
+                    <caption>Specific times mode</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="OFF">Off</enumerationValue>
+                        <enumerationValue key="INCLUDE">Include</enumerationValue>
+                        <enumerationValue key="EXCLUDE">Exclude</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="specificTimesDatasource" type="datasource" isList="true"
+                    required="true">
+                    <caption>Specific times datasource</caption>
+                    <description></description>
+                </property>
+                <property key="specificTimeAttribute" type="attribute"
+                    dataSource="specificTimesDatasource" required="true">
+                    <caption>Specific time attribute</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+
         </propertyGroup>
         <propertyGroup caption="Customization">
             <propertyGroup caption="Style">
