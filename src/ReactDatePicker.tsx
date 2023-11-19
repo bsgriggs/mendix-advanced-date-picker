@@ -16,7 +16,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     //Ensure the list of specific days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
         if (props.specificDaysMode !== "OFF") {
-            props.specificDaysDatasource.setLimit(open ? Infinity : 0);
+            props.specificDaysDatasource.setLimit(open || props.showInline ? Infinity : 0);
             if (props.minDate || props.maxDate) {
                 const filter = [];
                 if (props.minDate?.value !== undefined) {
@@ -32,7 +32,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 props.specificDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
             }
         }
-    }, [open]);
+    }, [open, props.showInline]);
 
     const specificDays = useMemo(
         () => props.specificDaysDatasource?.items?.map(obj => props.specificDaysAttribute.get(obj).value as Date),
@@ -42,7 +42,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     //Ensure the list of interval days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
         if (props.intervalDaysMode !== "OFF") {
-            props.intervalDaysDatasource.setLimit(open ? Infinity : 0);
+            props.intervalDaysDatasource.setLimit(open || props.showInline ? Infinity : 0);
             if (props.minDate || props.maxDate) {
                 const filter = [];
                 if (props.minDate?.value !== undefined) {
@@ -56,7 +56,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 props.intervalDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
             }
         }
-    }, [open]);
+    }, [open, props.showInline]);
 
     const intervalDays = useMemo(
         () =>
@@ -78,7 +78,6 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     const onChangeHandler = useCallback(
         (newDate: Date | [Date | null, Date | null] | null) => {
             if (newDate !== null) {
-                console.info("setting", newDate);
                 if (Array.isArray(newDate)) {
                     //is Selection Type Multi
                     props.startDateAttribute.setValue(newDate[0] || undefined);
