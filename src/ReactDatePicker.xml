@@ -285,7 +285,6 @@
                     <description></description>
                     <returnType type="Boolean" />
                 </property>
-
                 <property key="alignment" type="enumeration" defaultValue="LEFT">
                     <caption>Alignment</caption>
                     <description></description>
@@ -312,7 +311,7 @@
                     <returnType type="Boolean" />
                 </property>
                 <property key="openToDate" type="expression" required="true"
-                    defaultValue="[%BeginOfCurrentDay%]">
+                    defaultValue="">
                     <caption>Open to date</caption>
                     <description></description>
                     <returnType type="DateTime" />

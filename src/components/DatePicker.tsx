@@ -55,20 +55,24 @@ interface DatePickerProps {
     specificTimesMode: SpecificTimesModeEnum;
     specificTimes: Date[];
     // Customization
+    //// Style
     showIcon: boolean;
     icon: WebIcon;
     showTodayButton: boolean;
     todayButtonText: string;
-    customChildren: ReactNode | undefined;
-    clearable: boolean;
+
     monthsToDisplay: number;
     showWeekNumbers: boolean;
     showPreviousMonths: boolean;
     showArrow: boolean;
     showInline: boolean;
+    alignment: AlignmentEnum;
+    //// Functionality
+    customChildren: ReactNode | undefined;
+    clearable: boolean;
     openToDate: Date;
     maskInput: boolean;
-    alignment: AlignmentEnum;
+
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -173,9 +177,11 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 dropdownMode="select"
                 locale={language}
                 onChange={date => props.setDate(date)} // When the value is set
-                onSelect={() =>
-                    props.selectionType !== "MULTI" || props.startDate !== undefined ? props.setOpen(false) : undefined
-                } // When a value is selected via mouse
+                onSelect={() => {
+                    if (props.selectionType !== "MULTI" || props.startDate !== null) {
+                        props.setOpen(false);
+                    }
+                }} // When a value is selected via mouse
                 placeholderText={props.placeholder.length > 0 ? props.placeholder : dateFormat.replace(/a/, "AM/PM")}
                 popperPlacement={
                     props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : "auto"
