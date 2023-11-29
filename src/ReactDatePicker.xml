@@ -19,7 +19,7 @@
                     </translations>
                 </property>
             </propertyGroup>
-            <propertyGroup caption="Data source">
+            <propertyGroup caption="Format">
                 <property key="dateFormat" type="enumeration" defaultValue="DATE">
                     <caption>Date format</caption>
                     <description></description>
@@ -49,6 +49,8 @@
                     <caption>Custom date format</caption>
                     <description></description>
                 </property>
+            </propertyGroup>
+            <propertyGroup caption="Data source">
                 <property key="selectionType" type="enumeration" defaultValue="SINGLE">
                     <caption>Selection type</caption>
                     <description></description>
@@ -96,7 +98,7 @@
             </propertyGroup>
             <propertyGroup caption="Specific days">
                 <property key="specificDaysMode" type="enumeration" defaultValue="OFF">
-                    <caption>Specific days mode</caption>
+                    <caption>Mode</caption>
                     <description></description>
                     <enumerationValues>
                         <enumerationValue key="OFF">Off</enumerationValue>
@@ -106,12 +108,12 @@
                 </property>
                 <property key="specificDaysDatasource" type="datasource" isList="true"
                     required="true">
-                    <caption>Specific days datasource</caption>
+                    <caption>Datasource</caption>
                     <description></description>
                 </property>
                 <property key="specificDaysAttribute" type="attribute"
                     dataSource="specificDaysDatasource" required="true">
-                    <caption>Specific days attribute</caption>
+                    <caption>Attribute</caption>
                     <description></description>
                     <attributeTypes>
                         <attributeType name="DateTime" />
@@ -120,7 +122,7 @@
             </propertyGroup>
             <propertyGroup caption="Interval days">
                 <property key="intervalDaysMode" type="enumeration" defaultValue="OFF">
-                    <caption>Interval days mode</caption>
+                    <caption>Mode</caption>
                     <description></description>
                     <enumerationValues>
                         <enumerationValue key="OFF">Off</enumerationValue>
@@ -130,12 +132,12 @@
                 </property>
                 <property key="intervalDaysDatasource" type="datasource" isList="true"
                     required="true">
-                    <caption>Interval days datasource</caption>
+                    <caption>Datasource</caption>
                     <description></description>
                 </property>
                 <property key="intervalDaysStart" type="attribute"
                     dataSource="intervalDaysDatasource" required="true">
-                    <caption>Interval days start</caption>
+                    <caption>Start Date</caption>
                     <description></description>
                     <attributeTypes>
                         <attributeType name="DateTime" />
@@ -143,7 +145,7 @@
                 </property>
                 <property key="intervalDaysEnd" type="attribute"
                     dataSource="intervalDaysDatasource" required="true">
-                    <caption>Interval days end</caption>
+                    <caption>End Date</caption>
                     <description></description>
                     <attributeTypes>
                         <attributeType name="DateTime" />
@@ -208,7 +210,7 @@
             </propertyGroup>
             <propertyGroup caption="Specific times">
                 <property key="specificTimesMode" type="enumeration" defaultValue="OFF">
-                    <caption>Specific times mode</caption>
+                    <caption>Mode</caption>
                     <description></description>
                     <enumerationValues>
                         <enumerationValue key="OFF">Off</enumerationValue>
@@ -218,12 +220,12 @@
                 </property>
                 <property key="specificTimesDatasource" type="datasource" isList="true"
                     required="true">
-                    <caption>Specific times datasource</caption>
+                    <caption>Datasource</caption>
                     <description></description>
                 </property>
                 <property key="specificTimeAttribute" type="attribute"
                     dataSource="specificTimesDatasource" required="true">
-                    <caption>Specific time attribute</caption>
+                    <caption>Attribute</caption>
                     <description></description>
                     <attributeTypes>
                         <attributeType name="DateTime" />
@@ -238,15 +240,14 @@
                     <caption>Show icon?</caption>
                     <description></description>
                 </property>
-                <property key="icon" type="icon" required="false">
-                    <caption>Icon</caption>
+                <property key="customIcon" type="icon" required="false">
+                    <caption>Custom icon</caption>
                     <description></description>
                 </property>
-                <property key="showTodayButton" type="expression" required="true"
+                <property key="showTodayButton" type="boolean"
                     defaultValue="true">
                     <caption>Show today button?</caption>
                     <description></description>
-                    <returnType type="Boolean" />
                 </property>
                 <property key="todayButtonText" type="textTemplate" required="false">
                     <caption>Today button text</caption>
@@ -255,31 +256,18 @@
                         <translation lang="en_US">Today</translation>
                     </translations>
                 </property>
-                <property key="useCustomChildren" type="boolean" defaultValue="false">
-                    <caption>Use custom children?</caption>
-                    <description></description>
-                </property>
-                <property key="customChildren" type="widgets" required="true">
-                    <caption>Custom children</caption>
-                    <description></description>
-                </property>
-                <property key="clearable" type="expression" required="true"
-                    defaultValue="true">
-                    <caption>Clearable?</caption>
-                    <description></description>
-                    <returnType type="Boolean" />
-                </property>
+
+
                 <property key="monthsToDisplay" type="expression" required="true"
                     defaultValue="1">
                     <caption>Months to display</caption>
                     <description></description>
                     <returnType type="Integer" />
                 </property>
-                <property key="showWeekNumbers" type="expression" required="true"
+                <property key="showWeekNumbers" type="boolean"
                     defaultValue="false">
                     <caption>Show week numbers?</caption>
                     <description></description>
-                    <returnType type="Boolean" />
                 </property>
                 <property key="showPreviousMonth" type="expression" required="true"
                     defaultValue="false">
@@ -293,20 +281,11 @@
                 </property>
                 <property key="showInline" type="expression" required="true"
                     defaultValue="false">
-                    <caption>Show Inline?</caption>
+                    <caption>Show inline?</caption>
                     <description></description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="openToDate" type="expression" required="true"
-                    defaultValue="[%BeginOfCurrentDay%]">
-                    <caption>openToDate</caption>
-                    <description></description>
-                    <returnType type="DateTime" />
-                </property>
-                <property key="maskInput" type="boolean" defaultValue="false">
-                    <caption>Mask input?</caption>
-                    <description></description>
-                </property>
+
                 <property key="alignment" type="enumeration" defaultValue="LEFT">
                     <caption>Alignment</caption>
                     <description></description>
@@ -315,6 +294,32 @@
                         <enumerationValue key="RIGHT">Right</enumerationValue>
                         <enumerationValue key="AUTO">Auto</enumerationValue>
                     </enumerationValues>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Functionality">
+                <property key="useCustomContent" type="boolean" defaultValue="false">
+                    <caption>Use custom content?</caption>
+                    <description></description>
+                </property>
+                <property key="customContent" type="widgets" required="true">
+                    <caption>Custom content</caption>
+                    <description></description>
+                </property>
+                <property key="clearable" type="expression" required="true"
+                    defaultValue="true">
+                    <caption>Clearable?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="openToDate" type="expression" required="true"
+                    defaultValue="[%BeginOfCurrentDay%]">
+                    <caption>Open to date</caption>
+                    <description></description>
+                    <returnType type="DateTime" />
+                </property>
+                <property key="maskInput" type="boolean" defaultValue="false">
+                    <caption>Mask input?</caption>
+                    <description></description>
                 </property>
             </propertyGroup>
         </propertyGroup>

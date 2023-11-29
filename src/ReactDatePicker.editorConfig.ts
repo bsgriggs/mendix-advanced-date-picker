@@ -122,8 +122,8 @@ export function getProperties(
         hidePropertiesIn(defaultProperties, _values, ["dateAttribute", "clearable"]);
     }
 
-    if (!_values.useCustomChildren) {
-        hidePropertiesIn(defaultProperties, _values, ["customChildren"]);
+    if (!_values.useCustomContent) {
+        hidePropertyIn(defaultProperties, _values, "customContent");
     }
 
     if (
@@ -174,7 +174,7 @@ export function getProperties(
     }
 
     if (!_values.showIcon) {
-        hidePropertyIn(defaultProperties, _values, "icon");
+        hidePropertyIn(defaultProperties, _values, "customIcon");
     }
 
     return defaultProperties;

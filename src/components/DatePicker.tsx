@@ -15,6 +15,7 @@ import {
     AlignmentEnum
 } from "typings/ReactDatePickerProps";
 import ContainsTime from "../utils/ContainsTime";
+// import { IMask, IMaskInput } from "react-imask";
 import MaskedInput from "react-text-mask";
 import MapMask from "../utils/MapMask";
 
@@ -252,6 +253,56 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 openToDate={props.openToDate}
                 customInput={
                     props.maskInput ? (
+                        // <IMaskInput
+                        //     mask={Date}
+                        //     pattern={"Y-`M-`d"}
+                        //     blocks={{
+                        //         //@ts-ignore
+                        //         d: {
+                        //             mask: IMask.MaskedRange,
+                        //             from: 1,
+                        //             to: 31,
+                        //             maxLength: 2
+                        //         },
+                        //         //@ts-ignore
+                        //         M: {
+                        //             mask: IMask.MaskedRange,
+                        //             from: 1,
+                        //             to: 12,
+                        //             maxLength: 2
+                        //         },
+                        //         //@ts-ignore
+                        //         Y: {
+                        //             mask: IMask.MaskedRange,
+                        //             from: 1900,
+                        //             to: 9999
+                        //         }
+                        //     }}
+                        //     format={(date: Date) => {
+                        //         let day = date.getDate();
+                        //         let month = date.getMonth() + 1;
+                        //         const year = date.getFullYear();
+                        //         //@ts-ignore
+                        //         if (day < 10) day = "0" + day;
+                        //         //@ts-ignore
+                        //         if (month < 10) month = "0" + month;
+
+                        //         return [year, month, day].join("-");
+                        //     }}
+                        //     parse={str => {
+                        //         const yearMonthDay = str.split("-");
+                        //         return new Date(
+                        //             Number(yearMonthDay[0]),
+                        //             Number(yearMonthDay[1]) - 1,
+                        //             Number(yearMonthDay[2])
+                        //         );
+                        //     }}
+                        //     min={new Date(1900, 0, 1)}
+                        //     max={new Date(9999, 0, 1)}
+                        //     autofix
+                        //     lazy={false}
+                        //     overwrite
+                        // />
                         <MaskedInput mask={MapMask(dateFormat)} keepCharPositions={true} guide={true} />
                     ) : undefined
                 }

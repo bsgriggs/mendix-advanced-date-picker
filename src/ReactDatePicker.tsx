@@ -121,7 +121,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                         ? props.dateAttribute.readOnly
                         : props.startDateAttribute.readOnly || props.endDateAttribute.readOnly
                 }
-                icon={props.icon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
+                icon={props.customIcon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
                 minDate={props.minDate?.value}
                 maxDate={props.maxDate?.value}
                 minTime={props.minTime?.value}
@@ -143,13 +143,13 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                     props.dateFormat !== "YEAR" &&
                     props.dateFormat !== "TIME" &&
                     props.dateFormat !== "QUARTER" &&
-                    props.showTodayButton.value === true
+                    props.showTodayButton
                 }
                 todayButtonText={props.todayButtonText?.value || ""}
-                customChildren={props.useCustomChildren && props.customChildren}
+                customChildren={props.useCustomContent && props.customContent}
                 clearable={props.clearable.value === true || props.selectionType === "MULTI"}
                 monthsToDisplay={monthsToDisplay}
-                showWeekNumbers={props.showWeekNumbers.value === true}
+                showWeekNumbers={props.showWeekNumbers}
                 showPreviousMonths={props.showPreviousMonth.value === true}
                 showInline={props.showInline.value === true}
                 customDateFormat={(props.customDateFormat?.value as string) || ""}

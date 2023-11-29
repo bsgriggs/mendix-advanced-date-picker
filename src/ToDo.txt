@@ -27,8 +27,8 @@ X- show popper arrow (yes/no)
 - portal version (yes/no)
 X- today button (yes/no)
 - open boolean attr - maybe later
-- input mask so I don't have to type / or :
--control alignment
+~- input mask so I don't have to type / or :
+X-control alignment
 
 X- date time
 - exclude/include time interval

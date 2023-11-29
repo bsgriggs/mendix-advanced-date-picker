@@ -11,7 +11,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             date={new Date()}
             setDate={() => {}}
             readonly={false}
-            icon={props.icon || { type: "glyph", iconClass: "glyphicon-calendar" }}
+            icon={props.customIcon || { type: "glyph", iconClass: "glyphicon-calendar" }}
             placeholder={""}
             minDate={undefined}
             maxDate={undefined}
