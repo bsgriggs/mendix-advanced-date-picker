@@ -149,6 +149,34 @@ export function getProperties(
         ]);
     }
 
+    if (_values.dateFormat === "TIME") {
+        hidePropertiesIn(defaultProperties, _values, [
+            "minDate",
+            "maxDate",
+            "specificDaysMode",
+            "specificDaysAttribute",
+            "specificDaysDatasource",
+            "intervalDaysDatasource",
+            "intervalDaysMode",
+            "intervalDaysStart",
+            "intervalDaysEnd",
+            "disableSunday",
+            "disableMonday",
+            "disableTuesday",
+            "disableWednesday",
+            "disableThursday",
+            "disableFriday",
+            "disableSaturday"
+        ]);
+    }
+    if (_values.dateFormat === "TIME" || _values.dateFormat === "DATETIME") {
+        hidePropertyIn(defaultProperties, _values, "selectionType");
+    }
+
+    if (!_values.showIcon) {
+        hidePropertyIn(defaultProperties, _values, "icon");
+    }
+
     return defaultProperties;
 }
 

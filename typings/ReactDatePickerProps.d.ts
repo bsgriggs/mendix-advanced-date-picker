@@ -51,6 +51,7 @@ export interface ReactDatePickerContainerProps {
     specificTimesMode: SpecificTimesModeEnum;
     specificTimesDatasource: ListValue;
     specificTimeAttribute: ListAttributeValue<Date>;
+    showIcon: boolean;
     icon?: DynamicValue<WebIcon>;
     showTodayButton: DynamicValue<boolean>;
     todayButtonText?: DynamicValue<string>;
@@ -62,6 +63,7 @@ export interface ReactDatePickerContainerProps {
     showPreviousMonth: DynamicValue<boolean>;
     showArrow: boolean;
     showInline: DynamicValue<boolean>;
+    openToDate: DynamicValue<Date>;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -98,6 +100,7 @@ export interface ReactDatePickerPreviewProps {
     specificTimesMode: SpecificTimesModeEnum;
     specificTimesDatasource: {} | { caption: string } | { type: string } | null;
     specificTimeAttribute: string;
+    showIcon: boolean;
     icon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
     showTodayButton: string;
     todayButtonText: string;
@@ -109,6 +112,7 @@ export interface ReactDatePickerPreviewProps {
     showPreviousMonth: string;
     showArrow: boolean;
     showInline: string;
+    openToDate: string;
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;

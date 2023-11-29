@@ -234,6 +234,10 @@
         </propertyGroup>
         <propertyGroup caption="Customization">
             <propertyGroup caption="Style">
+                <property key="showIcon" type="boolean" defaultValue="true">
+                    <caption>Show icon?</caption>
+                    <description></description>
+                </property>
                 <property key="icon" type="icon" required="false">
                     <caption>Icon</caption>
                     <description></description>
@@ -292,6 +296,12 @@
                     <caption>Show Inline?</caption>
                     <description></description>
                     <returnType type="Boolean" />
+                </property>
+                <property key="openToDate" type="expression" required="true"
+                    defaultValue="[%BeginOfCurrentDay%]">
+                    <caption>openToDate</caption>
+                    <description></description>
+                    <returnType type="DateTime" />
                 </property>
             </propertyGroup>
         </propertyGroup>

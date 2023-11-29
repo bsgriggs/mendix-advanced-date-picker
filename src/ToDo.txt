@@ -10,7 +10,7 @@ X- Children content (Widgets)
 X- Clearable (yes, style button; no, prevent keyboard clear)
 X- option to show multiple months (int expression)
 X- show previous months
-- custom date render? (copy from Jonny) maybe 
+- custom date render? (copy from Jonny)  - maybe later 
 X- custom date format (enum to set custom, text template)
 X- test range
 !- option to disable keyboard navigation (bool expression) ! people shouldn't do this ... ever
@@ -18,15 +18,16 @@ X- option to display week numbers (bool expression)
 X- exclude/include date interval? data source with 2 date attrs
 X- pick month/full month/quarter/year (enum)
     !- month columns 2->4
-!- month dropdown short or long
-- highlight dates (data source with attr)
-- holidays (data source with date and string attr) 
+- month dropdown short or long - maybe later
+- highlight dates (data source with attr) - maybe later
+- holidays (data source with date and string attr)  - maybe later
 X- inline - always show calendar instead of input (bool expression)
 X- show popper arrow (yes/no)
 - open to date (date expression)
 - portal version (yes/no)
 X- today button (yes/no)
-- open boolean attr
+- open boolean attr - maybe later
+- input mask so I don't have to type / or :
 
 X- date time
 - exclude/include time interval

@@ -2,7 +2,7 @@ import { ReactElement, createElement, Fragment, useMemo, useCallback, useState, 
 import DatePicker from "./components/DatePicker";
 import { ReactDatePickerContainerProps } from "../typings/ReactDatePickerProps";
 import { attribute, literal, greaterThanOrEqual, lessThanOrEqual, and } from "mendix/filters/builders";
-
+import ContainsTime from "./utils/ContainsTime";
 import "./ui/ReactDatePicker.scss";
 import { Alert } from "./components/Alert";
 
@@ -89,6 +89,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
 
     const onChangeHandler = useCallback(
         (newDate: Date | [Date | null, Date | null] | null) => {
+            console.info(newDate);
             if (newDate !== null) {
                 if (Array.isArray(newDate)) {
                     //is Selection Type Multi
@@ -155,10 +156,16 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 customDateFormat={(props.customDateFormat?.value as string) || ""}
                 timeInterval={Number(props.timeInterval.value)}
                 timeCaption={props.timeCaption.value as string}
+                openToDate={props.openToDate.value as Date}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}
             {props.endDateAttribute?.validation && <Alert>{props.endDateAttribute.validation}</Alert>}
+            {props.selectionType === "MULTI" &&
+                props.dateFormat === "CUSTOM" &&
+                ContainsTime(props.customDateFormat.value as string) && (
+                    <Alert>Multi selection is not supported if the widget can select time</Alert>
+                )}
         </Fragment>
     );
 }

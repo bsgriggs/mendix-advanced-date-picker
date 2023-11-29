@@ -14,6 +14,7 @@ import {
     DateFormatEnum,
     SpecificTimesModeEnum
 } from "typings/ReactDatePickerProps";
+import ContainsTime from "../utils/ContainsTime";
 
 interface DatePickerProps {
     //System
@@ -51,6 +52,7 @@ interface DatePickerProps {
     specificTimesMode: SpecificTimesModeEnum;
     specificTimes: Date[];
     // Customization
+    showIcon: boolean;
     icon: WebIcon;
     showTodayButton: boolean;
     todayButtonText: string;
@@ -61,6 +63,7 @@ interface DatePickerProps {
     showPreviousMonths: boolean;
     showArrow: boolean;
     showInline: boolean;
+    openToDate: Date;
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -237,21 +240,16 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 showTimeSelect={
                     props.dateFormat === "DATETIME" ||
                     props.dateFormat === "TIME" ||
-                    (props.dateFormat === "CUSTOM" &&
-                        (props.customDateFormat.includes("H") ||
-                            props.customDateFormat.includes("h") ||
-                            props.customDateFormat.includes("m") ||
-                            props.customDateFormat.includes("s") ||
-                            props.customDateFormat.includes("z") ||
-                            props.customDateFormat.includes("a")))
+                    (props.dateFormat === "CUSTOM" && ContainsTime(props.customDateFormat))
                 }
                 showTimeSelectOnly={props.dateFormat === "TIME"}
                 timeIntervals={props.timeInterval}
                 timeCaption={props.timeCaption}
+                openToDate={props.openToDate}
             >
                 {props.customChildren}
             </DatePicker>
-            {!props.showInline && (
+            {!props.showInline && props.showIcon && (
                 <button
                     aria-controls={props.id}
                     aria-haspopup
@@ -263,6 +261,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             e.preventDefault();
                             e.stopPropagation();
                             buttonClick();
+                        } else if (e.key === "Escape") {
+                            props.setOpen(false);
                         }
                     }}
                 >

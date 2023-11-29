@@ -41,6 +41,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             showInline={false}
             timeInterval={15}
             specificTimes={[]}
+            openToDate={new Date()}
         />
     );
 }
