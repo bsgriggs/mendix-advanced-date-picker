@@ -89,7 +89,6 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
 
     const onChangeHandler = useCallback(
         (newDate: Date | [Date | null, Date | null] | null) => {
-            console.info(newDate);
             if (newDate !== null) {
                 if (Array.isArray(newDate)) {
                     //is Selection Type Multi

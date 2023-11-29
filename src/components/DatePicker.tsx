@@ -4,7 +4,6 @@ import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
 import * as locales from "date-fns/locale";
 import { registerLocale } from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
 import {
@@ -12,9 +11,12 @@ import {
     SpecificDaysModeEnum,
     SelectionTypeEnum,
     DateFormatEnum,
-    SpecificTimesModeEnum
+    SpecificTimesModeEnum,
+    AlignmentEnum
 } from "typings/ReactDatePickerProps";
 import ContainsTime from "../utils/ContainsTime";
+import MaskedInput from "react-text-mask";
+import MapMask from "../utils/MapMask";
 
 interface DatePickerProps {
     //System
@@ -64,6 +66,8 @@ interface DatePickerProps {
     showArrow: boolean;
     showInline: boolean;
     openToDate: Date;
+    maskInput: boolean;
+    alignment: AlignmentEnum;
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
@@ -98,7 +102,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         return language;
     }, []);
 
-    const dateFormat = useMemo(
+    const dateFormat: string = useMemo(
         () =>
             props.dateFormat === "DATE"
                 ? patterns.date
@@ -167,14 +171,14 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 disabledKeyboardNavigation={false}
                 dropdownMode="select"
                 locale={language}
-                onChange={date => {
-                    if ((Array.isArray(date) && date[1] !== null) || (!Array.isArray(date) && date !== null)) {
-                        props.setOpen(false);
-                    }
-                    props.setDate(date);
-                }}
-                placeholderText={props.placeholder.length > 0 ? props.placeholder : dateFormat}
-                popperPlacement="bottom-end"
+                onChange={date => props.setDate(date)} // When the value is set
+                onSelect={() =>
+                    props.selectionType !== "MULTI" || props.startDate !== undefined ? props.setOpen(false) : undefined
+                } // When a value is selected via mouse
+                placeholderText={props.placeholder.length > 0 ? props.placeholder : dateFormat.replace(/a/, "AM/PM")}
+                popperPlacement={
+                    props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : "auto"
+                }
                 popperProps={{
                     strategy: "fixed"
                 }}
@@ -246,6 +250,11 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 timeIntervals={props.timeInterval}
                 timeCaption={props.timeCaption}
                 openToDate={props.openToDate}
+                customInput={
+                    props.maskInput ? (
+                        <MaskedInput mask={MapMask(dateFormat)} keepCharPositions={true} guide={true} />
+                    ) : undefined
+                }
             >
                 {props.customChildren}
             </DatePicker>

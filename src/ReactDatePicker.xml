@@ -303,6 +303,19 @@
                     <description></description>
                     <returnType type="DateTime" />
                 </property>
+                <property key="maskInput" type="boolean" defaultValue="false">
+                    <caption>Mask input?</caption>
+                    <description></description>
+                </property>
+                <property key="alignment" type="enumeration" defaultValue="LEFT">
+                    <caption>Alignment</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="LEFT">Left</enumerationValue>
+                        <enumerationValue key="RIGHT">Right</enumerationValue>
+                        <enumerationValue key="AUTO">Auto</enumerationValue>
+                    </enumerationValues>
+                </property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Events">

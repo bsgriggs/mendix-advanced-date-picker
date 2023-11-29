@@ -17,6 +17,8 @@ export type IntervalDaysModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 
 export type SpecificTimesModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 
+export type AlignmentEnum = "LEFT" | "RIGHT" | "AUTO";
+
 export interface ReactDatePickerContainerProps {
     name: string;
     tabIndex?: number;
@@ -64,6 +66,8 @@ export interface ReactDatePickerContainerProps {
     showArrow: boolean;
     showInline: DynamicValue<boolean>;
     openToDate: DynamicValue<Date>;
+    maskInput: boolean;
+    alignment: AlignmentEnum;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
 }
@@ -113,6 +117,8 @@ export interface ReactDatePickerPreviewProps {
     showArrow: boolean;
     showInline: string;
     openToDate: string;
+    maskInput: boolean;
+    alignment: AlignmentEnum;
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;
