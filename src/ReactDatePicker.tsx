@@ -55,7 +55,11 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     // Seperated so the placeholder can be set to the current value if props.clearable is off
     useEffect(
         () =>
-            setPlaceholder(props.placeholder ? (props.placeholder.value as string) : dateFormat.replace(/a/, "AM/PM")),
+            setPlaceholder(
+                props.placeholder && props.placeholder.value?.trim() !== ""
+                    ? (props.placeholder.value as string)
+                    : dateFormat.replace(/a/, "AM/PM")
+            ),
         [props.placeholder, dateFormat]
     );
 
@@ -157,7 +161,14 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 setPlaceholder(MxFormatter(props.dateAttribute.value as Date, dateFormat));
             }
         },
-        [props.dateAttribute, props.startDateAttribute, props.endDateAttribute, props.clearable]
+        [
+            props.dateAttribute,
+            props.startDateAttribute,
+            props.endDateAttribute,
+            props.clearable,
+            dateFormat,
+            props.selectionType
+        ]
     );
 
     return (
