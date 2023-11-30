@@ -114,11 +114,13 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 : props.dateFormat === "YEAR"
                 ? "yyyy"
                 : props.dateFormat === "MONTH"
-                ? "MMMM yyyy"
+                ? props.maskInput
+                    ? "MMM yyyy"
+                    : "MMMM yyyy"
                 : props.dateFormat === "QUARTER"
                 ? "yyyy QQQ"
                 : props.customDateFormat,
-        [props.dateFormat, props.customDateFormat, patterns]
+        [props.dateFormat, props.customDateFormat, patterns, props.maskInput]
     );
 
     const filterDate = useCallback(
@@ -253,6 +255,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 timeIntervals={props.timeInterval}
                 timeCaption={props.timeCaption}
                 openToDate={props.openToDate}
+                autoComplete="off"
                 customInput={
                     props.maskInput ? <MaskedInput mask={MapMask(dateFormat)} keepCharPositions guide /> : undefined
                 }
