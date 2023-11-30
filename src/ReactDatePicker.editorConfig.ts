@@ -101,7 +101,7 @@ export type PreviewProps =
 
 export function getProperties(
     _values: ReactDatePickerPreviewProps,
-    defaultProperties: Properties /*, target: Platform*/
+    defaultProperties: Properties /* , target: Platform*/
 ): Properties {
     if (_values.specificDaysMode === "OFF") {
         hidePropertiesIn(defaultProperties, _values, ["specificDaysDatasource", "specificDaysAttribute"]);

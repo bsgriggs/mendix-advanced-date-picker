@@ -5,7 +5,8 @@
     xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
     <name>React Date Picker</name>
-    <description>My widget description</description>
+    <description>Mendix date picker with most of the customization available in the React Date Picker library</description>
+    <helpUrl>https://github.com/bsgriggs/mendix-react-date-picker/blob/master/README.md</helpUrl>
     <icon />
     <properties>
         <propertyGroup caption="General">
@@ -192,7 +193,6 @@
                     <description></description>
                     <returnType type="Boolean" />
                 </property>
-
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Selectable Times">
@@ -232,78 +232,9 @@
                     </attributeTypes>
                 </property>
             </propertyGroup>
-
         </propertyGroup>
         <propertyGroup caption="Customization">
-            <propertyGroup caption="Style">
-                <property key="showIcon" type="boolean" defaultValue="true">
-                    <caption>Show icon?</caption>
-                    <description></description>
-                </property>
-                <property key="customIcon" type="icon" required="false">
-                    <caption>Custom icon</caption>
-                    <description></description>
-                </property>
-                <property key="showTodayButton" type="boolean"
-                    defaultValue="true">
-                    <caption>Show today button?</caption>
-                    <description></description>
-                </property>
-                <property key="todayButtonText" type="textTemplate" required="false">
-                    <caption>Today button text</caption>
-                    <description></description>
-                    <translations>
-                        <translation lang="en_US">Today</translation>
-                    </translations>
-                </property>
-
-
-                <property key="monthsToDisplay" type="expression" required="true"
-                    defaultValue="1">
-                    <caption>Months to display</caption>
-                    <description></description>
-                    <returnType type="Integer" />
-                </property>
-                <property key="showWeekNumbers" type="boolean"
-                    defaultValue="false">
-                    <caption>Show week numbers?</caption>
-                    <description></description>
-                </property>
-                <property key="showPreviousMonth" type="expression" required="true"
-                    defaultValue="false">
-                    <caption>Show previous months?</caption>
-                    <description></description>
-                    <returnType type="Boolean" />
-                </property>
-                <property key="showArrow" type="boolean" defaultValue="false">
-                    <caption>Show arrow?</caption>
-                    <description></description>
-                </property>
-                <property key="showInline" type="expression" required="true"
-                    defaultValue="false">
-                    <caption>Show inline?</caption>
-                    <description></description>
-                    <returnType type="Boolean" />
-                </property>
-                <property key="alignment" type="enumeration" defaultValue="LEFT">
-                    <caption>Alignment</caption>
-                    <description></description>
-                    <enumerationValues>
-                        <enumerationValue key="LEFT">Left</enumerationValue>
-                        <enumerationValue key="RIGHT">Right</enumerationValue>
-                        <enumerationValue key="AUTO">Auto</enumerationValue>
-                    </enumerationValues>
-                </property>
-            </propertyGroup>
             <propertyGroup caption="Functionality">
-                <property key="useCustomContent" type="boolean" defaultValue="false">
-                    <caption>Use custom content?</caption>
-                    <description></description>
-                </property>
-                <property key="customContent" type="widgets" required="true">
-                    <caption>Custom content</caption>
-                    <description></description>
-                </property>
                 <property key="clearable" type="expression" required="true"
                     defaultValue="true">
                     <caption>Clearable?</caption>
@@ -319,6 +250,78 @@
                 <property key="maskInput" type="boolean" defaultValue="false">
                     <caption>Mask input?</caption>
                     <description></description>
+                </property>
+                <property key="useCustomContent" type="boolean" defaultValue="false">
+                    <caption>Use custom content?</caption>
+                    <description></description>
+                </property>
+                <property key="customContent" type="widgets" required="true">
+                    <caption>Custom content</caption>
+                    <description></description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Icon">
+                <property key="showIcon" type="boolean" defaultValue="true">
+                    <caption>Show icon?</caption>
+                    <description></description>
+                </property>
+                <property key="customIcon" type="icon" required="false">
+                    <caption>Custom icon</caption>
+                    <description></description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Today button">
+                <property key="showTodayButton" type="boolean"
+                    defaultValue="true">
+                    <caption>Show today button?</caption>
+                    <description></description>
+                </property>
+                <property key="todayButtonText" type="textTemplate" required="false">
+                    <caption>Today button text</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Today</translation>
+                    </translations>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Month display">
+                <property key="monthsToDisplay" type="expression" required="true"
+                    defaultValue="1">
+                    <caption>Months to display</caption>
+                    <description></description>
+                    <returnType type="Integer" />
+                </property>
+                <property key="showPreviousMonth" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Show previous months?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Style">
+                <property key="showInline" type="expression" required="true"
+                    defaultValue="false">
+                    <caption>Show inline?</caption>
+                    <description></description>
+                    <returnType type="Boolean" />
+                </property>
+                <property key="showWeekNumbers" type="boolean"
+                    defaultValue="false">
+                    <caption>Show week numbers?</caption>
+                    <description></description>
+                </property>
+                <property key="showArrow" type="boolean" defaultValue="false">
+                    <caption>Show arrow?</caption>
+                    <description></description>
+                </property>
+                <property key="alignment" type="enumeration" defaultValue="LEFT">
+                    <caption>Alignment</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="LEFT">Left</enumerationValue>
+                        <enumerationValue key="RIGHT">Right</enumerationValue>
+                        <enumerationValue key="AUTO">Auto</enumerationValue>
+                    </enumerationValues>
                 </property>
             </propertyGroup>
         </propertyGroup>
@@ -341,7 +344,6 @@
                     <description></description>
                 </property>
             </propertyGroup>
-
         </propertyGroup>
         <propertyGroup caption="Common">
             <propertyGroup caption="Common">

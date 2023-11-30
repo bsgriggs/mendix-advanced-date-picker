@@ -1,5 +1,5 @@
 const MapMask = (dateFormat: string): Array<RegExp | string> => {
-    let newMask: Array<RegExp | string> = [];
+    const newMask: Array<RegExp | string> = [];
     dateFormat.split("").forEach(value => {
         if (value === "d" || value === "y" || value === "h" || value === "m" || value === "s") {
             newMask.push(/\d/);

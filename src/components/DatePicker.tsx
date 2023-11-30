@@ -1,9 +1,8 @@
 import { ReactElement, createElement, useCallback, useRef, useMemo, ReactNode } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
 import * as locales from "date-fns/locale";
-import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
 import {
@@ -15,15 +14,14 @@ import {
     AlignmentEnum
 } from "typings/ReactDatePickerProps";
 import ContainsTime from "../utils/ContainsTime";
-// import { IMask, IMaskInput } from "react-imask";
 import MaskedInput from "react-text-mask";
 import MapMask from "../utils/MapMask";
 
 interface DatePickerProps {
-    //System
+    // System
     id: string;
     tabIndex: number;
-    //General
+    // General
     placeholder: string;
     dateFormat: DateFormatEnum;
     timeInterval: number;
@@ -35,7 +33,7 @@ interface DatePickerProps {
     startDate: Date | null;
     endDate: Date | null;
     readonly: boolean;
-    //Selectable Dates
+    // Selectable Dates
     minDate: Date | undefined;
     maxDate: Date | undefined;
     specificDaysMode: SpecificDaysModeEnum;
@@ -49,25 +47,22 @@ interface DatePickerProps {
     disableThursday: boolean;
     disableFriday: boolean;
     disableSaturday: boolean;
-    //Selectable Times
+    // Selectable Times
     minTime: Date | undefined;
     maxTime: Date | undefined;
     specificTimesMode: SpecificTimesModeEnum;
     specificTimes: Date[];
     // Customization
-    //// Style
     showIcon: boolean;
     icon: WebIcon;
     showTodayButton: boolean;
     todayButtonText: string;
-
     monthsToDisplay: number;
     showWeekNumbers: boolean;
     showPreviousMonths: boolean;
     showArrow: boolean;
     showInline: boolean;
     alignment: AlignmentEnum;
-    //// Functionality
     customChildren: ReactNode | undefined;
     clearable: boolean;
     openToDate: Date;
@@ -87,17 +82,17 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     // const id = useMemo(() => `datepicker_` + Math.random(), []);
 
-    const buttonClick = useCallback(() => {
+    const buttonClick = (): void => {
         props.setOpen(!props.open);
         setTimeout(() => buttonRef.current?.focus(), 10);
-    }, []);
+    };
 
     /* eslint-disable */
     // @ts-ignore
     const { languageTag = "en-US", patterns, firstDayOfWeek } = window.mx.session.getConfig().locale;
     /* eslint-enable */
     const [language] = useMemo(() => {
-        let language = languageTag.split("-");
+        const language = languageTag.split("-");
         const languageTagWithoutDash = languageTag.replace("-", "");
         if (languageTagWithoutDash in locales) {
             registerLocale(language, (locales as Locale)[languageTagWithoutDash]);
@@ -105,7 +100,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             registerLocale(language, (locales as Locale)[language]);
         }
         return language;
-    }, []);
+    }, [languageTag]);
 
     const dateFormat: string = useMemo(
         () =>
@@ -122,7 +117,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 : props.dateFormat === "QUARTER"
                 ? "yyyy QQQ"
                 : props.customDateFormat,
-        [props.dateFormat, props.customDateFormat]
+        [props.dateFormat, props.customDateFormat, patterns]
     );
 
     const filterDate = useCallback(
@@ -258,59 +253,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 timeCaption={props.timeCaption}
                 openToDate={props.openToDate}
                 customInput={
-                    props.maskInput ? (
-                        // <IMaskInput
-                        //     mask={Date}
-                        //     pattern={"Y-`M-`d"}
-                        //     blocks={{
-                        //         //@ts-ignore
-                        //         d: {
-                        //             mask: IMask.MaskedRange,
-                        //             from: 1,
-                        //             to: 31,
-                        //             maxLength: 2
-                        //         },
-                        //         //@ts-ignore
-                        //         M: {
-                        //             mask: IMask.MaskedRange,
-                        //             from: 1,
-                        //             to: 12,
-                        //             maxLength: 2
-                        //         },
-                        //         //@ts-ignore
-                        //         Y: {
-                        //             mask: IMask.MaskedRange,
-                        //             from: 1900,
-                        //             to: 9999
-                        //         }
-                        //     }}
-                        //     format={(date: Date) => {
-                        //         let day = date.getDate();
-                        //         let month = date.getMonth() + 1;
-                        //         const year = date.getFullYear();
-                        //         //@ts-ignore
-                        //         if (day < 10) day = "0" + day;
-                        //         //@ts-ignore
-                        //         if (month < 10) month = "0" + month;
-
-                        //         return [year, month, day].join("-");
-                        //     }}
-                        //     parse={str => {
-                        //         const yearMonthDay = str.split("-");
-                        //         return new Date(
-                        //             Number(yearMonthDay[0]),
-                        //             Number(yearMonthDay[1]) - 1,
-                        //             Number(yearMonthDay[2])
-                        //         );
-                        //     }}
-                        //     min={new Date(1900, 0, 1)}
-                        //     max={new Date(9999, 0, 1)}
-                        //     autofix
-                        //     lazy={false}
-                        //     overwrite
-                        // />
-                        <MaskedInput mask={MapMask(dateFormat)} keepCharPositions={true} guide={true} />
-                    ) : undefined
+                    props.maskInput ? <MaskedInput mask={MapMask(dateFormat)} keepCharPositions guide /> : undefined
                 }
             >
                 {props.customChildren}
@@ -332,8 +275,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                         }
                     }}
                 >
-                    {/*@ts-ignore*/}
-                    <Icon key={props.icon} icon={props.icon} />
+                    <Icon icon={props.icon} />
                 </button>
             )}
         </div>

@@ -9,6 +9,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             id=""
             tabIndex={0}
             date={new Date()}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             setDate={() => {}}
             readonly={false}
             icon={props.customIcon || { type: "glyph", iconClass: "glyphicon-calendar" }}
@@ -29,19 +30,16 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             startDate={new Date()}
             endDate={new Date()}
             open={false}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             setOpen={() => {}}
-            showTodayButton={true}
-            todayButtonText=""
             customChildren={undefined}
-            clearable
             monthsToDisplay={1}
-            showWeekNumbers
-            showPreviousMonths
-            showArrow
-            showInline={false}
             timeInterval={15}
             specificTimes={[]}
             openToDate={new Date()}
+            showPreviousMonths={false}
+            showInline={false}
+            clearable
         />
     );
 }

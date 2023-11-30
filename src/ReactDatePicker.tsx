@@ -10,10 +10,10 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     const [open, setOpen] = useState(false);
     const [placeholder, setPlaceholder] = useState("");
 
-    //Seperated so the placeholder can be set to the current value if props.clearable is off
+    // Seperated so the placeholder can be set to the current value if props.clearable is off
     useEffect(() => setPlaceholder(props.placeholder?.value || ""), [props.placeholder]);
 
-    //Ensure the list of interval days is only retrieved if the menu is open and only get days inside the min/max range
+    // Ensure the list of interval days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
         if (props.intervalDaysMode !== "OFF") {
             props.intervalDaysDatasource.setLimit(open || props.showInline ? Infinity : 0);
@@ -30,7 +30,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 props.intervalDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
             }
         }
-    }, [open, props.showInline]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, props.showInline, props.intervalDaysEnd, props.intervalDaysStart, props.minDate, props.maxDate]);
 
     const intervalDays = useMemo(
         () =>
@@ -41,7 +42,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         [props.intervalDaysDatasource, props.intervalDaysStart, props.intervalDaysEnd]
     );
 
-    //Ensure the list of specific days is only retrieved if the menu is open and only get days inside the min/max range
+    // Ensure the list of specific days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
         if (props.specificDaysMode !== "OFF") {
             props.specificDaysDatasource.setLimit(open || props.showInline ? Infinity : 0);
@@ -60,18 +61,20 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 props.specificDaysDatasource.setFilter(filter.length > 1 ? and(...filter) : filter[0]);
             }
         }
-    }, [open, props.showInline]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, props.showInline, props.minDate, props.maxDate, props.specificDaysAttribute]);
 
     const specificDays = useMemo(
         () => props.specificDaysDatasource?.items?.map(obj => props.specificDaysAttribute.get(obj).value as Date),
         [props.specificDaysDatasource, props.specificDaysAttribute]
     );
 
-    //Ensure the list of specific times is only retrieved if the menu is open and only get days inside the min/max range
+    // Ensure the list of specific times is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
         if (props.specificTimesMode !== "OFF") {
             props.specificTimesDatasource.setLimit(open || props.showInline ? Infinity : 0);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, props.showInline]);
 
     const specificTimes = useMemo(
@@ -79,8 +82,12 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         [props.specificTimesDatasource, props.specificTimeAttribute]
     );
 
-    //Focus and blur events
-    useEffect(() => (open ? props.onEnter?.execute() : props.onLeave?.execute()), [open]);
+    // Focus and blur events
+    useEffect(
+        () => (open ? props.onEnter?.execute() : props.onLeave?.execute()),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [open]
+    );
 
     const monthsToDisplay = useMemo(() => {
         const propMonthsToDisplay = Number(props.monthsToDisplay.value);
@@ -91,7 +98,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         (newDate: Date | [Date | null, Date | null] | null) => {
             if (newDate !== null) {
                 if (Array.isArray(newDate)) {
-                    //is Selection Type Multi
+                    // is Selection Type Multi
                     props.startDateAttribute.setValue(newDate[0] || undefined);
                     props.endDateAttribute.setValue(newDate[1] || undefined);
                 } else {
@@ -103,7 +110,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 setPlaceholder(props.dateAttribute?.displayValue);
             }
         },
-        [props.dateAttribute, props.startDateAttribute, props.endDateAttribute]
+        [props.dateAttribute, props.startDateAttribute, props.endDateAttribute, props.clearable]
     );
 
     return (
