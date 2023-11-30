@@ -6,6 +6,7 @@ library
 ## Features
 
 -   Selects Dates, Months, Quarters, Years, Time, Date & Time, or a Custom Date Format
+-   Defaults the format to your Mendix date format settings (Language -> Language Settings -> Select a Language)
 -   Can select a range of Dates, Months, Quarters, and Years
 -   Dropdown for selecting Times with a customizable interval
 -   Control the selectable days using min date, max date, a specific list of days (include or exclude), ranges of days
