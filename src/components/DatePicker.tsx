@@ -1,15 +1,14 @@
-import { ReactElement, createElement, useCallback, useRef, useMemo, ReactNode } from "react";
-import DatePicker, { registerLocale } from "react-datepicker";
+import { ReactElement, createElement, useCallback, useRef, ReactNode } from "react";
+import DatePicker from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
-import * as locales from "date-fns/locale";
+
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
 import {
     IntervalDaysModeEnum,
     SpecificDaysModeEnum,
     SelectionTypeEnum,
-    DateFormatEnum,
     SpecificTimesModeEnum,
     AlignmentEnum
 } from "typings/ReactDatePickerProps";
@@ -23,10 +22,8 @@ interface DatePickerProps {
     tabIndex: number;
     // General
     placeholder: string;
-    dateFormat: DateFormatEnum;
     timeInterval: number;
     timeCaption: string;
-    customDateFormat: string;
     selectionType: SelectionTypeEnum;
     date: Date | null;
     setDate: (newDate: Date | [Date | null, Date | null] | null) => void;
@@ -72,10 +69,10 @@ interface DatePickerProps {
     // Other
     open: boolean;
     setOpen: (newOpen: boolean) => void;
-}
 
-interface Locale {
-    [key: string]: object;
+    firstDayOfWeek: number;
+    dateFormat: string;
+    language: string;
 }
 
 const DatePickerComp = (props: DatePickerProps): ReactElement => {
@@ -87,41 +84,6 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         props.setOpen(!props.open);
         setTimeout(() => buttonRef.current?.focus(), 10);
     };
-
-    /* eslint-disable */
-    // @ts-ignore
-    const { languageTag = "en-US", patterns, firstDayOfWeek } = window.mx.session.getConfig().locale;
-    /* eslint-enable */
-    const [language] = useMemo(() => {
-        const language = languageTag.split("-");
-        const languageTagWithoutDash = languageTag.replace("-", "");
-        if (languageTagWithoutDash in locales) {
-            registerLocale(language, (locales as Locale)[languageTagWithoutDash]);
-        } else if (language in locales) {
-            registerLocale(language, (locales as Locale)[language]);
-        }
-        return language;
-    }, [languageTag]);
-
-    const dateFormat: string = useMemo(
-        () =>
-            props.dateFormat === "DATE"
-                ? patterns.date
-                : props.dateFormat === "DATETIME"
-                ? patterns.datetime
-                : props.dateFormat === "TIME"
-                ? patterns.time
-                : props.dateFormat === "YEAR"
-                ? "yyyy"
-                : props.dateFormat === "MONTH"
-                ? props.maskInput
-                    ? "MMM yyyy"
-                    : "MMMM yyyy"
-                : props.dateFormat === "QUARTER"
-                ? "yyyy QQQ"
-                : props.customDateFormat,
-        [props.dateFormat, props.customDateFormat, patterns, props.maskInput]
-    );
 
     const filterDate = useCallback(
         (date: Date): boolean => {
@@ -167,20 +129,20 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 allowSameDay={false}
                 ariaLabelledBy={`${props.id}-label`}
                 autoFocus={false}
-                calendarStartDay={firstDayOfWeek}
+                calendarStartDay={props.firstDayOfWeek}
                 className="form-control"
-                dateFormat={dateFormat}
+                dateFormat={props.dateFormat}
                 disabled={props.readonly}
                 disabledKeyboardNavigation={false}
                 dropdownMode="select"
-                locale={language}
+                locale={props.language}
                 onChange={date => props.setDate(date)} // When the value is set
                 onSelect={() => {
                     if (props.selectionType !== "MULTI" || props.startDate !== null) {
                         props.setOpen(false);
                     }
                 }} // When a value is selected via mouse
-                placeholderText={props.placeholder.length > 0 ? props.placeholder : dateFormat.replace(/a/, "AM/PM")}
+                placeholderText={props.placeholder}
                 popperPlacement={
                     props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : "auto"
                 }
@@ -249,7 +211,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 showTimeSelect={
                     props.dateFormat === "DATETIME" ||
                     props.dateFormat === "TIME" ||
-                    (props.dateFormat === "CUSTOM" && ContainsTime(props.customDateFormat))
+                    (props.dateFormat === "CUSTOM" && ContainsTime(props.dateFormat))
                 }
                 showTimeSelectOnly={props.dateFormat === "TIME"}
                 timeIntervals={props.timeInterval}
@@ -257,7 +219,14 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 openToDate={props.openToDate}
                 autoComplete="off"
                 customInput={
-                    props.maskInput ? <MaskedInput mask={MapMask(dateFormat)} keepCharPositions guide /> : undefined
+                    props.maskInput ? (
+                        <MaskedInput
+                            mask={MapMask(props.dateFormat)}
+                            keepCharPositions
+                            guide
+                            placeholder={props.placeholder}
+                        />
+                    ) : undefined
                 }
             >
                 {props.customChildren}

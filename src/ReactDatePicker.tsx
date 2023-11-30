@@ -5,13 +5,59 @@ import { attribute, literal, greaterThanOrEqual, lessThanOrEqual, and } from "me
 import ContainsTime from "./utils/ContainsTime";
 import "./ui/ReactDatePicker.scss";
 import { Alert } from "./components/Alert";
+import * as locales from "date-fns/locale";
+import { registerLocale } from "react-datepicker";
+import MxFormatter from "./utils/MxFormatter";
+
+interface Locale {
+    [key: string]: object;
+}
 
 export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElement {
     const [open, setOpen] = useState(false);
     const [placeholder, setPlaceholder] = useState("");
 
+    /* eslint-disable */
+    // @ts-ignore
+    const { languageTag = "en-US", patterns, firstDayOfWeek } = window.mx.session.getConfig().locale;
+    /* eslint-enable */
+    const [language] = useMemo(() => {
+        const language = languageTag.split("-");
+        const languageTagWithoutDash = languageTag.replace("-", "");
+        if (languageTagWithoutDash in locales) {
+            registerLocale(language, (locales as Locale)[languageTagWithoutDash]);
+        } else if (language in locales) {
+            registerLocale(language, (locales as Locale)[language]);
+        }
+        return language;
+    }, [languageTag]);
+
+    const dateFormat: string = useMemo(
+        () =>
+            props.dateFormat === "DATE"
+                ? patterns.date
+                : props.dateFormat === "DATETIME"
+                ? patterns.datetime
+                : props.dateFormat === "TIME"
+                ? patterns.time
+                : props.dateFormat === "YEAR"
+                ? "yyyy"
+                : props.dateFormat === "MONTH"
+                ? props.maskInput
+                    ? "MMM yyyy"
+                    : "MMMM yyyy"
+                : props.dateFormat === "QUARTER"
+                ? "yyyy QQQ"
+                : props.customDateFormat,
+        [props.dateFormat, props.customDateFormat, patterns, props.maskInput]
+    );
+
     // Seperated so the placeholder can be set to the current value if props.clearable is off
-    useEffect(() => setPlaceholder(props.placeholder?.value || ""), [props.placeholder]);
+    useEffect(
+        () =>
+            setPlaceholder(props.placeholder ? (props.placeholder.value as string) : dateFormat.replace(/a/, "AM/PM")),
+        [props.placeholder, dateFormat]
+    );
 
     // Ensure the list of interval days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
@@ -106,8 +152,9 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 }
             } else if (props.clearable.value === true) {
                 props.dateAttribute?.setValue(undefined);
-            } else {
-                setPlaceholder(props.dateAttribute?.displayValue);
+            } else if (props.selectionType === "SINGLE") {
+                // Set the placeholder to the text of the current value, so it does not appear cleared
+                setPlaceholder(MxFormatter(props.dateAttribute.value as Date, dateFormat));
             }
         },
         [props.dateAttribute, props.startDateAttribute, props.endDateAttribute, props.clearable]
@@ -159,10 +206,12 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 showWeekNumbers={props.showWeekNumbers}
                 showPreviousMonths={props.showPreviousMonth.value === true}
                 showInline={props.showInline.value === true}
-                customDateFormat={(props.customDateFormat?.value as string) || ""}
                 timeInterval={Number(props.timeInterval.value)}
                 timeCaption={props.timeCaption.value as string}
                 openToDate={props.openToDate?.value as Date}
+                firstDayOfWeek={firstDayOfWeek}
+                language={language}
+                dateFormat={dateFormat}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

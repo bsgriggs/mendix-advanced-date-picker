@@ -40,6 +40,9 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             showPreviousMonths={false}
             showInline={false}
             clearable
+            firstDayOfWeek={0}
+            language={"en-US"}
+            dateFormat={"MM/dd/yyyy"}
         />
     );
 }
