@@ -162,7 +162,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 customDateFormat={(props.customDateFormat?.value as string) || ""}
                 timeInterval={Number(props.timeInterval.value)}
                 timeCaption={props.timeCaption.value as string}
-                openToDate={props.openToDate.value as Date}
+                openToDate={props.openToDate?.value as Date}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

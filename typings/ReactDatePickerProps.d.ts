@@ -54,11 +54,12 @@ export interface ReactDatePickerContainerProps {
     specificTimesDatasource: ListValue;
     specificTimeAttribute: ListAttributeValue<Date>;
     clearable: DynamicValue<boolean>;
-    openToDate: DynamicValue<Date>;
+    openToDate?: DynamicValue<Date>;
     maskInput: boolean;
     useCustomContent: boolean;
     customContent: ReactNode;
     showIcon: boolean;
+    showIconInside: boolean;
     customIcon?: DynamicValue<WebIcon>;
     showTodayButton: boolean;
     todayButtonText?: DynamicValue<string>;
@@ -110,6 +111,7 @@ export interface ReactDatePickerPreviewProps {
     useCustomContent: boolean;
     customContent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     showIcon: boolean;
+    showIconInside: boolean;
     customIcon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
     showTodayButton: boolean;
     todayButtonText: string;

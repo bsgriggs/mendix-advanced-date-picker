@@ -54,6 +54,7 @@ interface DatePickerProps {
     specificTimes: Date[];
     // Customization
     showIcon: boolean;
+    showIconInside: boolean;
     icon: WebIcon;
     showTodayButton: boolean;
     todayButtonText: string;
@@ -65,7 +66,7 @@ interface DatePickerProps {
     alignment: AlignmentEnum;
     customChildren: ReactNode | undefined;
     clearable: boolean;
-    openToDate: Date;
+    openToDate: Date | undefined;
     maskInput: boolean;
 
     // Other
@@ -146,7 +147,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
 
     return (
         <div
-            className="mendix-react-datepicker"
+            className={classNames("mendix-react-datepicker", { "icon-inside": props.showIconInside })}
             ref={ref}
             onKeyDown={event => {
                 if (event.key === "Tab") {
@@ -165,7 +166,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 ariaLabelledBy={`${props.id}-label`}
                 autoFocus={false}
                 calendarStartDay={firstDayOfWeek}
-                className={classNames("form-control")}
+                className="form-control"
                 dateFormat={dateFormat}
                 disabled={props.readonly}
                 disabledKeyboardNavigation={false}
@@ -274,6 +275,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             props.setOpen(false);
                         }
                     }}
+                    tabIndex={-1}
                 >
                     <Icon icon={props.icon} />
                 </button>

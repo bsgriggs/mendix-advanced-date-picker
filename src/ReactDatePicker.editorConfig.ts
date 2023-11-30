@@ -174,7 +174,7 @@ export function getProperties(
     }
 
     if (!_values.showIcon) {
-        hidePropertyIn(defaultProperties, _values, "customIcon");
+        hidePropertiesIn(defaultProperties, _values, ["customIcon", "showIconInside"]);
     }
 
     return defaultProperties;

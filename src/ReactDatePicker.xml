@@ -92,7 +92,7 @@
                     <returnType type="DateTime" />
                 </property>
                 <property key="maxDate" type="expression" required="false">
-                    <caption>Min date</caption>
+                    <caption>Max date</caption>
                     <description></description>
                     <returnType type="DateTime" />
                 </property>
@@ -203,7 +203,7 @@
                     <returnType type="DateTime" />
                 </property>
                 <property key="maxTime" type="expression" required="false">
-                    <caption>Min time</caption>
+                    <caption>Max time</caption>
                     <description></description>
                     <returnType type="DateTime" />
                 </property>
@@ -241,7 +241,7 @@
                     <description></description>
                     <returnType type="Boolean" />
                 </property>
-                <property key="openToDate" type="expression" required="true"
+                <property key="openToDate" type="expression" required="false"
                     defaultValue="">
                     <caption>Open to date</caption>
                     <description></description>
@@ -263,6 +263,10 @@
             <propertyGroup caption="Icon">
                 <property key="showIcon" type="boolean" defaultValue="true">
                     <caption>Show icon?</caption>
+                    <description></description>
+                </property>
+                <property key="showIconInside" type="boolean" defaultValue="false">
+                    <caption>Show icon inside?</caption>
                     <description></description>
                 </property>
                 <property key="customIcon" type="icon" required="false">
