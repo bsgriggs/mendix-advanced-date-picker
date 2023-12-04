@@ -1,6 +1,7 @@
 import { ReactElement, createElement } from "react";
 import DatePicker from "./components/DatePicker";
 import { ReactDatePickerPreviewProps } from "../typings/ReactDatePickerProps";
+import { getDisplayName } from "./ReactDatePicker.editorConfig";
 
 export function preview(props: ReactDatePickerPreviewProps): ReactElement {
     return (
@@ -8,12 +9,12 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             {...props}
             id=""
             tabIndex={0}
-            date={new Date()}
+            date={null}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             setDate={() => {}}
             readonly={false}
             icon={props.customIcon || { type: "glyph", iconClass: "glyphicon-calendar" }}
-            placeholder={""}
+            placeholder={getDisplayName(props)}
             minDate={undefined}
             maxDate={undefined}
             minTime={undefined}
@@ -27,8 +28,8 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             disableThursday={false}
             disableFriday={false}
             disableSaturday={false}
-            startDate={new Date()}
-            endDate={new Date()}
+            startDate={null}
+            endDate={null}
             open={false}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             setOpen={() => {}}
@@ -36,10 +37,10 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             monthsToDisplay={1}
             timeInterval={15}
             specificTimes={[]}
-            openToDate={new Date()}
+            openToDate={undefined}
             showPreviousMonths={false}
             showInline={false}
-            clearable
+            clearable={props.clearable !== "false"}
             firstDayOfWeek={0}
             language={"en-US"}
             dateFormat={"MM/dd/yyyy"}

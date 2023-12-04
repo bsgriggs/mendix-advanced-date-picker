@@ -187,14 +187,103 @@ export function check(_values: ReactDatePickerPreviewProps): Problem[] {
     return errors;
 }
 
-// export function getPreview(values: ReactDatePickerPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
-//     // Customize your pluggable widget appearance for Studio Pro.
-//     return {
-//         type: "Container",
-//         children: []
-//     }
-// }
+export const getDisplayName = (_values: ReactDatePickerPreviewProps): string => {
+    function splitAssociationName(str: string): string {
+        if (str.includes("/")) {
+            // includes an association
+            const associationNameRef = str.substring(str.indexOf(".") + 1);
+            const arr = associationNameRef.split(".");
+            let retString = "";
+            for (let i = 0; i < arr.length; i++) {
+                if (i === arr.length - 1) {
+                    retString += arr[i];
+                } else {
+                    retString = retString + arr[i].substring(0, arr[i].indexOf("/") + 1);
+                }
+            }
+            return retString;
+        } else {
+            return str;
+        }
+    }
 
-// export function getCustomCaption(values: ReactDatePickerPreviewProps, platform: Platform): string {
-//     return "ReactDatePicker";
-// }
+    if (_values.selectionType === "SINGLE") {
+        return (
+            "[" +
+            (_values.dateAttribute.length > 0 ? splitAssociationName(_values.dateAttribute) : "No attribute selected") +
+            "]"
+        );
+    } else {
+        return (
+            "[" +
+            (_values.startDateAttribute.length > 0
+                ? splitAssociationName(_values.startDateAttribute)
+                : "No attribute selected") +
+            " - " +
+            (_values.endDateAttribute.length > 0
+                ? splitAssociationName(_values.endDateAttribute)
+                : "No attribute selected") +
+            "]"
+        );
+    }
+};
+
+export const getPreview = (_values: ReactDatePickerPreviewProps, isDarkMode: boolean): PreviewProps => {
+    const mainContent: PreviewProps = {
+        type: "RowLayout",
+        columnSize: "grow",
+        backgroundColor: _values.readOnly ? (isDarkMode ? "#505050" : "#D3D3D3") : isDarkMode ? "#252525" : "#FFFFFF",
+        borders: true,
+        borderWidth: 1,
+        borderRadius: 1,
+        children: [
+            {
+                type: "Container",
+                padding: 4,
+                grow: 0,
+                children: [
+                    {
+                        type: "Image",
+                        width: 20,
+                        height: 20,
+                        data: "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGwSURBVHgB7ZvNTQMxEIWfQ4g4mgN3OiB0wIE7OdAIlVACJQAVQAehg00H7BHxZzxLjKLI4I2xN45nPmmVKHL8nJeZWdtaAz04gDneh3kYwzzbV7PpNYG5pT5K0yJUnwG9A3PbUON/tHvA6QvUAgVoOUahBp/AdYIBEfoDuEEhWo5gBFBYIR3tG9QhCtByDG0A7KBUCVqOrgHlHoWMVZ/2CcHXnsOcBOXD5NCyTe9s7l9RjVAxhWfXDVjSFcpRwsKza3SFUsXkXSURQLTB22DlaG8ErLqe4l/8re91cmv5+g9GgB6wOugtVKKgASdTJONihmK0fvAtKFZZNMYc6c0XJesX9dE05k9ya/naBg1wA7ucxQ/m/Cz844fQ8n0nWARrIqoI1o4YAOZETYVrQlIAzBEDwJyx70OZCDFCDABzpAgigr5bVymKaW4tSQEwRwwAc8QAMEcMAHNkJogIhlwu59aSFABzxAAwR+4CiED2AypCDABzxAAwRwwAc8QAMEf2A8AcMQDMkecE7dWCMWTAE5hitxru1fLQ5Bz8js59nxuk05P0hk5TggeU8o/udPkX0ggFBHtLbTYAAAAASUVORK5CYII="
+                    }
+                ]
+            },
+            {
+                type: "RowLayout",
+                padding: 4,
+                columnSize: "grow",
+                grow: 1,
+                children: [
+                    {
+                        type: "Text",
+                        fontColor: isDarkMode ? "#579BF9" : "#146FF4",
+                        content: getDisplayName(_values)
+                    }
+                ]
+            }
+        ]
+    };
+    const customContent: PreviewProps = {
+        type: "RowLayout",
+        columnSize: "fixed",
+        borders: true,
+        children: [
+            {
+                type: "DropZone",
+                property: _values.customContent,
+                placeholder: "Place your custom content here"
+            }
+        ]
+    };
+
+    return {
+        type: "Container",
+        children: [mainContent, ...(_values.useCustomContent ? [customContent] : [])]
+    };
+};
+
+export function getCustomCaption(_values: ReactDatePickerPreviewProps): string {
+    return "React Date Picker: " + getDisplayName(_values);
+}
