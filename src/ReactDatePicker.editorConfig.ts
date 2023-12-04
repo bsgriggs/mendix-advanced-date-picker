@@ -134,6 +134,11 @@ export function getProperties(
     ) {
         hidePropertiesIn(defaultProperties, _values, ["showTodayButton", "todayButtonText"]);
     }
+
+    if (_values.dateFormat === "QUARTER") {
+        hidePropertyIn(defaultProperties, _values, "maskInput");
+    }
+
     if (_values.dateFormat !== "CUSTOM") {
         hidePropertyIn(defaultProperties, _values, "customDateFormat");
     }

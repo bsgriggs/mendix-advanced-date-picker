@@ -223,7 +223,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 customInput={
                     props.maskInput ? (
                         <MaskedInput
-                            mask={MapMask(props.dateFormatEnum)}
+                            mask={MapMask(props.dateFormat)}
                             keepCharPositions
                             guide
                             placeholder={props.placeholder}
