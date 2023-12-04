@@ -22,6 +22,11 @@ $disabled-background: #c8c8c8;
     .react-datepicker__time-list {
         overflow-x: hidden;
     }
+    .react-datepicker__children-container {
+        width: 100%;
+        margin: 0;
+        padding: 0.5rem;
+    }
     .react-datepicker__time-container {
         right: -85px;
         top: -1px;
