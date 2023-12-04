@@ -8,13 +8,7 @@ $disabled-background: #c8c8c8;
         flex-grow: 1;
     }
     .react-datepicker__day--disabled {
-        background-color: $disabled-background;
-        & .react-datepicker__day--today {
-            background-color: $disabled-background;
-        }
-        &:hover {
-            background-color: $disabled-background;
-        }
+        background-color: $disabled-background !important; // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
     }
     .react-datepicker__day--disabled.react-datepicker__day--outside-month {
         color: white;

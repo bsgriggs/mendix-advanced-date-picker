@@ -148,6 +148,9 @@ export function getProperties(
             "specificTimeAttribute"
         ]);
     }
+    if (!_values.showTodayButton) {
+        hidePropertyIn(defaultProperties, _values, "todayButtonText");
+    }
 
     if (_values.dateFormat === "TIME") {
         hidePropertiesIn(defaultProperties, _values, [
