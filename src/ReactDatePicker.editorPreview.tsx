@@ -9,6 +9,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             {...props}
             id=""
             tabIndex={0}
+            dateFormatEnum={props.dateFormat}
             date={null}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             setDate={() => {}}

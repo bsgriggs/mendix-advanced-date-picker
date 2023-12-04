@@ -10,7 +10,8 @@ import {
     SpecificDaysModeEnum,
     SelectionTypeEnum,
     SpecificTimesModeEnum,
-    AlignmentEnum
+    AlignmentEnum,
+    DateFormatEnum
 } from "typings/ReactDatePickerProps";
 import ContainsTime from "../utils/ContainsTime";
 import MaskedInput from "react-text-mask";
@@ -22,6 +23,7 @@ interface DatePickerProps {
     tabIndex: number;
     // General
     placeholder: string;
+    dateFormatEnum: DateFormatEnum;
     timeInterval: number;
     timeCaption: string;
     selectionType: SelectionTypeEnum;
@@ -70,15 +72,15 @@ interface DatePickerProps {
     open: boolean;
     setOpen: (newOpen: boolean) => void;
 
+    //MxDate Meta Data
     firstDayOfWeek: number;
-    dateFormat: string;
+    dateFormat: string; // text format (i.e. MM/dd/yyyy)
     language: string;
 }
 
 const DatePickerComp = (props: DatePickerProps): ReactElement => {
     const ref = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
-    // const id = useMemo(() => `datepicker_` + Math.random(), []);
 
     const buttonClick = (): void => {
         props.setOpen(!props.open);
@@ -205,15 +207,15 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 showWeekNumbers={props.showWeekNumbers}
                 showPreviousMonths={props.showPreviousMonths}
                 inline={props.showInline}
-                showMonthYearPicker={props.dateFormat === "MONTH"}
-                showQuarterYearPicker={props.dateFormat === "QUARTER"}
-                showYearPicker={props.dateFormat === "YEAR"}
+                showMonthYearPicker={props.dateFormatEnum === "MONTH"}
+                showQuarterYearPicker={props.dateFormatEnum === "QUARTER"}
+                showYearPicker={props.dateFormatEnum === "YEAR"}
                 showTimeSelect={
-                    props.dateFormat === "DATETIME" ||
-                    props.dateFormat === "TIME" ||
-                    (props.dateFormat === "CUSTOM" && ContainsTime(props.dateFormat))
+                    props.dateFormatEnum === "DATETIME" ||
+                    props.dateFormatEnum === "TIME" ||
+                    (props.dateFormatEnum === "CUSTOM" && ContainsTime(props.dateFormat))
                 }
-                showTimeSelectOnly={props.dateFormat === "TIME"}
+                showTimeSelectOnly={props.dateFormatEnum === "TIME"}
                 timeIntervals={props.timeInterval}
                 timeCaption={props.timeCaption}
                 openToDate={props.openToDate}
@@ -221,7 +223,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 customInput={
                     props.maskInput ? (
                         <MaskedInput
-                            mask={MapMask(props.dateFormat)}
+                            mask={MapMask(props.dateFormatEnum)}
                             keepCharPositions
                             guide
                             placeholder={props.placeholder}

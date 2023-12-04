@@ -166,7 +166,12 @@ export function getProperties(
             "disableWednesday",
             "disableThursday",
             "disableFriday",
-            "disableSaturday"
+            "disableSaturday",
+            "monthsToDisplay",
+            "showPreviousMonth",
+            "showWeekNumbers",
+            "showArrow",
+            "openToDate"
         ]);
     }
     if (_values.dateFormat === "TIME" || _values.dateFormat === "DATETIME") {
