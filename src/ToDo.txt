@@ -1,5 +1,0 @@
-================
-ToDo
-================
-- highlight dates (data source with attr and optional class name expression)
-- holidays (data source with date and string attr) (Shows tooltip)
