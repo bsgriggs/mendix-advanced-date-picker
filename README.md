@@ -6,7 +6,8 @@ library
 | Single | Multiple (Range) |  
 | ------------- | ------------- |  
 | ![Demo](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Demo.png)      | ![multi](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/multi.png)      |  
-| _Example for selecting Date and Time with a Min Date 2023/12/05, 2023/12/25 & 2023/12/29 disabled, and all Saturdays & Sundays disabled_ | |
+
+_Single example is selecting Date and Time with a Min Date 2023/12/05, 2023/12/25 & 2023/12/29 disabled, and all Saturdays & Sundays disabled_
 
 ## Features
 
@@ -69,6 +70,10 @@ Time, Date and Time, and Custom the following additional fields to control the t
 **Time caption** - Text shown in the Time dropdown  
 
 **Selection type** - Controls if the widget is meant to pick a single date or a range of dates.  
+| Single | Multiple (Range) |  
+| ------------- | ------------- |  
+| ![Demo](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Demo.png)      | ![multi](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/multi.png)      |  
+
 _Note: Multiple date mode only supports Date, Month, Quarter, and Year. Custom is only supported if the date format does not include a time character_
 
 ### Selectable Dates
