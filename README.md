@@ -79,7 +79,21 @@ _Note: Multiple date mode only supports Date, Month, Quarter, and Year. Custom i
 ### Selectable Dates
 ![SelectableDates](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/SelectableDates.png)  
 
+**Min date** - The earliest selectable date (inclusive)  
+**Max date** - The latest selectable date (inclusive)  
 
+**Specific Days** - Supply the widget with a list of dates. For mode Inclusive, the provided dates are the only dates that can be selected. For mode Exclusive, the provided date cannot be selected. In some situations, it would make sense to have a persistent entity and retrieve from database (i.e. a list of Holidays the users have to maintain). Other times, it might make sense to use a non-persistent entity if the list of dates is dynamic based on a calculation (i.e. every 2nd Monday isn't selectable)  
+| Domain | Widget Properties |  
+| ------------- | ------------- |  
+| ![specificDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDaysDomain.png) | ![specificDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDays.png)       |  
+
+**Interval Days** - Supply the widget with a list of a range of dates. For mode Inclusive, the provided ranges are the only dates that can be selected. For mode Exclusive, the provided ranges cannot be selected. In some situations, it would make sense to have a persistent entity and retrieve from database (i.e. a list of breaks for a school). Other times, it might make sense to use a non-persistent entity if you have a non-standard interval (i.e. the second week of every month isn't selectable)  
+| Domain | Widget Properties |  
+| ------------- | ------------- |  
+| ![intervalDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDaysDomain.png) | ![intervalDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDays.png)       |  
+
+
+**Disable Sunday -> Disable Saturday** - All of these fields are boolean expressions. When true, the user is no longer able to pick that day of the week.  
 
 ### Selectable Times
 ![SelectableTimes](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/SelectableTimes.png)  
