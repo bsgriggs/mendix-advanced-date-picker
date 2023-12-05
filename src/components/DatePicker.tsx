@@ -72,7 +72,7 @@ interface DatePickerProps {
     open: boolean;
     setOpen: (newOpen: boolean) => void;
 
-    //MxDate Meta Data
+    // MxDate Meta Data
     firstDayOfWeek: number;
     dateFormat: string; // text format (i.e. MM/dd/yyyy)
     language: string;
