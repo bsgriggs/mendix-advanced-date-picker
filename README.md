@@ -103,8 +103,8 @@ In your data model, you must have an entity with two **non-localized** dates. In
 ![SelectableTimes](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/SelectableTimes.png)  
 This tab will only show if the date picker has a date format that includes a time (i.e. Time, Date and Time, or Custom with 'H', 'h', 'm', 's', 'a', or 'z'.
 
-**Min time** - Date expression. The earliest selectable time (inclusive)  
-**Max time** - Date expression. The latest selectable time (inclusive)  
+**Min time** - Date expression. The earliest selectable time (inclusive). If Max Time is set, Min Time is required.  
+**Max time** - Date expression. The latest selectable time (inclusive). If Min Time is set, Max Time is required.    
 
 **Specific Times** -  Supply the widget with a list of times. For Inclusive mode, the provided times are the only times that can be selected. For Exclusive mode, the provided times cannot be selected.  
 
