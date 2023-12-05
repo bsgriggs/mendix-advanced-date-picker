@@ -1,8 +1,7 @@
-import { ReactElement, createElement, useCallback, useRef, ReactNode } from "react";
+import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo } from "react";
 import DatePicker from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
-
 import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
 import {
@@ -16,6 +15,8 @@ import {
 import ContainsTime from "../utils/ContainsTime";
 import MaskedInput from "react-text-mask";
 import MapMask from "../utils/MapMask";
+import TimeMatch from "../utils/TimeMatch";
+import ExtractTimeFormat from "../utils/ExtractTimeFormat";
 
 interface DatePickerProps {
     // System
@@ -111,6 +112,14 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         ]
     );
 
+    const showTimeSelect = useMemo(
+        () =>
+            props.dateFormatEnum === "TIME" ||
+            props.dateFormatEnum === "DATETIME" ||
+            (props.dateFormatEnum === "CUSTOM" && ContainsTime(props.dateFormat)),
+        [props.dateFormatEnum, props.dateFormat]
+    );
+
     return (
         <div
             className={classNames("mendix-react-datepicker", { "icon-inside": props.showIconInside })}
@@ -134,16 +143,31 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 calendarStartDay={props.firstDayOfWeek}
                 className="form-control"
                 dateFormat={props.dateFormat}
+                timeFormat={showTimeSelect ? ExtractTimeFormat(props.dateFormat) : undefined}
                 disabled={props.readonly}
                 disabledKeyboardNavigation={false}
                 dropdownMode="select"
                 locale={props.language}
-                onChange={date => props.setDate(date)} // When the value is set
-                onSelect={() => {
-                    if (props.selectionType !== "MULTI" || props.startDate !== null) {
+                onChange={date => {
+                    if (props.selectionType === "SINGLE") {
+                        if (
+                            (props.dateFormatEnum !== "DATETIME" && props.dateFormatEnum !== "CUSTOM") ||
+                            (showTimeSelect &&
+                                date !== null &&
+                                props.date !== null &&
+                                !Array.isArray(date) &&
+                                !TimeMatch(date, props.date))
+                        ) {
+                            // if not date & time picker, close the popper
+                            // if date & time picker, close the popper when the time is selected
+                            props.setOpen(false);
+                        }
+                    } else if (props.startDate !== null) {
+                        // if multi, close the popper when the end date is selected
                         props.setOpen(false);
                     }
-                }} // When a value is selected via mouse
+                    props.setDate(date);
+                }}
                 placeholderText={props.placeholder}
                 popperPlacement={
                     props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : "auto"
@@ -210,11 +234,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 showMonthYearPicker={props.dateFormatEnum === "MONTH"}
                 showQuarterYearPicker={props.dateFormatEnum === "QUARTER"}
                 showYearPicker={props.dateFormatEnum === "YEAR"}
-                showTimeSelect={
-                    props.dateFormatEnum === "DATETIME" ||
-                    props.dateFormatEnum === "TIME" ||
-                    (props.dateFormatEnum === "CUSTOM" && ContainsTime(props.dateFormat))
-                }
+                showTimeSelect={showTimeSelect}
                 showTimeSelectOnly={props.dateFormatEnum === "TIME"}
                 timeIntervals={props.timeInterval}
                 timeCaption={props.timeCaption}
@@ -251,6 +271,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     }}
                     tabIndex={-1}
                 >
+                    {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
+                    @ts-ignore */}
                     <Icon icon={props.icon} />
                 </button>
             )}

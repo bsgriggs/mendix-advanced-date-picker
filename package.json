@@ -32,7 +32,7 @@
     },
     "dependencies": {
         "classnames": "^2.2.6",
-        "react-datepicker": "^4.21.0",
+        "react-datepicker": "^4.24.0",
         "react-text-mask": "^5.5.0",
         "sass": "^1.69.5"
     },
