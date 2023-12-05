@@ -82,36 +82,49 @@ _Note: Multiple date mode only supports Date, Month, Quarter, and Year. Custom i
 **Min date** - The earliest selectable date (inclusive)  
 **Max date** - The latest selectable date (inclusive)  
 
-**Specific Days** - Supply the widget with a list of dates. For mode Inclusive, the provided dates are the only dates that can be selected. For mode Exclusive, the provided date cannot be selected. In some situations, it would make sense to have a persistent entity and retrieve from database (i.e. a list of Holidays the users have to maintain). Other times, it might make sense to use a non-persistent entity if the list of dates is dynamic based on a calculation (i.e. every 2nd Monday isn't selectable)  
+**Specific Days** - Supply the widget with a list of dates. For Inclusive mode, the provided dates are the only dates that can be selected. For Exclusive mode, the provided dates cannot be selected.  
+
+In your data model, you must have an entity with a **non-localized** date. In some situations, you would have a persistent entity and retrieve from database (i.e. a list of Holidays the users have to maintain). Other times, you could use a non-persistent entity if the list of dates is based on a calculation/dynamic (i.e. every 2nd Monday isn't selectable). The widget will automatically filter out specific days outside the Min and Max dates.  
 | Domain | Widget Properties |  
 | ------------- | ------------- |  
 | ![specificDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDaysDomain.png) | ![specificDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDays.png)       |  
 
-**Interval Days** - Supply the widget with a list of a range of dates. For mode Inclusive, the provided ranges are the only dates that can be selected. For mode Exclusive, the provided ranges cannot be selected. In some situations, it would make sense to have a persistent entity and retrieve from database (i.e. a list of breaks for a school). Other times, it might make sense to use a non-persistent entity if you have a non-standard interval (i.e. the second week of every month isn't selectable)  
+**Interval Days** - Supply the widget with a list of ranges of dates. For Inclusive mode, the provided ranges are the only dates that can be selected. For Exclusive mode, the provided ranges cannot be selected. 
+
+In your data model, you must have an entity with two **non-localized** dates. In some situations, you would have a persistent entity and retrieve from database (i.e. a list of school breaks). Other times, you could use a non-persistent entity for a non-standard interval (i.e. the second week of every month isn't selectable). The widget will automatically filter out interval days outside the Min and Max dates.  
 | Domain | Widget Properties |  
 | ------------- | ------------- |  
 | ![intervalDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDaysDomain.png) | ![intervalDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDays.png)       |  
 
 
-**Disable Sunday -> Disable Saturday** - All of these fields are boolean expressions. When true, the user is no longer able to pick that day of the week.  
+**Disable Sunday -> Disable Saturday** - These fields are boolean expressions. When true, the user is no longer able to pick that day of the week.  
 
 ### Selectable Times
 ![SelectableTimes](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/SelectableTimes.png)  
+This tab will only show if the date picker has a date format that includes a time (i.e. Time, Date and Time, or Custom with 'H', 'h', 'm', 's', 'a', or 'z'.
+
+**Min time** - The earliest selectable time (inclusive)  
+**Max time** - The latest selectable time (inclusive)  
+
+**Specific Times** -  Supply the widget with a list of times. For Inclusive mode, the provided times are the only times that can be selected. For Exclusive mode, the provided times cannot be selected.  
+
+In your data model, you must have an entity with a **localized** date. The widget will only read the time from this attribute. In some situations, you would have a persistent entity and retrieve from database (i.e. remove times that have already been scheduled). Other times, you could use a non-persistent entity (i.e. times between noon and 1 pm are not selectable).  
+
+| Domain | Widget Properties |  
+| ------------- | ------------- |  
+| ![specificTimesDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificTimesDomain.png) | ![specificTimes](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificTimes.png) |  
 
 ### Customization
 ![Customization](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Customization.png)  
 
 ### Events
 ![Events](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/events.png)  
+**On change** - Runs when the date attribute changes. For Selection Type "Multiple", it will only run when the end date is changed.  
+**On enter** - Runs when the date picker popup opens. For customization 'Show Inline', it will only run if the date picker received focus.  
+**On leave** - Runs when the date picker popup closes. For customization 'Show Inline', it will only run if the date picker received and then lost focus.  
 
 ### Common
 ![Common](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Common.png)  
-
-
-| "Custom" - Studio Pro | "Custom" - Browser |  
-| ------------- | ------------- |  
-| ![studioProOptionContentType](https://github.com/bsgriggs/mendix9-searchable-reference-selector/blob/media/v4/optionContentTypeCustom.png)    | ![BrowserOptionContentType](https://github.com/bsgriggs/mendix9-searchable-reference-selector/blob/media/v4/optionContentTypeCustomUI.png)    |  
-| *This image is for a reference set, but the idea is the same* | *This image is for a reference set, but the idea is the same* |  
 
 ## Demo project
 
