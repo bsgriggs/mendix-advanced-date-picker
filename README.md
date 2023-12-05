@@ -1,7 +1,7 @@
 ## ReactDatePicker
 
 Mendix date picker with most of the customization available in the [React Date Picker](https://reactdatepicker.com/)
-library
+library, full control of which dates/times are selectable, and input masking.
 
 | Single | Multiple (Range) |  
 | ------------- | ------------- |  
