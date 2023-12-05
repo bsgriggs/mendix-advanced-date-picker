@@ -71,6 +71,9 @@ export interface ReactDatePickerContainerProps {
     alignment: AlignmentEnum;
     onEnter?: ActionValue;
     onLeave?: ActionValue;
+    triggerButtonCaption: DynamicValue<string>;
+    monthDropdownCaption: DynamicValue<string>;
+    yearDropdownCaption: DynamicValue<string>;
 }
 
 export interface ReactDatePickerPreviewProps {
@@ -128,4 +131,7 @@ export interface ReactDatePickerPreviewProps {
     onChange: {} | null;
     onEnter: {} | null;
     onLeave: {} | null;
+    triggerButtonCaption: string;
+    monthDropdownCaption: string;
+    yearDropdownCaption: string;
 }

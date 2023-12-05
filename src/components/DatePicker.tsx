@@ -1,4 +1,4 @@
-import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo } from "react";
+import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
@@ -22,6 +22,8 @@ interface DatePickerProps {
     // System
     id: string;
     tabIndex: number;
+    open: boolean;
+    setOpen: (newOpen: boolean) => void;
     // General
     placeholder: string;
     dateFormatEnum: DateFormatEnum;
@@ -68,11 +70,10 @@ interface DatePickerProps {
     clearable: boolean;
     openToDate: Date | undefined;
     maskInput: boolean;
-
-    // Other
-    open: boolean;
-    setOpen: (newOpen: boolean) => void;
-
+    // Accessibility
+    triggerButtonCaption: string;
+    monthDropdownCaption: string;
+    yearDropdownCaption: string;
     // MxDate Meta Data
     firstDayOfWeek: number;
     dateFormat: string; // text format (i.e. MM/dd/yyyy)
@@ -120,6 +121,56 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         [props.dateFormatEnum, props.dateFormat]
     );
 
+    /* a11y javascript fixes */
+    useEffect(() => {
+        setTimeout(() => {
+            if (ref.current && (props.showInline || props.open)) {
+                // set month dropdown aria label
+                ref.current
+                    .getElementsByClassName("react-datepicker__month-select")[0]
+                    ?.setAttribute("aria-label", props.monthDropdownCaption);
+                // set year dropdown aria label
+                ref.current
+                    .getElementsByClassName("react-datepicker__year-select")[0]
+                    ?.setAttribute("aria-label", props.yearDropdownCaption);
+            }
+        }, 100);
+    }, [ref, props.open, props.monthDropdownCaption, props.yearDropdownCaption, props.showInline]);
+
+    const focusInput = useCallback(() => {
+        setTimeout(
+            () => (!props.showInline ? (document.getElementById(props.id) as HTMLInputElement)?.focus() : undefined),
+            100
+        );
+    }, [props.id, props.showInline]);
+
+    const handleOnChange = useCallback(
+        (date: Date | [Date | null, Date | null] | null) => {
+            if (props.selectionType === "SINGLE") {
+                if (
+                    (props.dateFormatEnum !== "DATETIME" && props.dateFormatEnum !== "CUSTOM") ||
+                    (showTimeSelect &&
+                        date !== null &&
+                        props.date !== null &&
+                        !Array.isArray(date) &&
+                        !TimeMatch(date, props.date))
+                ) {
+                    // if not date & time picker, close the popper
+                    // if date & time picker, close the popper when the time is selected
+                    props.setOpen(false);
+                    focusInput();
+                }
+            } else if (props.startDate !== null) {
+                // if multi, close the popper when the end date is selected
+                props.setOpen(false);
+                focusInput();
+            }
+            props.setDate(date);
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [props.date, props.startDate, showTimeSelect, focusInput]
+    );
+
     return (
         <div
             className={classNames("mendix-react-datepicker", { "icon-inside": props.showIconInside })}
@@ -148,26 +199,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 disabledKeyboardNavigation={false}
                 dropdownMode="select"
                 locale={props.language}
-                onChange={date => {
-                    if (props.selectionType === "SINGLE") {
-                        if (
-                            (props.dateFormatEnum !== "DATETIME" && props.dateFormatEnum !== "CUSTOM") ||
-                            (showTimeSelect &&
-                                date !== null &&
-                                props.date !== null &&
-                                !Array.isArray(date) &&
-                                !TimeMatch(date, props.date))
-                        ) {
-                            // if not date & time picker, close the popper
-                            // if date & time picker, close the popper when the time is selected
-                            props.setOpen(false);
-                        }
-                    } else if (props.startDate !== null) {
-                        // if multi, close the popper when the end date is selected
-                        props.setOpen(false);
-                    }
-                    props.setDate(date);
-                }}
+                onChange={handleOnChange}
                 placeholderText={props.placeholder}
                 popperPlacement={
                     props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : "auto"
@@ -222,10 +254,10 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             break;
                         case "Escape":
                             props.setOpen(false);
+                            focusInput();
                             break;
                     }
                 }}
-                todayButton={props.showTodayButton ? props.todayButtonText : undefined}
                 isClearable={props.clearable}
                 monthsShown={props.monthsToDisplay}
                 showWeekNumbers={props.showWeekNumbers}
@@ -251,24 +283,35 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     ) : undefined
                 }
             >
+                {props.showTodayButton && (
+                    <button
+                        className="btn btn-default btn-block today-button"
+                        tabIndex={props.tabIndex}
+                        onClick={() => {
+                            const currentDateTime = new Date();
+                            handleOnChange(
+                                new Date(
+                                    currentDateTime.getFullYear(),
+                                    currentDateTime.getMonth(),
+                                    currentDateTime.getDate()
+                                )
+                            );
+                        }}
+                    >
+                        {props.todayButtonText}
+                    </button>
+                )}
                 {props.customChildren}
             </DatePicker>
             {!props.showInline && props.showIcon && (
                 <button
+                    title={props.triggerButtonCaption}
+                    aria-label={props.triggerButtonCaption}
                     aria-controls={props.id}
                     aria-haspopup
                     ref={buttonRef}
                     className="btn btn-default btn-calendar spacing-outer-left"
                     onClick={buttonClick}
-                    onKeyDown={e => {
-                        if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            buttonClick();
-                        } else if (e.key === "Escape") {
-                            props.setOpen(false);
-                        }
-                    }}
                     tabIndex={-1}
                 >
                     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 

@@ -7,11 +7,21 @@ $disabled-background: #c8c8c8;
     .react-datepicker-wrapper {
         flex-grow: 1;
     }
+    .react-datepicker__day--selected,
+    .react-datepicker__day--range-start,
+    .react-datepicker__day--range-end,
+    .react-datepicker__day--in-selecting-range.react-datepicker__day--selecting-range-start {
+        background-color: #264ae5 !important; // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
+        color: #fff !important; // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
+    }
     .react-datepicker__day--disabled {
         background-color: $disabled-background !important; // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
     }
     .react-datepicker__day--disabled.react-datepicker__day--outside-month {
         color: white;
+    }
+    .react-datepicker__day--outside-month {
+        color: #767676; //minimum gray for a11y requirement https://color.a11y.com/ContrastPair/?bgcolor=ffffff&fgcolor=c8c8c8
     }
     .react-datepicker__navigation,
     .react-datepicker__day {
@@ -34,6 +44,10 @@ $disabled-background: #c8c8c8;
     .react-datepicker-popper {
         z-index: 999;
     }
+    .today-button {
+        padding: 0.5rem;
+    }
+
     &.icon-inside {
         position: relative;
         .btn-calendar {

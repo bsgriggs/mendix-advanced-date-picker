@@ -224,6 +224,9 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 firstDayOfWeek={firstDayOfWeek}
                 language={language}
                 dateFormat={dateFormat}
+                triggerButtonCaption={props.triggerButtonCaption.value as string}
+                monthDropdownCaption={props.monthDropdownCaption.value as string}
+                yearDropdownCaption={props.yearDropdownCaption.value as string}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}
