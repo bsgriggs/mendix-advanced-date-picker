@@ -51,8 +51,13 @@ $disabled-background: #c8c8c8;
     .today-button {
         padding: 0.5rem;
     }
+    .react-datepicker__week-number {
+        width: 2em;
+        line-height: 2em;
+        margin: 4px;
+    }
     .custom-header {
-        padding: 0 0.75rem;
+        padding: 0 0.75rem 0.5rem 0.75rem;
         display: flex;
         align-items: center;
         justify-content: center;

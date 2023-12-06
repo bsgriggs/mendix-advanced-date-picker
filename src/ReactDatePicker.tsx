@@ -193,24 +193,20 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     const todayIsSelectable = useMemo(() => {
         const today = RemoveTime(new Date());
         if (props.minDate?.value && today < RemoveTime(props.minDate.value as Date)) {
-            console.info("min date");
             return false;
         } else if (props.maxDate?.value && today > RemoveTime(props.maxDate.value as Date)) {
-            console.info("max date");
             return false;
         } else if (
             specificDays &&
             props.specificDaysMode === "EXCLUDE" &&
             specificDays.find(value => RemoveTime(value).getTime() === today.getTime())
         ) {
-            console.info("exclude date");
             return false;
         } else if (
             intervalDays &&
             props.intervalDaysMode === "EXCLUDE" &&
             intervalDays.find(value => RemoveTime(value.start) <= today && RemoveTime(value.end) >= today)
         ) {
-            console.info("exclude interval");
             return false;
         } else if (
             !DayOfWeekSelectable(
@@ -224,7 +220,6 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 props.disableSunday.value === true
             )
         ) {
-            console.info("day of week");
             return false;
         } else if (
             (specificDays &&
@@ -239,7 +234,6 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
             (specificDays && props.specificDaysMode === "INCLUDE") ||
             (intervalDays && props.intervalDaysMode === "INCLUDE")
         ) {
-            console.info("not included");
             return false;
         } else {
             return true;
@@ -259,8 +253,6 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         props.disableFriday,
         props.disableSunday
     ]);
-
-    console.info(props.id, { todayIsSelectable });
 
     return (
         <Fragment>

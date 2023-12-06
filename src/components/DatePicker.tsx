@@ -271,7 +271,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
 
         [props.language, props.monthsToDisplay, props.navigateButtonPrefix, props.tabIndex, props.dateFormatEnum]
     );
-    console.info(props.id, props.showTodayButton);
+
     return (
         <div
             className={classNames("mendix-react-datepicker", { "icon-inside": props.showIconInside })}
