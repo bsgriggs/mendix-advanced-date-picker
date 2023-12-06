@@ -46,6 +46,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             language={"en-US"}
             dateFormat={"MM/dd/yyyy"}
             invalid={false}
+            required={false}
         />
     );
 }

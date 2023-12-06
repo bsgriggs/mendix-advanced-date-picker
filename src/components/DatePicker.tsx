@@ -20,6 +20,7 @@ import ExtractTimeFormat from "../utils/ExtractTimeFormat";
 import MxIcon from "./MxIcon";
 import MxFormatter from "../utils/MxFormatter";
 import DayOfWeekSelectable from "../utils/DayOfWeekSelectable";
+import RemoveTime from "../utils/RemoveTime";
 
 interface DatePickerProps {
     // System
@@ -74,9 +75,13 @@ interface DatePickerProps {
     openToDate: Date | undefined;
     maskInput: boolean;
     // Accessibility
-    triggerButtonCaption: string;
-    monthDropdownCaption: string;
-    yearDropdownCaption: string;
+    required: boolean;
+    toggleButtonCaption: string;
+    navigateButtonPrefix: string;
+    chooseDayPrefix: string;
+    monthContainerPrefix: string;
+    weekNumberPrefix: string;
+    disabledPrefix: string;
     // MxDate Meta Data
     invalid: boolean;
     firstDayOfWeek: number;
@@ -148,7 +153,18 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     }
                     tabIndex={props.tabIndex}
                     onClick={customHeaderProps.decreaseYear}
-                    title={"Previous Year"}
+                    title={
+                        props.navigateButtonPrefix +
+                        " " +
+                        MxFormatter(
+                            new Date(
+                                customHeaderProps.date.getFullYear() - 1,
+                                customHeaderProps.date.getMonth(),
+                                customHeaderProps.date.getDay()
+                            ),
+                            "yyyy"
+                        )
+                    }
                     style={
                         customHeaderProps.customHeaderCount !== 0 && props.dateFormatEnum !== "YEAR"
                             ? { visibility: "hidden" }
@@ -163,7 +179,18 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             icon={{ type: "glyph", iconClass: "glyphicon-triangle-left" }}
                             tabIndex={props.tabIndex}
                             onClick={customHeaderProps.decreaseMonth}
-                            title={"Previous Month"}
+                            title={
+                                props.navigateButtonPrefix +
+                                " " +
+                                MxFormatter(
+                                    new Date(
+                                        customHeaderProps.date.getFullYear(),
+                                        customHeaderProps.date.getMonth() - 1,
+                                        customHeaderProps.date.getDay()
+                                    ),
+                                    "MMMM"
+                                )
+                            }
                             style={customHeaderProps.customHeaderCount !== 0 ? { visibility: "hidden" } : undefined}
                             disabled={customHeaderProps.prevMonthButtonDisabled}
                         />
@@ -188,7 +215,18 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             icon={{ type: "glyph", iconClass: "glyphicon-triangle-right" }}
                             tabIndex={props.tabIndex}
                             onClick={customHeaderProps.increaseMonth}
-                            title={"Next Month"}
+                            title={
+                                props.navigateButtonPrefix +
+                                " " +
+                                MxFormatter(
+                                    new Date(
+                                        customHeaderProps.date.getFullYear(),
+                                        customHeaderProps.date.getMonth() + 1,
+                                        customHeaderProps.date.getDay()
+                                    ),
+                                    "MMMM"
+                                )
+                            }
                             style={
                                 customHeaderProps.customHeaderCount !== props.monthsToDisplay - 1
                                     ? { visibility: "hidden" }
@@ -208,7 +246,18 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     }
                     tabIndex={props.tabIndex}
                     onClick={customHeaderProps.increaseYear}
-                    title={"Next Year"}
+                    title={
+                        props.navigateButtonPrefix +
+                        " " +
+                        MxFormatter(
+                            new Date(
+                                customHeaderProps.date.getFullYear() + 1,
+                                customHeaderProps.date.getMonth(),
+                                customHeaderProps.date.getDay()
+                            ),
+                            "yyyy"
+                        )
+                    }
                     style={
                         customHeaderProps.customHeaderCount !== props.monthsToDisplay - 1 &&
                         props.dateFormatEnum !== "YEAR"
@@ -220,9 +269,9 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             </div>
         ),
 
-        [props.language, props.monthsToDisplay]
+        [props.language, props.monthsToDisplay, props.navigateButtonPrefix, props.tabIndex, props.dateFormatEnum]
     );
-
+    console.info(props.id, props.showTodayButton);
     return (
         <div
             className={classNames("mendix-react-datepicker", { "icon-inside": props.showIconInside })}
@@ -242,7 +291,6 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 tabIndex={props.tabIndex}
                 allowSameDay={false}
                 ariaLabelledBy={`${props.id}-label`}
-                ariaDescribedBy={`${props.id}-label`}
                 autoFocus={false}
                 calendarStartDay={props.firstDayOfWeek}
                 className="form-control"
@@ -346,23 +394,18 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 }
                 renderCustomHeader={createHeader}
                 ariaInvalid={props.invalid ? "true" : "false"}
-                // testing
-                ariaRequired="true"
+                ariaRequired={props.required ? "true" : "false"}
+                chooseDayAriaLabelPrefix={props.chooseDayPrefix}
+                monthAriaLabelPrefix={props.monthContainerPrefix}
+                weekAriaLabelPrefix={props.weekNumberPrefix}
+                disabledDayAriaLabelPrefix={props.disabledPrefix}
             >
                 {props.showTodayButton && (
                     <button
                         className="btn btn-default btn-block today-button"
+                        aria-label={props.chooseDayPrefix + " " + props.todayButtonText}
                         tabIndex={props.tabIndex}
-                        onClick={() => {
-                            const currentDateTime = new Date();
-                            handleOnChange(
-                                new Date(
-                                    currentDateTime.getFullYear(),
-                                    currentDateTime.getMonth(),
-                                    currentDateTime.getDate()
-                                )
-                            );
-                        }}
+                        onClick={() => handleOnChange(RemoveTime(new Date()))}
                     >
                         {props.todayButtonText}
                     </button>
@@ -371,8 +414,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             </DatePicker>
             {!props.showInline && props.showIcon && (
                 <button
-                    title={props.triggerButtonCaption}
-                    aria-label={props.triggerButtonCaption}
+                    title={props.toggleButtonCaption}
+                    aria-label={props.toggleButtonCaption}
                     aria-controls={props.id}
                     aria-haspopup
                     ref={buttonRef}

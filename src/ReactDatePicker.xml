@@ -350,27 +350,55 @@
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Accessibility">
-            <property key="triggerButtonCaption" type="textTemplate" required="true">
-                <caption>Trigger button caption</caption>
+            <property key="required" type="expression" required="true" defaultValue="false">
+                <caption>Required?</caption>
+                <description></description>
+                <returnType type="Boolean" />
+            </property>
+            <property key="toggleButtonCaption" type="textTemplate" required="true">
+                <caption>Toggle button caption</caption>
                 <description></description>
                 <translations>
                     <translation lang="en_US">Toggle calendar</translation>
                 </translations>
             </property>
-            <property key="monthDropdownCaption" type="textTemplate" required="true">
-                <caption>Month dropdown caption</caption>
+            <property key="navigateButtonPrefix" type="textTemplate" required="true">
+                <caption>Navigate button prefix</caption>
                 <description></description>
                 <translations>
-                    <translation lang="en_US">Months</translation>
+                    <translation lang="en_US">Show</translation>
                 </translations>
             </property>
-            <property key="yearDropdownCaption" type="textTemplate" required="true">
-                <caption>Year dropdown caption</caption>
+            <property key="chooseDayPrefix" type="textTemplate" required="true">
+                <caption>Choose day prefix</caption>
                 <description></description>
                 <translations>
-                    <translation lang="en_US">Years</translation>
+                    <translation lang="en_US">Select</translation>
                 </translations>
             </property>
+
+            <property key="monthContainerPrefix" type="textTemplate" required="true">
+                <caption>Month container prefix</caption>
+                <description></description>
+                <translations>
+                    <translation lang="en_US">Month</translation>
+                </translations>
+            </property>
+            <property key="weekNumberPrefix" type="textTemplate" required="true">
+                <caption>Week number prefix</caption>
+                <description></description>
+                <translations>
+                    <translation lang="en_US">Week</translation>
+                </translations>
+            </property>
+            <property key="disabledPrefix" type="textTemplate" required="true">
+                <caption>Disabled prefix</caption>
+                <description></description>
+                <translations>
+                    <translation lang="en_US">Not selectable</translation>
+                </translations>
+            </property>
+
         </propertyGroup>
         <propertyGroup caption="Common">
             <propertyGroup caption="Common">

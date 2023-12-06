@@ -187,7 +187,11 @@ export function getProperties(
     }
 
     if (!_values.showIcon) {
-        hidePropertiesIn(defaultProperties, _values, ["customIcon", "showIconInside", "triggerButtonCaption"]);
+        hidePropertiesIn(defaultProperties, _values, ["customIcon", "showIconInside", "toggleButtonCaption"]);
+    }
+
+    if (!_values.showWeekNumbers) {
+        hidePropertyIn(defaultProperties, _values, "weekNumberPrefix");
     }
 
     return defaultProperties;
