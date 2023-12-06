@@ -21,7 +21,7 @@ $disabled-background: #c8c8c8;
         color: white;
     }
     .react-datepicker__day--outside-month {
-        color: #767676; //minimum gray for a11y requirement https://color.a11y.com/ContrastPair/?bgcolor=ffffff&fgcolor=c8c8c8
+        color: #4774cd; //minimum gray for a11y requirement https://color.a11y.com/ContrastPair/?bgcolor=ffffff&fgcolor=c8c8c8
     }
     .react-datepicker__navigation,
     .react-datepicker__day {
@@ -35,11 +35,15 @@ $disabled-background: #c8c8c8;
     .react-datepicker__children-container {
         width: 100%;
         margin: 0;
-        padding: 0.5rem;
+        padding: 0.3rem;
     }
     .react-datepicker__time-container {
         right: -85px;
         top: -1px;
+        .react-datepicker-time__header {
+            font-size: 1em;
+            font-weight: unset;
+        }
     }
     .react-datepicker-popper {
         z-index: 999;
@@ -47,7 +51,27 @@ $disabled-background: #c8c8c8;
     .today-button {
         padding: 0.5rem;
     }
-
+    .custom-header {
+        padding: 0 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .mx-text {
+            flex-grow: 1;
+        }
+        .mx-icon-button {
+            padding: 0 0.5rem;
+            .glyphicon {
+                color: #767676;
+            }
+            &:focus-visible {
+                outline: $focus-outline;
+            }
+            &:disabled {
+                color: $disabled-background;
+            }
+        }
+    }
     &.icon-inside {
         position: relative;
         .btn-calendar {

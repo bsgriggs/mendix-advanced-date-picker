@@ -8,6 +8,7 @@ import { Alert } from "./components/Alert";
 import * as locales from "date-fns/locale";
 import { registerLocale } from "react-datepicker";
 import MxFormatter from "./utils/MxFormatter";
+import DayOfWeekSelectable from "./utils/DayOfWeekSelectable";
 
 interface Locale {
     [key: string]: object;
@@ -171,6 +172,88 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         ]
     );
 
+    const invalid: boolean = useMemo(
+        () =>
+            props.dateAttribute?.validation !== undefined ||
+            props.startDateAttribute?.validation !== undefined ||
+            props.endDateAttribute?.validation !== undefined ||
+            (props.selectionType === "MULTI" &&
+                props.dateFormat === "CUSTOM" &&
+                ContainsTime(props.customDateFormat.value as string)),
+        [
+            props.dateAttribute,
+            props.startDateAttribute,
+            props.endDateAttribute,
+            props.dateFormat,
+            props.customDateFormat
+        ]
+    );
+
+    const todayIsSelectable = useMemo(() => {
+        const currentDateTime = new Date();
+        const today = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
+        if (props.minDate && today < (props.minDate.value as Date)) {
+            return false;
+        } else if (props.maxDate && today > (props.maxDate.value as Date)) {
+            return false;
+        } else if (
+            specificDays &&
+            props.specificDaysMode === "EXCLUDE" &&
+            specificDays.find(value => value.getTime() === today.getTime())
+        ) {
+            return false;
+        } else if (
+            intervalDays &&
+            props.intervalDaysMode === "EXCLUDE" &&
+            intervalDays.find(value => value.start <= today && value.end >= today)
+        ) {
+            return false;
+        } else if (
+            !DayOfWeekSelectable(
+                today,
+                props.disableSunday.value === true,
+                props.disableMonday.value === true,
+                props.disableTuesday.value === true,
+                props.disableWednesday.value === true,
+                props.disableThursday.value === true,
+                props.disableFriday.value === true,
+                props.disableSunday.value === true
+            )
+        ) {
+            return false;
+        } else if (
+            (specificDays &&
+                props.specificDaysMode === "INCLUDE" &&
+                specificDays.find(value => value.getTime() === today.getTime())) ||
+            (intervalDays &&
+                props.intervalDaysMode === "INCLUDE" &&
+                intervalDays.find(value => value.start <= today && value.end >= today))
+        ) {
+            return true;
+        } else if (
+            (specificDays && props.specificDaysMode === "INCLUDE") ||
+            (intervalDays && props.intervalDaysMode === "INCLUDE")
+        ) {
+            return false;
+        } else {
+            return true;
+        }
+    }, [
+        props.minDate,
+        props.maxDate,
+        specificDays,
+        intervalDays,
+        props.specificDaysMode,
+        props.intervalDaysMode,
+        props.disableSunday,
+        props.disableMonday,
+        props.disableTuesday,
+        props.disableWednesday,
+        props.disableThursday,
+        props.disableFriday,
+        props.disableSunday
+    ]);
+
     return (
         <Fragment>
             <DatePicker
@@ -209,7 +292,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                     props.dateFormat !== "YEAR" &&
                     props.dateFormat !== "TIME" &&
                     props.dateFormat !== "QUARTER" &&
-                    props.showTodayButton
+                    props.showTodayButton &&
+                    todayIsSelectable
                 }
                 todayButtonText={props.todayButtonText?.value || ""}
                 customChildren={props.useCustomContent && props.customContent}
@@ -227,6 +311,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 triggerButtonCaption={props.triggerButtonCaption.value as string}
                 monthDropdownCaption={props.monthDropdownCaption.value as string}
                 yearDropdownCaption={props.yearDropdownCaption.value as string}
+                invalid={invalid}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

@@ -45,6 +45,7 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
             firstDayOfWeek={0}
             language={"en-US"}
             dateFormat={"MM/dd/yyyy"}
+            invalid={false}
         />
     );
 }

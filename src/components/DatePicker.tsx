@@ -1,5 +1,5 @@
-import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo, useEffect } from "react";
-import DatePicker from "react-datepicker";
+import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo } from "react";
+import DatePicker, { ReactDatePickerCustomHeaderProps } from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,6 +17,9 @@ import MaskedInput from "react-text-mask";
 import MapMask from "../utils/MapMask";
 import TimeMatch from "../utils/TimeMatch";
 import ExtractTimeFormat from "../utils/ExtractTimeFormat";
+import MxIcon from "./MxIcon";
+import MxFormatter from "../utils/MxFormatter";
+import DayOfWeekSelectable from "../utils/DayOfWeekSelectable";
 
 interface DatePickerProps {
     // System
@@ -75,6 +78,7 @@ interface DatePickerProps {
     monthDropdownCaption: string;
     yearDropdownCaption: string;
     // MxDate Meta Data
+    invalid: boolean;
     firstDayOfWeek: number;
     dateFormat: string; // text format (i.e. MM/dd/yyyy)
     language: string;
@@ -89,30 +93,6 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         setTimeout(() => buttonRef.current?.focus(), 10);
     };
 
-    const filterDate = useCallback(
-        (date: Date): boolean => {
-            const day = date.getDay();
-            return (
-                (!props.disableSunday && day === 0) ||
-                (!props.disableMonday && day === 1) ||
-                (!props.disableTuesday && day === 2) ||
-                (!props.disableWednesday && day === 3) ||
-                (!props.disableThursday && day === 4) ||
-                (!props.disableFriday && day === 5) ||
-                (!props.disableSaturday && day === 6)
-            );
-        },
-        [
-            props.disableSunday,
-            props.disableMonday,
-            props.disableTuesday,
-            props.disableWednesday,
-            props.disableThursday,
-            props.disableFriday,
-            props.disableSaturday
-        ]
-    );
-
     const showTimeSelect = useMemo(
         () =>
             props.dateFormatEnum === "TIME" ||
@@ -120,22 +100,6 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             (props.dateFormatEnum === "CUSTOM" && ContainsTime(props.dateFormat)),
         [props.dateFormatEnum, props.dateFormat]
     );
-
-    /* a11y javascript fixes */
-    useEffect(() => {
-        setTimeout(() => {
-            if (ref.current && (props.showInline || props.open)) {
-                // set month dropdown aria label
-                ref.current
-                    .getElementsByClassName("react-datepicker__month-select")[0]
-                    ?.setAttribute("aria-label", props.monthDropdownCaption);
-                // set year dropdown aria label
-                ref.current
-                    .getElementsByClassName("react-datepicker__year-select")[0]
-                    ?.setAttribute("aria-label", props.yearDropdownCaption);
-            }
-        }, 100);
-    }, [ref, props.open, props.monthDropdownCaption, props.yearDropdownCaption, props.showInline]);
 
     const focusInput = useCallback(() => {
         setTimeout(
@@ -168,7 +132,95 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             props.setDate(date);
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [props.date, props.startDate, showTimeSelect, focusInput]
+        [props.date, props.startDate, showTimeSelect, focusInput, props.setDate]
+    );
+
+    const createHeader = useCallback(
+        (customHeaderProps: ReactDatePickerCustomHeaderProps): ReactNode => (
+            <div className="custom-header">
+                <MxIcon
+                    icon={
+                        props.dateFormatEnum !== "MONTH" &&
+                        props.dateFormatEnum !== "YEAR" &&
+                        props.dateFormatEnum !== "QUARTER"
+                            ? { type: "glyph", iconClass: "glyphicon-backward" }
+                            : { type: "glyph", iconClass: "glyphicon-triangle-left" }
+                    }
+                    tabIndex={props.tabIndex}
+                    onClick={customHeaderProps.decreaseYear}
+                    title={"Previous Year"}
+                    style={
+                        customHeaderProps.customHeaderCount !== 0 && props.dateFormatEnum !== "YEAR"
+                            ? { visibility: "hidden" }
+                            : undefined
+                    }
+                    disabled={customHeaderProps.prevYearButtonDisabled}
+                />
+                {props.dateFormatEnum !== "MONTH" &&
+                    props.dateFormatEnum !== "YEAR" &&
+                    props.dateFormatEnum !== "QUARTER" && (
+                        <MxIcon
+                            icon={{ type: "glyph", iconClass: "glyphicon-triangle-left" }}
+                            tabIndex={props.tabIndex}
+                            onClick={customHeaderProps.decreaseMonth}
+                            title={"Previous Month"}
+                            style={customHeaderProps.customHeaderCount !== 0 ? { visibility: "hidden" } : undefined}
+                            disabled={customHeaderProps.prevMonthButtonDisabled}
+                        />
+                    )}
+
+                <span className="mx-text">
+                    {props.dateFormatEnum === "DATE" ||
+                    props.dateFormatEnum === "DATETIME" ||
+                    props.dateFormatEnum === "CUSTOM" ||
+                    props.dateFormatEnum === "TIME"
+                        ? MxFormatter(customHeaderProps.monthDate, "MMMM yyyy")
+                        : props.dateFormatEnum !== "YEAR"
+                        ? MxFormatter(customHeaderProps.monthDate, "yyyy")
+                        : MxFormatter(new Date(customHeaderProps.date.getFullYear() - 6, 0, 1), "yyyy") +
+                          " - " +
+                          MxFormatter(new Date(customHeaderProps.date.getFullYear() + 5, 0, 1), "yyyy")}
+                </span>
+                {props.dateFormatEnum !== "MONTH" &&
+                    props.dateFormatEnum !== "YEAR" &&
+                    props.dateFormatEnum !== "QUARTER" && (
+                        <MxIcon
+                            icon={{ type: "glyph", iconClass: "glyphicon-triangle-right" }}
+                            tabIndex={props.tabIndex}
+                            onClick={customHeaderProps.increaseMonth}
+                            title={"Next Month"}
+                            style={
+                                customHeaderProps.customHeaderCount !== props.monthsToDisplay - 1
+                                    ? { visibility: "hidden" }
+                                    : undefined
+                            }
+                            disabled={customHeaderProps.nextMonthButtonDisabled}
+                        />
+                    )}
+
+                <MxIcon
+                    icon={
+                        props.dateFormatEnum !== "MONTH" &&
+                        props.dateFormatEnum !== "YEAR" &&
+                        props.dateFormatEnum !== "QUARTER"
+                            ? { type: "glyph", iconClass: "glyphicon-forward" }
+                            : { type: "glyph", iconClass: "glyphicon-triangle-right" }
+                    }
+                    tabIndex={props.tabIndex}
+                    onClick={customHeaderProps.increaseYear}
+                    title={"Next Year"}
+                    style={
+                        customHeaderProps.customHeaderCount !== props.monthsToDisplay - 1 &&
+                        props.dateFormatEnum !== "YEAR"
+                            ? { visibility: "hidden" }
+                            : undefined
+                    }
+                    disabled={customHeaderProps.nextYearButtonDisabled}
+                />
+            </div>
+        ),
+
+        [props.language, props.monthsToDisplay]
     );
 
     return (
@@ -190,6 +242,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 tabIndex={props.tabIndex}
                 allowSameDay={false}
                 ariaLabelledBy={`${props.id}-label`}
+                ariaDescribedBy={`${props.id}-label`}
                 autoFocus={false}
                 calendarStartDay={props.firstDayOfWeek}
                 className="form-control"
@@ -220,9 +273,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 startDate={props.startDate ? props.startDate : undefined}
                 endDate={props.endDate ? props.endDate : undefined}
                 selected={props.date}
-                showMonthDropdown
                 showPopperArrow={props.showArrow}
-                showYearDropdown
                 strictParsing
                 useWeekdaysShort={false}
                 minDate={props.minDate}
@@ -235,11 +286,22 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 excludeTimes={props.specificTimesMode === "EXCLUDE" ? props.specificTimes : undefined}
                 includeDateIntervals={props.intervalDaysMode === "INCLUDE" ? props.intervalDays : undefined}
                 excludeDateIntervals={props.intervalDaysMode === "EXCLUDE" ? props.intervalDays : undefined}
-                filterDate={filterDate}
+                filterDate={date =>
+                    DayOfWeekSelectable(
+                        date,
+                        props.disableSunday,
+                        props.disableMonday,
+                        props.disableTuesday,
+                        props.disableWednesday,
+                        props.disableThursday,
+                        props.disableFriday,
+                        props.disableSunday
+                    )
+                }
                 open={props.open}
                 onInputClick={() => props.setOpen(true)}
                 onClickOutside={event => {
-                    if (!buttonRef.current || buttonRef.current.contains(event.target as Node)) {
+                    if (buttonRef.current?.contains(event.target as Node)) {
                         return;
                     }
                     props.setOpen(false);
@@ -282,6 +344,10 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                         />
                     ) : undefined
                 }
+                renderCustomHeader={createHeader}
+                ariaInvalid={props.invalid ? "true" : "false"}
+                // testing
+                ariaRequired="true"
             >
                 {props.showTodayButton && (
                     <button

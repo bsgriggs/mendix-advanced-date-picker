@@ -115,11 +115,7 @@ export interface ReactDatePickerPreviewProps {
     customContent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     showIcon: boolean;
     showIconInside: boolean;
-    customIcon:
-        | { type: "glyph"; iconClass: string }
-        | { type: "image"; imageUrl: string; iconUrl: string }
-        | { type: "icon"; iconClass: string }
-        | undefined;
+    customIcon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
     showTodayButton: boolean;
     todayButtonText: string;
     monthsToDisplay: string;
