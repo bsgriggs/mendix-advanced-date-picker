@@ -1,4 +1,3 @@
-$focus-outline: -webkit-focus-ring-color auto 1px;
 $disabled-background: #c8c8c8;
 
 .mendix-react-datepicker {
@@ -30,7 +29,8 @@ $disabled-background: #c8c8c8;
     .react-datepicker__day,
     .react-datepicker__close-icon {
         &:focus-visible {
-            outline: $focus-outline;
+            outline: Highlight auto 1px; // firefox
+            outline: -webkit-focus-ring-color auto 1px;
         }
     }
     .react-datepicker__close-icon {
@@ -72,12 +72,15 @@ $disabled-background: #c8c8c8;
             flex-grow: 1;
         }
         .mx-icon-button {
+            background: transparent;
+            border: none;
             padding: 0 0.5rem;
             .glyphicon {
                 color: #767676;
             }
             &:focus-visible {
-                outline: $focus-outline;
+                outline: Highlight auto 1px; // firefox
+                outline: -webkit-focus-ring-color auto 1px;
             }
             &:disabled {
                 color: $disabled-background;
@@ -101,6 +104,11 @@ $disabled-background: #c8c8c8;
         }
         .react-datepicker__close-icon {
             right: 2rem;
+        }
+    }
+    &.date-and-time {
+        .react-datepicker {
+            min-width: 347px;
         }
     }
 }

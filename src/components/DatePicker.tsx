@@ -17,7 +17,7 @@ import MaskedInput from "react-text-mask";
 import MapMask from "../utils/MapMask";
 import TimeMatch from "../utils/TimeMatch";
 import ExtractTimeFormat from "../utils/ExtractTimeFormat";
-import MxIcon from "./MxIcon";
+import MxIconButton from "./MxIconButton";
 import MxFormatter from "../utils/MxFormatter";
 import DayOfWeekSelectable from "../utils/DayOfWeekSelectable";
 import RemoveTime from "../utils/RemoveTime";
@@ -92,12 +92,8 @@ interface DatePickerProps {
 
 const DatePickerComp = (props: DatePickerProps): ReactElement => {
     const ref = useRef<HTMLDivElement>(null);
-    const buttonRef = useRef<HTMLButtonElement>(null);
-
-    const buttonClick = (): void => {
-        props.setOpen(!props.open);
-        setTimeout(() => buttonRef.current?.focus(), 10);
-    };
+    const toggleBtnRef = useRef<HTMLButtonElement>(null);
+    const firstBtnRef = useRef<HTMLButtonElement>(null);
 
     const showTimeSelect = useMemo(
         () =>
@@ -143,8 +139,17 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
 
     const createHeader = useCallback(
         (customHeaderProps: ReactDatePickerCustomHeaderProps): ReactNode => (
-            <div className="custom-header">
-                <MxIcon
+            <div
+                className="custom-header"
+                onKeyDown={event => {
+                    if (event.key === "Escape") {
+                        props.setOpen(false);
+                        focusInput();
+                    }
+                }}
+            >
+                <MxIconButton
+                    ref={firstBtnRef}
                     icon={
                         props.dateFormatEnum !== "MONTH" &&
                         props.dateFormatEnum !== "YEAR" &&
@@ -176,7 +181,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 {props.dateFormatEnum !== "MONTH" &&
                     props.dateFormatEnum !== "YEAR" &&
                     props.dateFormatEnum !== "QUARTER" && (
-                        <MxIcon
+                        <MxIconButton
                             icon={{ type: "glyph", iconClass: "glyphicon-triangle-left" }}
                             tabIndex={props.tabIndex}
                             onClick={customHeaderProps.decreaseMonth}
@@ -212,7 +217,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 {props.dateFormatEnum !== "MONTH" &&
                     props.dateFormatEnum !== "YEAR" &&
                     props.dateFormatEnum !== "QUARTER" && (
-                        <MxIcon
+                        <MxIconButton
                             icon={{ type: "glyph", iconClass: "glyphicon-triangle-right" }}
                             tabIndex={props.tabIndex}
                             onClick={customHeaderProps.increaseMonth}
@@ -237,7 +242,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                         />
                     )}
 
-                <MxIcon
+                <MxIconButton
                     icon={
                         props.dateFormatEnum !== "MONTH" &&
                         props.dateFormatEnum !== "YEAR" &&
@@ -288,7 +293,11 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
 
     return (
         <div
-            className={classNames("mendix-react-datepicker", { "icon-inside": props.showIconInside })}
+            className={classNames(
+                "mendix-react-datepicker",
+                { "icon-inside": props.showIconInside },
+                { "date-and-time": showTimeSelect && props.dateFormatEnum !== "TIME" }
+            )}
             ref={ref}
             onKeyDown={event => {
                 if (event.key === "Tab") {
@@ -363,7 +372,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 open={props.open}
                 onInputClick={() => props.setOpen(true)}
                 onClickOutside={event => {
-                    if (buttonRef.current?.contains(event.target as Node)) {
+                    if (toggleBtnRef.current?.contains(event.target as Node)) {
                         return;
                     }
                     props.setOpen(false);
@@ -433,10 +442,20 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     aria-label={props.toggleButtonCaption}
                     aria-controls={props.id}
                     aria-haspopup
-                    ref={buttonRef}
+                    ref={toggleBtnRef}
                     className="btn btn-default btn-calendar spacing-outer-left"
-                    onClick={buttonClick}
-                    tabIndex={-1}
+                    onClick={() => {
+                        if (props.open) {
+                            setTimeout(() => toggleBtnRef.current?.focus(), 100);
+                        } else {
+                            setTimeout(() => {
+                                console.info(firstBtnRef.current);
+                                firstBtnRef.current?.focus();
+                            }, 100);
+                        }
+                        props.setOpen(!props.open);
+                    }}
+                    tabIndex={!props.showIconInside ? props.tabIndex : -1}
                 >
                     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
                     @ts-ignore */}
