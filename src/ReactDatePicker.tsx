@@ -316,6 +316,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 monthContainerPrefix={props.monthContainerPrefix.value as string}
                 weekNumberPrefix={props.weekNumberPrefix.value as string}
                 disabledPrefix={props.disabledPrefix.value as string}
+                clearButtonTitle={props.clearButtonTitle.value as string}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}

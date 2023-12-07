@@ -398,7 +398,13 @@
                     <translation lang="en_US">Not selectable</translation>
                 </translations>
             </property>
-
+            <property key="clearButtonTitle" type="textTemplate" required="true">
+                <caption>Clear button title</caption>
+                <description></description>
+                <translations>
+                    <translation lang="en_US">Clear</translation>
+                </translations>
+            </property>
         </propertyGroup>
         <propertyGroup caption="Common">
             <propertyGroup caption="Common">

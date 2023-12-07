@@ -1,4 +1,4 @@
-import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo } from "react";
+import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo, useEffect } from "react";
 import DatePicker, { ReactDatePickerCustomHeaderProps } from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
@@ -82,6 +82,7 @@ interface DatePickerProps {
     monthContainerPrefix: string;
     weekNumberPrefix: string;
     disabledPrefix: string;
+    clearButtonTitle: string;
     // MxDate Meta Data
     invalid: boolean;
     firstDayOfWeek: number;
@@ -272,6 +273,19 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         [props.language, props.monthsToDisplay, props.navigateButtonPrefix, props.tabIndex, props.dateFormatEnum]
     );
 
+    //A11y fixes
+    useEffect(() => {
+        if (props.date || props.startDate || props.endDate) {
+            setTimeout(() => {
+                // make the clear button focus-able
+                const clearButton = ref.current?.querySelector(".react-datepicker__close-icon");
+                clearButton?.setAttribute("tabIndex", `${props.tabIndex}`);
+                // make the clear button's label match the title
+                clearButton?.setAttribute("aria-label", `${props.clearButtonTitle}`);
+            }, 100);
+        }
+    }, [props.date, props.startDate, props.endDate, ref.current, props.tabIndex]);
+
     return (
         <div
             className={classNames("mendix-react-datepicker", { "icon-inside": props.showIconInside })}
@@ -399,6 +413,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 monthAriaLabelPrefix={props.monthContainerPrefix}
                 weekAriaLabelPrefix={props.weekNumberPrefix}
                 disabledDayAriaLabelPrefix={props.disabledPrefix}
+                clearButtonTitle={props.clearButtonTitle}
             >
                 {props.showTodayButton && (
                     <button

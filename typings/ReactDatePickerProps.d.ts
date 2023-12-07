@@ -78,6 +78,7 @@ export interface ReactDatePickerContainerProps {
     monthContainerPrefix: DynamicValue<string>;
     weekNumberPrefix: DynamicValue<string>;
     disabledPrefix: DynamicValue<string>;
+    clearButtonTitle: DynamicValue<string>;
 }
 
 export interface ReactDatePickerPreviewProps {
@@ -138,4 +139,5 @@ export interface ReactDatePickerPreviewProps {
     monthContainerPrefix: string;
     weekNumberPrefix: string;
     disabledPrefix: string;
+    clearButtonTitle: string;
 }

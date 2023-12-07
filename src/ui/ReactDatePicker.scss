@@ -11,23 +11,30 @@ $disabled-background: #c8c8c8;
     .react-datepicker__day--range-start,
     .react-datepicker__day--range-end,
     .react-datepicker__day--in-selecting-range.react-datepicker__day--selecting-range-start {
-        background-color: #264ae5 !important; // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
-        color: #fff !important; // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
+        // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
+        background-color: #264ae5 !important;
+        color: #fff !important;
     }
+
     .react-datepicker__day--disabled {
-        background-color: $disabled-background !important; // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
+        // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
+        background-color: $disabled-background !important;
     }
     .react-datepicker__day--disabled.react-datepicker__day--outside-month {
         color: white;
     }
     .react-datepicker__day--outside-month {
-        color: #4774cd; //minimum gray for a11y requirement https://color.a11y.com/ContrastPair/?bgcolor=ffffff&fgcolor=c8c8c8
+        color: #4774cd;
     }
     .react-datepicker__navigation,
-    .react-datepicker__day {
+    .react-datepicker__day,
+    .react-datepicker__close-icon {
         &:focus-visible {
             outline: $focus-outline;
         }
+    }
+    .react-datepicker__close-icon {
+        padding: 0 0.75rem;
     }
     .react-datepicker__time-list {
         overflow-x: hidden;
