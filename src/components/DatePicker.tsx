@@ -145,7 +145,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         [props.date, props.startDate, showTimeSelect, focusInput, props.setDate]
     );
 
-    //A11y fixes
+    // A11y fixes
     useEffect(() => {
         if (props.date || props.startDate || props.endDate) {
             setTimeout(() => {
@@ -156,7 +156,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 clearButton?.setAttribute("aria-label", `${props.clearButtonLabel}`);
             }, 100);
         }
-    }, [props.date, props.startDate, props.endDate, ref.current, props.tabIndex]);
+    }, [props.date, props.startDate, props.endDate, props.tabIndex, props.clearButtonLabel]);
 
     const timeOnly = useMemo(
         () => props.dateFormatEnum === "TIME" || (props.dateFormatEnum === "CUSTOM" && !ContainsDate(props.dateFormat)),
@@ -184,7 +184,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         } else if (
             !DayOfWeekSelectable(
                 today,
-                props.disableSunday,
+                props.disableSaturday,
                 props.disableMonday,
                 props.disableTuesday,
                 props.disableWednesday,
@@ -218,7 +218,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         props.intervalDays,
         props.specificDaysMode,
         props.intervalDaysMode,
-        props.disableSunday,
+        props.disableSaturday,
         props.disableMonday,
         props.disableTuesday,
         props.disableWednesday,
@@ -363,10 +363,10 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 disabledDayAriaLabelPrefix={props.disabledLabel}
                 clearButtonTitle={props.clearButtonLabel}
             >
-                {props.dateFormat !== "MONTH" &&
-                    props.dateFormat !== "YEAR" &&
-                    props.dateFormat !== "TIME" &&
-                    props.dateFormat !== "QUARTER" &&
+                {props.dateFormatEnum !== "MONTH" &&
+                    props.dateFormatEnum !== "YEAR" &&
+                    props.dateFormatEnum !== "TIME" &&
+                    props.dateFormatEnum !== "QUARTER" &&
                     props.showTodayButton &&
                     todayIsSelectable &&
                     !timeOnly && (

@@ -27,7 +27,10 @@ $disabled-background: #c8c8c8;
     }
     .react-datepicker__navigation,
     .react-datepicker__day,
-    .react-datepicker__close-icon {
+    .react-datepicker__close-icon,
+    .react-datepicker__month-text,
+    .react-datepicker__quarter-text,
+    .react-datepicker__year-text {
         &:focus-visible {
             outline: Highlight auto 1px; // firefox
             outline: -webkit-focus-ring-color auto 1px;

@@ -187,6 +187,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 props.dateFormat === "CUSTOM" &&
                 ContainsTime(props.customDateFormat.value as string)),
         [
+            props.selectionType,
             props.dateAttribute,
             props.startDateAttribute,
             props.endDateAttribute,

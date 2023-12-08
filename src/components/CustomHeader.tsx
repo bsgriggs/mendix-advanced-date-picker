@@ -39,12 +39,12 @@ const CustomHeader = forwardRef<HTMLButtonElement, CustomHeaderProps>((props, re
         [props.dateFormatEnum]
     );
 
-    const [monthSelect, setMonthSelect] = useState(props.monthDate.getMonth());
+    const [monthSelect, setMonthSelect] = useState(props.monthDate?.getMonth());
 
-    const [yearSelect, setYearSelect] = useState(props.monthDate.getFullYear());
+    const [yearSelect, setYearSelect] = useState(props.monthDate?.getFullYear());
     useEffect(() => {
-        setMonthSelect(props.monthDate.getMonth());
-        setYearSelect(props.monthDate.getFullYear());
+        setMonthSelect(props.monthDate?.getMonth());
+        setYearSelect(props.monthDate?.getFullYear());
     }, [props.monthDate]);
 
     const handleMonthSelect = useCallback(
@@ -53,6 +53,7 @@ const CustomHeader = forwardRef<HTMLButtonElement, CustomHeaderProps>((props, re
             setMonthSelect(monthNumber);
             props.changeMonth(monthNumber);
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [props.changeMonth]
     );
     const handleYearSelect = useCallback(
@@ -61,28 +62,29 @@ const CustomHeader = forwardRef<HTMLButtonElement, CustomHeaderProps>((props, re
             setYearSelect(yearNumber);
             props.changeYear(yearNumber);
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [props.changeYear]
     );
 
-    const monthOptions = useMemo(
-        (): ReactElement[] =>
-            showMonthSelect
-                ? dates.months.map((value: string, index: number) => {
-                      const compareDate = new Date(yearSelect, index + 1, 0); // Last day of iterator month
-                      if (
-                          (props.minDate === undefined || props.minDate <= compareDate) &&
-                          (props.maxDate === undefined || props.maxDate >= compareDate)
-                      ) {
-                          return (
-                              <option key={index} value={index} selected={monthSelect === index}>
-                                  {value}
-                              </option>
-                          );
-                      }
-                  })
-                : [],
-        [dates, monthSelect, props.minDate, props.maxDate, showMonthSelect, yearSelect]
-    );
+    const monthOptions = useMemo((): ReactElement[] => {
+        const months: ReactElement[] = [];
+        if (showMonthSelect) {
+            dates.months.forEach((value: string, index: number) => {
+                const compareDate = new Date(yearSelect, index + 1, 0); // Last day of iterator month
+                if (
+                    (props.minDate === undefined || props.minDate <= compareDate) &&
+                    (props.maxDate === undefined || props.maxDate >= compareDate)
+                ) {
+                    months.push(
+                        <option key={index} value={index} selected={monthSelect === index}>
+                            {value}
+                        </option>
+                    );
+                }
+            });
+        }
+        return months;
+    }, [dates, monthSelect, props.minDate, props.maxDate, showMonthSelect, yearSelect]);
 
     const yearOptions = useMemo((): ReactElement[] => {
         const years: ReactElement[] = [];
