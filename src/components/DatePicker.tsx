@@ -1,5 +1,5 @@
 import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo, useEffect } from "react";
-import DatePicker, { ReactDatePickerCustomHeaderProps } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,10 +17,9 @@ import MaskedInput from "react-text-mask";
 import MapMask from "../utils/MapMask";
 import TimeMatch from "../utils/TimeMatch";
 import ExtractTimeFormat from "../utils/ExtractTimeFormat";
-import MxIconButton from "./MxIconButton";
-import MxFormatter from "../utils/MxFormatter";
 import DayOfWeekSelectable from "../utils/DayOfWeekSelectable";
 import RemoveTime from "../utils/RemoveTime";
+import CustomHeader from "./CustomHeader";
 
 interface DatePickerProps {
     // System
@@ -76,13 +75,15 @@ interface DatePickerProps {
     maskInput: boolean;
     // Accessibility
     required: boolean;
-    toggleButtonCaption: string;
+    calendarIconLabel: string;
     navigateButtonPrefix: string;
-    chooseDayPrefix: string;
-    monthContainerPrefix: string;
-    weekNumberPrefix: string;
-    disabledPrefix: string;
-    clearButtonTitle: string;
+    selectPrefix: string;
+    weekPrefix: string;
+    monthPrefix: string;
+    monthSelectLabel: string;
+    yearSelectLabel: string;
+    disabledLabel: string;
+    clearButtonLabel: string;
     // MxDate Meta Data
     invalid: boolean;
     firstDayOfWeek: number;
@@ -109,6 +110,12 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             100
         );
     }, [props.id, props.showInline]);
+
+    const focusFirstBtn = useCallback(() => {
+        setTimeout(() => {
+            firstBtnRef.current?.focus();
+        }, 100);
+    }, [firstBtnRef]);
 
     const handleOnChange = useCallback(
         (date: Date | [Date | null, Date | null] | null) => {
@@ -137,147 +144,6 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         [props.date, props.startDate, showTimeSelect, focusInput, props.setDate]
     );
 
-    const createHeader = useCallback(
-        (customHeaderProps: ReactDatePickerCustomHeaderProps): ReactNode => (
-            <div
-                className="custom-header"
-                onKeyDown={event => {
-                    if (event.key === "Escape") {
-                        props.setOpen(false);
-                        focusInput();
-                    }
-                }}
-            >
-                <MxIconButton
-                    ref={firstBtnRef}
-                    icon={
-                        props.dateFormatEnum !== "MONTH" &&
-                        props.dateFormatEnum !== "YEAR" &&
-                        props.dateFormatEnum !== "QUARTER"
-                            ? { type: "glyph", iconClass: "glyphicon-backward" }
-                            : { type: "glyph", iconClass: "glyphicon-triangle-left" }
-                    }
-                    tabIndex={props.tabIndex}
-                    onClick={customHeaderProps.decreaseYear}
-                    title={
-                        props.navigateButtonPrefix +
-                        " " +
-                        MxFormatter(
-                            new Date(
-                                customHeaderProps.date.getFullYear() - 1,
-                                customHeaderProps.date.getMonth(),
-                                customHeaderProps.date.getDay()
-                            ),
-                            "yyyy"
-                        )
-                    }
-                    style={
-                        customHeaderProps.customHeaderCount !== 0 && props.dateFormatEnum !== "YEAR"
-                            ? { visibility: "hidden" }
-                            : undefined
-                    }
-                    disabled={customHeaderProps.prevYearButtonDisabled}
-                />
-                {props.dateFormatEnum !== "MONTH" &&
-                    props.dateFormatEnum !== "YEAR" &&
-                    props.dateFormatEnum !== "QUARTER" && (
-                        <MxIconButton
-                            icon={{ type: "glyph", iconClass: "glyphicon-triangle-left" }}
-                            tabIndex={props.tabIndex}
-                            onClick={customHeaderProps.decreaseMonth}
-                            title={
-                                props.navigateButtonPrefix +
-                                " " +
-                                MxFormatter(
-                                    new Date(
-                                        customHeaderProps.date.getFullYear(),
-                                        customHeaderProps.date.getMonth() - 1,
-                                        customHeaderProps.date.getDay()
-                                    ),
-                                    "MMMM"
-                                )
-                            }
-                            style={customHeaderProps.customHeaderCount !== 0 ? { visibility: "hidden" } : undefined}
-                            disabled={customHeaderProps.prevMonthButtonDisabled}
-                        />
-                    )}
-
-                <span className="mx-text">
-                    {props.dateFormatEnum === "DATE" ||
-                    props.dateFormatEnum === "DATETIME" ||
-                    props.dateFormatEnum === "CUSTOM" ||
-                    props.dateFormatEnum === "TIME"
-                        ? MxFormatter(customHeaderProps.monthDate, "MMMM yyyy")
-                        : props.dateFormatEnum !== "YEAR"
-                        ? MxFormatter(customHeaderProps.monthDate, "yyyy")
-                        : MxFormatter(new Date(customHeaderProps.date.getFullYear() - 6, 0, 1), "yyyy") +
-                          " - " +
-                          MxFormatter(new Date(customHeaderProps.date.getFullYear() + 5, 0, 1), "yyyy")}
-                </span>
-                {props.dateFormatEnum !== "MONTH" &&
-                    props.dateFormatEnum !== "YEAR" &&
-                    props.dateFormatEnum !== "QUARTER" && (
-                        <MxIconButton
-                            icon={{ type: "glyph", iconClass: "glyphicon-triangle-right" }}
-                            tabIndex={props.tabIndex}
-                            onClick={customHeaderProps.increaseMonth}
-                            title={
-                                props.navigateButtonPrefix +
-                                " " +
-                                MxFormatter(
-                                    new Date(
-                                        customHeaderProps.date.getFullYear(),
-                                        customHeaderProps.date.getMonth() + 1,
-                                        customHeaderProps.date.getDay()
-                                    ),
-                                    "MMMM"
-                                )
-                            }
-                            style={
-                                customHeaderProps.customHeaderCount !== props.monthsToDisplay - 1
-                                    ? { visibility: "hidden" }
-                                    : undefined
-                            }
-                            disabled={customHeaderProps.nextMonthButtonDisabled}
-                        />
-                    )}
-
-                <MxIconButton
-                    icon={
-                        props.dateFormatEnum !== "MONTH" &&
-                        props.dateFormatEnum !== "YEAR" &&
-                        props.dateFormatEnum !== "QUARTER"
-                            ? { type: "glyph", iconClass: "glyphicon-forward" }
-                            : { type: "glyph", iconClass: "glyphicon-triangle-right" }
-                    }
-                    tabIndex={props.tabIndex}
-                    onClick={customHeaderProps.increaseYear}
-                    title={
-                        props.navigateButtonPrefix +
-                        " " +
-                        MxFormatter(
-                            new Date(
-                                customHeaderProps.date.getFullYear() + 1,
-                                customHeaderProps.date.getMonth(),
-                                customHeaderProps.date.getDay()
-                            ),
-                            "yyyy"
-                        )
-                    }
-                    style={
-                        customHeaderProps.customHeaderCount !== props.monthsToDisplay - 1 &&
-                        props.dateFormatEnum !== "YEAR"
-                            ? { visibility: "hidden" }
-                            : undefined
-                    }
-                    disabled={customHeaderProps.nextYearButtonDisabled}
-                />
-            </div>
-        ),
-
-        [props.language, props.monthsToDisplay, props.navigateButtonPrefix, props.tabIndex, props.dateFormatEnum]
-    );
-
     //A11y fixes
     useEffect(() => {
         if (props.date || props.startDate || props.endDate) {
@@ -285,8 +151,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 // make the clear button focus-able
                 const clearButton = ref.current?.querySelector(".react-datepicker__close-icon");
                 clearButton?.setAttribute("tabIndex", `${props.tabIndex}`);
-                // make the clear button's label match the title
-                clearButton?.setAttribute("aria-label", `${props.clearButtonTitle}`);
+                // make the clear button's aria label match the title
+                clearButton?.setAttribute("aria-label", `${props.clearButtonLabel}`);
             }, 100);
         }
     }, [props.date, props.startDate, props.endDate, ref.current, props.tabIndex]);
@@ -383,6 +249,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             if (!props.open) {
                                 event.preventDefault();
                                 props.setOpen(true);
+                                focusFirstBtn();
                             }
                             break;
                         case "Escape":
@@ -415,19 +282,21 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                         />
                     ) : undefined
                 }
-                renderCustomHeader={createHeader}
+                renderCustomHeader={params => (
+                    <CustomHeader {...props} ref={firstBtnRef} {...params} focusInput={focusInput} />
+                )}
                 ariaInvalid={props.invalid ? "true" : "false"}
                 ariaRequired={props.required ? "true" : "false"}
-                chooseDayAriaLabelPrefix={props.chooseDayPrefix}
-                monthAriaLabelPrefix={props.monthContainerPrefix}
-                weekAriaLabelPrefix={props.weekNumberPrefix}
-                disabledDayAriaLabelPrefix={props.disabledPrefix}
-                clearButtonTitle={props.clearButtonTitle}
+                chooseDayAriaLabelPrefix={props.selectPrefix}
+                monthAriaLabelPrefix={props.monthPrefix}
+                weekAriaLabelPrefix={props.weekPrefix}
+                disabledDayAriaLabelPrefix={props.disabledLabel}
+                clearButtonTitle={props.clearButtonLabel}
             >
                 {props.showTodayButton && (
                     <button
                         className="btn btn-default btn-block today-button"
-                        aria-label={props.chooseDayPrefix + " " + props.todayButtonText}
+                        aria-label={props.selectPrefix + " " + props.todayButtonText}
                         tabIndex={props.tabIndex}
                         onClick={() => handleOnChange(RemoveTime(new Date()))}
                     >
@@ -438,8 +307,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             </DatePicker>
             {!props.showInline && props.showIcon && (
                 <button
-                    title={props.toggleButtonCaption}
-                    aria-label={props.toggleButtonCaption}
+                    title={props.calendarIconLabel}
+                    aria-label={props.calendarIconLabel}
                     aria-controls={props.id}
                     aria-haspopup
                     ref={toggleBtnRef}
@@ -448,10 +317,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                         if (props.open) {
                             setTimeout(() => toggleBtnRef.current?.focus(), 100);
                         } else {
-                            setTimeout(() => {
-                                console.info(firstBtnRef.current);
-                                firstBtnRef.current?.focus();
-                            }, 100);
+                            focusFirstBtn();
                         }
                         props.setOpen(!props.open);
                     }}

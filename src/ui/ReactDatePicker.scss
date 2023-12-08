@@ -64,8 +64,9 @@ $disabled-background: #c8c8c8;
         margin: 4px;
     }
     .custom-header {
-        padding: 0 0.75rem 0.5rem 0.75rem;
+        padding-bottom: 0.5rem;
         display: flex;
+        gap: 0.5rem;
         align-items: center;
         justify-content: center;
         .mx-text {
@@ -74,7 +75,7 @@ $disabled-background: #c8c8c8;
         .mx-icon-button {
             background: transparent;
             border: none;
-            padding: 0 0.5rem;
+            padding: 0.25rem;
             .glyphicon {
                 color: #767676;
             }

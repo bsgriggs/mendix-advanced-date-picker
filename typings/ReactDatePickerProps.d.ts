@@ -72,13 +72,15 @@ export interface ReactDatePickerContainerProps {
     onEnter?: ActionValue;
     onLeave?: ActionValue;
     required: DynamicValue<boolean>;
-    toggleButtonCaption: DynamicValue<string>;
+    calendarIconLabel: DynamicValue<string>;
     navigateButtonPrefix: DynamicValue<string>;
-    chooseDayPrefix: DynamicValue<string>;
-    monthContainerPrefix: DynamicValue<string>;
-    weekNumberPrefix: DynamicValue<string>;
-    disabledPrefix: DynamicValue<string>;
-    clearButtonTitle: DynamicValue<string>;
+    selectPrefix: DynamicValue<string>;
+    weekPrefix: DynamicValue<string>;
+    monthPrefix: DynamicValue<string>;
+    monthSelectLabel: DynamicValue<string>;
+    yearSelectLabel: DynamicValue<string>;
+    disabledLabel: DynamicValue<string>;
+    clearButtonLabel: DynamicValue<string>;
 }
 
 export interface ReactDatePickerPreviewProps {
@@ -133,11 +135,13 @@ export interface ReactDatePickerPreviewProps {
     onEnter: {} | null;
     onLeave: {} | null;
     required: string;
-    toggleButtonCaption: string;
+    calendarIconLabel: string;
     navigateButtonPrefix: string;
-    chooseDayPrefix: string;
-    monthContainerPrefix: string;
-    weekNumberPrefix: string;
-    disabledPrefix: string;
-    clearButtonTitle: string;
+    selectPrefix: string;
+    weekPrefix: string;
+    monthPrefix: string;
+    monthSelectLabel: string;
+    yearSelectLabel: string;
+    disabledLabel: string;
+    clearButtonLabel: string;
 }

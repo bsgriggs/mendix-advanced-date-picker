@@ -179,7 +179,12 @@ export function getProperties(
             "showPreviousMonth",
             "showWeekNumbers",
             "showArrow",
-            "openToDate"
+            "openToDate",
+            "monthPrefix",
+            "yearSelectLabel",
+            "monthSelectLabel",
+            "weekPrefix",
+            "navigateButtonPrefix"
         ]);
     }
     if (_values.dateFormat === "TIME" || _values.dateFormat === "DATETIME") {
@@ -187,11 +192,11 @@ export function getProperties(
     }
 
     if (!_values.showIcon) {
-        hidePropertiesIn(defaultProperties, _values, ["customIcon", "showIconInside", "toggleButtonCaption"]);
+        hidePropertiesIn(defaultProperties, _values, ["customIcon", "showIconInside", "calendarIconLabel"]);
     }
 
     if (!_values.showWeekNumbers) {
-        hidePropertyIn(defaultProperties, _values, "weekNumberPrefix");
+        hidePropertyIn(defaultProperties, _values, "weekPrefix");
     }
 
     return defaultProperties;

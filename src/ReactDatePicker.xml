@@ -350,61 +350,78 @@
             </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Accessibility">
-            <property key="required" type="expression" required="true" defaultValue="false">
-                <caption>Required?</caption>
-                <description></description>
-                <returnType type="Boolean" />
-            </property>
-            <property key="toggleButtonCaption" type="textTemplate" required="true">
-                <caption>Toggle button caption</caption>
-                <description></description>
-                <translations>
-                    <translation lang="en_US">Toggle calendar</translation>
-                </translations>
-            </property>
-            <property key="navigateButtonPrefix" type="textTemplate" required="true">
-                <caption>Navigate button prefix</caption>
-                <description></description>
-                <translations>
-                    <translation lang="en_US">Show</translation>
-                </translations>
-            </property>
-            <property key="chooseDayPrefix" type="textTemplate" required="true">
-                <caption>Choose day prefix</caption>
-                <description></description>
-                <translations>
-                    <translation lang="en_US">Select</translation>
-                </translations>
-            </property>
-
-            <property key="monthContainerPrefix" type="textTemplate" required="true">
-                <caption>Month container prefix</caption>
-                <description></description>
-                <translations>
-                    <translation lang="en_US">Month</translation>
-                </translations>
-            </property>
-            <property key="weekNumberPrefix" type="textTemplate" required="true">
-                <caption>Week number prefix</caption>
-                <description></description>
-                <translations>
-                    <translation lang="en_US">Week</translation>
-                </translations>
-            </property>
-            <property key="disabledPrefix" type="textTemplate" required="true">
-                <caption>Disabled prefix</caption>
-                <description></description>
-                <translations>
-                    <translation lang="en_US">Not selectable</translation>
-                </translations>
-            </property>
-            <property key="clearButtonTitle" type="textTemplate" required="true">
-                <caption>Clear button title</caption>
-                <description></description>
-                <translations>
-                    <translation lang="en_US">Clear</translation>
-                </translations>
-            </property>
+            <propertyGroup caption="General">
+                <property key="required" type="expression" required="true" defaultValue="false">
+                    <caption>Required?</caption>
+                    <description> </description>
+                    <returnType type="Boolean" />
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Labels">
+                <property key="calendarIconLabel" type="textTemplate" required="true">
+                    <caption>Calendar icon label</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Toggle calendar</translation>
+                    </translations>
+                </property>
+                <property key="navigateButtonPrefix" type="textTemplate" required="true">
+                    <caption>Navigate button prefix</caption>
+                    <description>Used for the header arrows as '{Show} {Year/Month}'</description>
+                    <translations>
+                        <translation lang="en_US">Show</translation>
+                    </translations>
+                </property>
+                <property key="selectPrefix" type="textTemplate" required="true">
+                    <caption>Select prefix</caption>
+                    <description>Used on focus of each day</description>
+                    <translations>
+                        <translation lang="en_US">Select</translation>
+                    </translations>
+                </property>
+                <property key="weekPrefix" type="textTemplate" required="true">
+                    <caption>Week prefix</caption>
+                    <description>Used for announcing the week number as '{Week} {WeekNumber}'</description>
+                    <translations>
+                        <translation lang="en_US">Week</translation>
+                    </translations>
+                </property>
+                <property key="monthPrefix" type="textTemplate" required="true">
+                    <caption>Month prefix</caption>
+                    <description>Used for announcing the month container</description>
+                    <translations>
+                        <translation lang="en_US">Month</translation>
+                    </translations>
+                </property>
+                <property key="monthSelectLabel" type="textTemplate" required="true">
+                    <caption>Month select label</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Select Month</translation>
+                    </translations>
+                </property>
+                <property key="yearSelectLabel" type="textTemplate" required="true">
+                    <caption>Year select label</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Select Year</translation>
+                    </translations>
+                </property>
+                <property key="disabledLabel" type="textTemplate" required="true">
+                    <caption>Disabled label</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Not selectable</translation>
+                    </translations>
+                </property>
+                <property key="clearButtonLabel" type="textTemplate" required="true">
+                    <caption>Clear button label</caption>
+                    <description></description>
+                    <translations>
+                        <translation lang="en_US">Clear</translation>
+                    </translations>
+                </property>
+            </propertyGroup>
         </propertyGroup>
         <propertyGroup caption="Common">
             <propertyGroup caption="Common">

@@ -88,8 +88,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     const intervalDays = useMemo(
         () =>
             props.intervalDaysDatasource?.items?.map(obj => ({
-                start: props.intervalDaysStart.get(obj).value as Date,
-                end: props.intervalDaysEnd.get(obj).value as Date
+                start: RemoveTime(props.intervalDaysStart.get(obj).value as Date),
+                end: RemoveTime(props.intervalDaysEnd.get(obj).value as Date)
             })),
         [props.intervalDaysDatasource, props.intervalDaysStart, props.intervalDaysEnd]
     );
@@ -117,7 +117,10 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     }, [open, props.showInline, props.minDate, props.maxDate, props.specificDaysAttribute]);
 
     const specificDays = useMemo(
-        () => props.specificDaysDatasource?.items?.map(obj => props.specificDaysAttribute.get(obj).value as Date),
+        () =>
+            props.specificDaysDatasource?.items?.map(obj =>
+                RemoveTime(props.specificDaysAttribute.get(obj).value as Date)
+            ),
         [props.specificDaysDatasource, props.specificDaysAttribute]
     );
 
@@ -130,7 +133,10 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
     }, [open, props.showInline]);
 
     const specificTimes = useMemo(
-        () => props.specificTimesDatasource?.items?.map(obj => props.specificTimeAttribute.get(obj).value as Date),
+        () =>
+            props.specificTimesDatasource?.items?.map(obj =>
+                RemoveTime(props.specificTimeAttribute.get(obj).value as Date)
+            ),
         [props.specificTimesDatasource, props.specificTimeAttribute]
     );
 
@@ -199,13 +205,13 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         } else if (
             specificDays &&
             props.specificDaysMode === "EXCLUDE" &&
-            specificDays.find(value => RemoveTime(value).getTime() === today.getTime())
+            specificDays.find(value => value.getTime() === today.getTime())
         ) {
             return false;
         } else if (
             intervalDays &&
             props.intervalDaysMode === "EXCLUDE" &&
-            intervalDays.find(value => RemoveTime(value.start) <= today && RemoveTime(value.end) >= today)
+            intervalDays.find(value => value.start <= today && value.end >= today)
         ) {
             return false;
         } else if (
@@ -224,10 +230,10 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         } else if (
             (specificDays &&
                 props.specificDaysMode === "INCLUDE" &&
-                specificDays.find(value => RemoveTime(value).getTime() === today.getTime())) ||
+                specificDays.find(value => value.getTime() === today.getTime())) ||
             (intervalDays &&
                 props.intervalDaysMode === "INCLUDE" &&
-                intervalDays.find(value => RemoveTime(value.start) <= today && RemoveTime(value.end) >= today))
+                intervalDays.find(value => value.start <= today && value.end >= today))
         ) {
             return true;
         } else if (
@@ -271,8 +277,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                         : props.startDateAttribute.readOnly || props.endDateAttribute.readOnly
                 }
                 icon={props.customIcon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
-                minDate={props.minDate?.value}
-                maxDate={props.maxDate?.value}
+                minDate={props.minDate?.value ? RemoveTime(props.minDate.value) : undefined}
+                maxDate={props.maxDate?.value ? RemoveTime(props.maxDate.value) : undefined}
                 minTime={props.minTime?.value}
                 maxTime={props.maxTime?.value}
                 specificDays={specificDays || []}
@@ -310,13 +316,15 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 dateFormat={dateFormat}
                 required={props.required.value === true}
                 invalid={invalid}
-                toggleButtonCaption={props.toggleButtonCaption.value as string}
+                calendarIconLabel={props.calendarIconLabel.value as string}
                 navigateButtonPrefix={props.navigateButtonPrefix.value as string}
-                chooseDayPrefix={props.chooseDayPrefix.value as string}
-                monthContainerPrefix={props.monthContainerPrefix.value as string}
-                weekNumberPrefix={props.weekNumberPrefix.value as string}
-                disabledPrefix={props.disabledPrefix.value as string}
-                clearButtonTitle={props.clearButtonTitle.value as string}
+                selectPrefix={props.selectPrefix.value as string}
+                weekPrefix={props.weekPrefix.value as string}
+                monthPrefix={props.monthPrefix.value as string}
+                monthSelectLabel={props.monthSelectLabel.value as string}
+                yearSelectLabel={props.yearSelectLabel.value as string}
+                disabledLabel={props.disabledLabel.value as string}
+                clearButtonLabel={props.clearButtonLabel.value as string}
             />
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}
