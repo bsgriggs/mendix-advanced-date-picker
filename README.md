@@ -3,9 +3,9 @@
 Mendix date picker with most of the customization available in the [React Date Picker](https://reactdatepicker.com/)
 library, full control of which dates/times are selectable, and input masking.
 
-| Single                                                                            | Multiple (Range)                                                                    |
+| Single                                                                            | Range                                                                    |
 | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| ![Demo](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Demo.png) | ![multi](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/multi.png) |
+| ![Demo](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Demo.png) | ![range](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/range.png) |
 
 _Single example is selecting Date and Time with a Min Date 2023/12/05, 2023/12/25 & 2023/12/29 disabled, and all
 Saturdays & Sundays disabled_
@@ -43,7 +43,7 @@ Planned Features:
 
 ## Basic Usage
 
-| Single                                                                                                      | Multiple (Range)                                                                                          |
+| Single                                                                                                      | Range                                                                                          |
 | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | ![generalDateSingle](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/generalDateSingle.png) | ![generalDateMulti](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/generalDateMulti.png) |
 
@@ -85,10 +85,9 @@ Time, Date and Time, and Custom the following additional fields to control the t
 **Time caption** - Text shown in the Time dropdown
 
 **Selection type** - Controls if the widget is meant to pick a single date or a range of dates.  
-| Single | Multiple (Range) |  
+| Single | Range |  
 | ------------- | ------------- |  
-| ![Demo](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Demo.png) |
-![multi](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/multi.png) |
+| ![Demo](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Demo.png) | ![range](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/range.png) |
 
 _Note: Multiple date mode only supports Date, Month, Quarter, and Year. Custom is only supported if the date format does
 not include a time character_
@@ -109,8 +108,7 @@ could use a non-persistent entity if the list of dates is based on a calculation
 selectable). The widget will automatically filter out specific days outside the Min and Max dates.  
 | Domain | Widget Properties |  
 | ------------- | ------------- |  
-| ![specificDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDaysDomain.png) |
-![specificDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDays.png) |
+| ![specificDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDaysDomain.png) | ![specificDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/specificDays.png) |
 
 **Interval Days** - Supply the widget with a list of ranges of dates. For Inclusive mode, the provided ranges are the
 only dates that can be selected. For Exclusive mode, the provided ranges cannot be selected.
@@ -121,8 +119,7 @@ entity for a non-standard interval (i.e. the second week of every month isn't se
 filter out interval days outside the Min and Max dates.  
 | Domain | Widget Properties |  
 | ------------- | ------------- |  
-| ![intervalDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDaysDomain.png) |
-![intervalDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDays.png) |
+| ![intervalDaysDomain](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDaysDomain.png) | ![intervalDays](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/intervalDays.png) |
 
 **Disable Sunday -> Disable Saturday** - These fields are boolean expressions. When true, the user is no longer able to
 pick that day of the week.
@@ -175,8 +172,7 @@ button on the side or inside the input. A custom icon can be selected.
 goes backward (true) or forward (false DEFAULT) from the current date/Open to Date.  
 | Show Previous Month 'False' | Show Previous Month 'True' |  
 | ------------- | ------------- |  
-| ![monthDisplayForward](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/monthDisplayForward.png) |
-![monthDisplayBackward](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/monthDisplayBackward.png) |
+| ![monthDisplayForward](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/monthDisplayForward.png) | ![monthDisplayBackward](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/monthDisplayBackward.png) |
 
 **Show inline** - When true, the calendar is rendered directly on the page instead of an input with a popup.  
 ![showInline](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/showInline.png)  
@@ -187,9 +183,7 @@ goes backward (true) or forward (false DEFAULT) from the current date/Open to Da
 **Alignment** - Determines which side the popup is aligned with on the text box.  
 | Left (Default) | Right | Auto |  
 | ------------- | ------------- | ------------- |  
-| ![alignRight](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/alignRight.png) |
-![alignLeft](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/alignLeft.png) |
-![alignAuto](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/alignAuto.png) |
+| ![alignRight](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/alignRight.png) | ![alignLeft](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/alignLeft.png) | ![alignAuto](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/alignAuto.png) |
 
 ### Events
 
@@ -200,6 +194,10 @@ is changed.
 picker received focus.  
 **On leave** - Runs when the date picker popup closes. For customization 'Show Inline', it will only run if the date
 picker received and then lost focus.
+
+### Accessibility
+
+![Accessibility](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Accessibility.png)  
 
 ### Common
 
