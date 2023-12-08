@@ -38,7 +38,7 @@ with your language code & translations in the following format.
     -   Display an arrow to the text box
     -   Align the popup to the start or end of the text box
 
-## Planned Features:
+## Planned Features
 
 -   highlight dates (data source with date attr, optional tooltip text, and optional class name expression)
 -   auto-magically detect if custom date format should use Month, Quarter, or Year pickers
