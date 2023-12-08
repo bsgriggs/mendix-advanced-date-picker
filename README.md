@@ -38,10 +38,9 @@ with your language code & translations in the following format.
     -   Display an arrow to the text box
     -   Align the popup to the start or end of the text box
 
-Planned Features:
+## Planned Features:
 
--   highlight dates (data source with attr and optional class name expression)
--   holidays (data source with date and string attr) (Shows tooltip)
+-   highlight dates (data source with date attr, optional tooltip text, and optional class name expression)
 -   auto-magically detect if custom date format should use Month, Quarter, or Year pickers
 
 ## Basic Usage
@@ -52,7 +51,7 @@ Planned Features:
 
 1. Add the widget inside a date view
 2. Configure the Date Format (Date, Month, Quarter, Year, Time, Date and Time, or Custom)
-3. Determine if you want the user to set a single date or multiple (aka range) dates
+3. Determine if you want the user to set a single date or range of dates
 4. Select the attribute you want the user to set
 5. Run the Project and customize
 
@@ -92,7 +91,7 @@ Time, Date and Time, and Custom the following additional fields to control the t
 | ------------- | ------------- |  
 | ![Demo](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Demo.png) | ![range](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/range.png) |
 
-_Note: Multiple date mode only supports Date, Month, Quarter, and Year. Custom is only supported if the date format does
+_Note: Range date mode only supports Date, Month, Quarter, and Year. Custom is only supported if the date format does
 not include a time character_
 
 ### Selectable Dates
@@ -191,7 +190,7 @@ goes backward (true) or forward (false DEFAULT) from the current date/Open to Da
 ### Events
 
 ![Events](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/events.png)  
-**On change** - Runs when the date attribute changes. For Selection Type "Multiple", it will only run when the end date
+**On change** - Runs when the date attribute changes. For Selection Type "Range", it will only run when the end date
 is changed.  
 **On enter** - Runs when the date picker popup opens. For customization 'Show Inline', it will only run if the date
 picker received focus.  
