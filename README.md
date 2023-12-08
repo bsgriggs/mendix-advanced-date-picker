@@ -10,8 +10,11 @@ library, full control of which dates/times are selectable, and input masking.
 _Single example is selecting Date and Time with a Min Date 2023/12/05, 2023/12/25 & 2023/12/29 disabled, and all
 Saturdays & Sundays disabled_
 
-Want to help with translations? Submit an issue on [GitHub](https://github.com/bsgriggs/mendix-react-date-picker/issues)
-with your language code & translations then they will be added as a default for that language.
+Want to help with translations & accessibility? Submit an issue on [GitHub](https://github.com/bsgriggs/mendix-react-date-picker/issues)
+with your language code & translations in the following format.  
+| Code | Time caption | Today button text | Calendar icon text | Navigate button prefix | Select prefix | Week prefix | Month prefix | Month select label | Year select label | Disabled label | Clear button label |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| en_US | Time | Today | Toggle calendar | Show | Select | Week | Month | Select Month | Select Year | Not selectable | Clear |
 
 ## Features
 
@@ -198,6 +201,12 @@ picker received and then lost focus.
 ### Accessibility
 
 ![Accessibility](https://github.com/bsgriggs/mendix-react-date-picker/blob/media/Accessibility.png)  
+
+Want to help with translations & accessibility? Submit an issue on [GitHub](https://github.com/bsgriggs/mendix-react-date-picker/issues)
+with your language code & translations in the following format.  
+| Code | Time caption | Today button text | Calendar icon text | Navigate button prefix | Select prefix | Week prefix | Month prefix | Month select label | Year select label | Disabled label | Clear button label |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| en_US | Time | Today | Toggle calendar | Show | Select | Week | Month | Select Month | Select Year | Not selectable | Clear |
 
 ### Common
 
