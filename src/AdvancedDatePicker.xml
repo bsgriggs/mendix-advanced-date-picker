@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="mendix.reactdatepicker.ReactDatePicker" pluginWidget="true" needsEntityContext="true"
+<widget id="mendix.advanceddatepicker.AdvancedDatePicker" pluginWidget="true"
+    needsEntityContext="true"
     offlineCapable="true"
     supportedPlatform="Web"
     xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
-    <name>React Date Picker</name>
+    <name>Advanced Date Picker</name>
     <description>Mendix date picker with most of the customization available in the React Date Picker library</description>
-    <helpUrl>https://github.com/bsgriggs/mendix-react-date-picker/blob/master/README.md</helpUrl>
+    <helpUrl>https://github.com/bsgriggs/mendix-advanced-date-picker/blob/master/README.md</helpUrl>
     <icon />
     <properties>
         <propertyGroup caption="General">

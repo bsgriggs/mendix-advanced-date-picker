@@ -1,5 +1,5 @@
 /**
- * This file was generated from ReactDatePicker.xml
+ * This file was generated from AdvancedDatePicker.xml
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
@@ -19,7 +19,7 @@ export type SpecificTimesModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 
 export type AlignmentEnum = "LEFT" | "RIGHT" | "AUTO";
 
-export interface ReactDatePickerContainerProps {
+export interface AdvancedDatePickerContainerProps {
     name: string;
     tabIndex?: number;
     id: string;
@@ -83,7 +83,7 @@ export interface ReactDatePickerContainerProps {
     clearButtonLabel: DynamicValue<string>;
 }
 
-export interface ReactDatePickerPreviewProps {
+export interface AdvancedDatePickerPreviewProps {
     readOnly: boolean;
     placeholder: string;
     dateFormat: DateFormatEnum;
@@ -122,7 +122,11 @@ export interface ReactDatePickerPreviewProps {
     customContent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     showIcon: boolean;
     showIconInside: boolean;
-    customIcon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
+    customIcon:
+        | { type: "glyph"; iconClass: string }
+        | { type: "image"; imageUrl: string; iconUrl: string }
+        | { type: "icon"; iconClass: string }
+        | undefined;
     showTodayButton: boolean;
     todayButtonText: string;
     monthsToDisplay: string;

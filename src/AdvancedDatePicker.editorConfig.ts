@@ -1,4 +1,4 @@
-import { ReactDatePickerPreviewProps } from "../typings/ReactDatePickerProps";
+import { AdvancedDatePickerPreviewProps } from "../typings/AdvancedDatePickerProps";
 import { hidePropertiesIn, hidePropertyIn } from "@mendix/pluggable-widgets-tools";
 export type Platform = "web" | "desktop";
 
@@ -100,7 +100,7 @@ export type PreviewProps =
     | DatasourceProps;
 
 export function getProperties(
-    _values: ReactDatePickerPreviewProps,
+    _values: AdvancedDatePickerPreviewProps,
     defaultProperties: Properties /* , target: Platform*/
 ): Properties {
     if (_values.specificDaysMode === "OFF") {
@@ -204,7 +204,7 @@ export function getProperties(
     return defaultProperties;
 }
 
-export function check(_values: ReactDatePickerPreviewProps): Problem[] {
+export function check(_values: AdvancedDatePickerPreviewProps): Problem[] {
     const errors: Problem[] = [];
     // Add errors to the above array to throw errors in Studio and Studio Pro.
     // if (_values.minTime !== "" && _values.maxTime === "") {
@@ -223,7 +223,7 @@ export function check(_values: ReactDatePickerPreviewProps): Problem[] {
     return errors;
 }
 
-export const getDisplayName = (_values: ReactDatePickerPreviewProps): string => {
+export const getDisplayName = (_values: AdvancedDatePickerPreviewProps): string => {
     function splitAssociationName(str: string): string {
         if (str.includes("/")) {
             // includes an association
@@ -264,7 +264,7 @@ export const getDisplayName = (_values: ReactDatePickerPreviewProps): string => 
     }
 };
 
-export const getPreview = (_values: ReactDatePickerPreviewProps, isDarkMode: boolean): PreviewProps => {
+export const getPreview = (_values: AdvancedDatePickerPreviewProps, isDarkMode: boolean): PreviewProps => {
     const mainContent: PreviewProps = {
         type: "RowLayout",
         columnSize: "grow",
@@ -320,6 +320,6 @@ export const getPreview = (_values: ReactDatePickerPreviewProps, isDarkMode: boo
     };
 };
 
-export function getCustomCaption(_values: ReactDatePickerPreviewProps): string {
-    return "React Date Picker: " + getDisplayName(_values);
+export function getCustomCaption(_values: AdvancedDatePickerPreviewProps): string {
+    return "Advanced Date Picker: " + getDisplayName(_values);
 }

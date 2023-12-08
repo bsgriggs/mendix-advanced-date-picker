@@ -11,7 +11,7 @@ import {
     SpecificTimesModeEnum,
     AlignmentEnum,
     DateFormatEnum
-} from "typings/ReactDatePickerProps";
+} from "typings/AdvancedDatePickerProps";
 import ContainsTime from "../utils/ContainsTime";
 import MaskedInput from "react-text-mask";
 import MapMask from "../utils/MapMask";
@@ -184,13 +184,13 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         } else if (
             !DayOfWeekSelectable(
                 today,
-                props.disableSaturday,
+                props.disableSunday,
                 props.disableMonday,
                 props.disableTuesday,
                 props.disableWednesday,
                 props.disableThursday,
                 props.disableFriday,
-                props.disableSunday
+                props.disableSaturday
             )
         ) {
             return false;
@@ -230,7 +230,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
     return (
         <div
             className={classNames(
-                "mendix-react-datepicker",
+                "mendix-advanced-datepicker",
                 { "icon-inside": props.showIconInside },
                 { "date-and-time": showTimeSelect && !timeOnly }
             )}
@@ -302,7 +302,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                         props.disableWednesday,
                         props.disableThursday,
                         props.disableFriday,
-                        props.disableSunday
+                        props.disableSaturday
                     )
                 }
                 open={props.open}

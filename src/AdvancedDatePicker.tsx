@@ -1,9 +1,9 @@
 import { ReactElement, createElement, Fragment, useMemo, useCallback, useState, useEffect } from "react";
 import DatePicker from "./components/DatePicker";
-import { ReactDatePickerContainerProps } from "../typings/ReactDatePickerProps";
+import { AdvancedDatePickerContainerProps } from "../typings/AdvancedDatePickerProps";
 import { attribute, literal, greaterThanOrEqual, lessThanOrEqual, and } from "mendix/filters/builders";
 import ContainsTime from "./utils/ContainsTime";
-import "./ui/ReactDatePicker.scss";
+import "./ui/AdvancedDatePicker.scss";
 import { Alert } from "./components/Alert";
 import * as locales from "date-fns/locale";
 import { registerLocale } from "react-datepicker";
@@ -14,7 +14,7 @@ interface Locale {
     [key: string]: object;
 }
 
-export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElement {
+export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): ReactElement {
     const [open, setOpen] = useState(false);
     const [placeholder, setPlaceholder] = useState("");
 

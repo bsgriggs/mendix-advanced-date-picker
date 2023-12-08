@@ -1,7 +1,7 @@
 import { createElement, ReactElement, forwardRef, useState, ChangeEvent, useCallback, useMemo, useEffect } from "react";
 import { ReactDatePickerCustomHeaderProps } from "react-datepicker";
 import MxFormatter from "../utils/MxFormatter";
-import { DateFormatEnum } from "typings/ReactDatePickerProps";
+import { DateFormatEnum } from "typings/AdvancedDatePickerProps";
 import MxIconButton from "./MxIconButton";
 
 type CustomHeaderProps = {

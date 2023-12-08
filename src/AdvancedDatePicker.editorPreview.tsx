@@ -1,9 +1,9 @@
 import { ReactElement, createElement } from "react";
 import DatePicker from "./components/DatePicker";
-import { ReactDatePickerPreviewProps } from "../typings/ReactDatePickerProps";
-import { getDisplayName } from "./ReactDatePicker.editorConfig";
+import { AdvancedDatePickerPreviewProps } from "../typings/AdvancedDatePickerProps";
+import { getDisplayName } from "./AdvancedDatePicker.editorConfig";
 
-export function preview(props: ReactDatePickerPreviewProps): ReactElement {
+export function preview(props: AdvancedDatePickerPreviewProps): ReactElement {
     return (
         <DatePicker
             {...props}
@@ -52,5 +52,5 @@ export function preview(props: ReactDatePickerPreviewProps): ReactElement {
 }
 
 export function getPreviewCss(): string {
-    return require("./ui/ReactDatePicker.scss");
+    return require("./ui/AdvancedDatePicker.scss");
 }
