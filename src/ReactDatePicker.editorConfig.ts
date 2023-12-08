@@ -184,7 +184,9 @@ export function getProperties(
             "yearSelectLabel",
             "monthSelectLabel",
             "weekPrefix",
-            "navigateButtonPrefix"
+            "navigateButtonPrefix",
+            "selectPrefix",
+            "disabledLabel"
         ]);
     }
     if (_values.dateFormat === "TIME" || _values.dateFormat === "DATETIME") {
@@ -205,19 +207,19 @@ export function getProperties(
 export function check(_values: ReactDatePickerPreviewProps): Problem[] {
     const errors: Problem[] = [];
     // Add errors to the above array to throw errors in Studio and Studio Pro.
-    if (_values.minTime !== "" && _values.maxTime === "") {
-        errors.push({
-            property: `maxTime`,
-            message: `If Min Time is set, Max Time is required`,
-            url: "https://github.com/bsgriggs/mendix-react-date-picker"
-        });
-    } else if (_values.minTime === "" && _values.maxTime !== "") {
-        errors.push({
-            property: `minTime`,
-            message: `If Max Time is set, Min Time is required`,
-            url: "https://github.com/bsgriggs/mendix-react-date-picker"
-        });
-    }
+    // if (_values.minTime !== "" && _values.maxTime === "") {
+    //     errors.push({
+    //         property: `maxTime`,
+    //         message: `If Min Time is set, Max Time is required`,
+    //         url: "https://github.com/bsgriggs/mendix-react-date-picker"
+    //     });
+    // } else if (_values.minTime === "" && _values.maxTime !== "") {
+    //     errors.push({
+    //         property: `minTime`,
+    //         message: `If Max Time is set, Min Time is required`,
+    //         url: "https://github.com/bsgriggs/mendix-react-date-picker"
+    //     });
+    // }
     return errors;
 }
 

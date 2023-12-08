@@ -8,7 +8,6 @@ import { Alert } from "./components/Alert";
 import * as locales from "date-fns/locale";
 import { registerLocale } from "react-datepicker";
 import MxFormatter from "./utils/MxFormatter";
-import DayOfWeekSelectable from "./utils/DayOfWeekSelectable";
 import RemoveTime from "./utils/RemoveTime";
 
 interface Locale {
@@ -184,7 +183,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
             props.dateAttribute?.validation !== undefined ||
             props.startDateAttribute?.validation !== undefined ||
             props.endDateAttribute?.validation !== undefined ||
-            (props.selectionType === "MULTI" &&
+            (props.selectionType === "RANGE" &&
                 props.dateFormat === "CUSTOM" &&
                 ContainsTime(props.customDateFormat.value as string)),
         [
@@ -196,69 +195,13 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
         ]
     );
 
-    const todayIsSelectable = useMemo(() => {
-        const today = RemoveTime(new Date());
-        if (props.minDate?.value && today < RemoveTime(props.minDate.value as Date)) {
-            return false;
-        } else if (props.maxDate?.value && today > RemoveTime(props.maxDate.value as Date)) {
-            return false;
-        } else if (
-            specificDays &&
-            props.specificDaysMode === "EXCLUDE" &&
-            specificDays.find(value => value.getTime() === today.getTime())
-        ) {
-            return false;
-        } else if (
-            intervalDays &&
-            props.intervalDaysMode === "EXCLUDE" &&
-            intervalDays.find(value => value.start <= today && value.end >= today)
-        ) {
-            return false;
-        } else if (
-            !DayOfWeekSelectable(
-                today,
-                props.disableSunday.value === true,
-                props.disableMonday.value === true,
-                props.disableTuesday.value === true,
-                props.disableWednesday.value === true,
-                props.disableThursday.value === true,
-                props.disableFriday.value === true,
-                props.disableSunday.value === true
-            )
-        ) {
-            return false;
-        } else if (
-            (specificDays &&
-                props.specificDaysMode === "INCLUDE" &&
-                specificDays.find(value => value.getTime() === today.getTime())) ||
-            (intervalDays &&
-                props.intervalDaysMode === "INCLUDE" &&
-                intervalDays.find(value => value.start <= today && value.end >= today))
-        ) {
-            return true;
-        } else if (
-            (specificDays && props.specificDaysMode === "INCLUDE") ||
-            (intervalDays && props.intervalDaysMode === "INCLUDE")
-        ) {
-            return false;
-        } else {
-            return true;
+    const maxTime = useMemo(() => {
+        if (!props.maxTime) {
+            return undefined;
         }
-    }, [
-        props.minDate,
-        props.maxDate,
-        specificDays,
-        intervalDays,
-        props.specificDaysMode,
-        props.intervalDaysMode,
-        props.disableSunday,
-        props.disableMonday,
-        props.disableTuesday,
-        props.disableWednesday,
-        props.disableThursday,
-        props.disableFriday,
-        props.disableSunday
-    ]);
+        const now = new Date();
+        return props.maxTime.value || new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+    }, [props.maxTime]);
 
     return (
         <Fragment>
@@ -279,8 +222,8 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 icon={props.customIcon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
                 minDate={props.minDate?.value ? RemoveTime(props.minDate.value) : undefined}
                 maxDate={props.maxDate?.value ? RemoveTime(props.maxDate.value) : undefined}
-                minTime={props.minTime?.value}
-                maxTime={props.maxTime?.value}
+                minTime={props.minTime ? props.minTime.value || RemoveTime(new Date()) : undefined}
+                maxTime={maxTime}
                 specificDays={specificDays || []}
                 specificTimes={specificTimes || []}
                 intervalDays={intervalDays || []}
@@ -293,17 +236,10 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
                 disableSaturday={props.disableSaturday.value === true}
                 open={open}
                 setOpen={setOpen}
-                showTodayButton={
-                    props.dateFormat !== "MONTH" &&
-                    props.dateFormat !== "YEAR" &&
-                    props.dateFormat !== "TIME" &&
-                    props.dateFormat !== "QUARTER" &&
-                    props.showTodayButton &&
-                    todayIsSelectable
-                }
+                showTodayButton={props.showTodayButton}
                 todayButtonText={props.todayButtonText?.value || ""}
                 customChildren={props.useCustomContent && props.customContent}
-                clearable={props.clearable.value === true || props.selectionType === "MULTI"}
+                clearable={props.clearable.value === true || props.selectionType === "RANGE"}
                 monthsToDisplay={monthsToDisplay}
                 showWeekNumbers={props.showWeekNumbers}
                 showPreviousMonths={props.showPreviousMonth.value === true}
@@ -329,7 +265,7 @@ export function ReactDatePicker(props: ReactDatePickerContainerProps): ReactElem
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}
             {props.endDateAttribute?.validation && <Alert>{props.endDateAttribute.validation}</Alert>}
-            {props.selectionType === "MULTI" &&
+            {props.selectionType === "RANGE" &&
                 props.dateFormat === "CUSTOM" &&
                 ContainsTime(props.customDateFormat.value as string) && (
                     <Alert>Multi selection is not supported if the widget can select time</Alert>

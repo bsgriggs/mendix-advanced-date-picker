@@ -9,7 +9,7 @@ import { Big } from "big.js";
 
 export type DateFormatEnum = "DATE" | "MONTH" | "QUARTER" | "YEAR" | "TIME" | "DATETIME" | "CUSTOM";
 
-export type SelectionTypeEnum = "SINGLE" | "MULTI";
+export type SelectionTypeEnum = "SINGLE" | "RANGE";
 
 export type SpecificDaysModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 

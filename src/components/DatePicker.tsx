@@ -20,6 +20,7 @@ import ExtractTimeFormat from "../utils/ExtractTimeFormat";
 import DayOfWeekSelectable from "../utils/DayOfWeekSelectable";
 import RemoveTime from "../utils/RemoveTime";
 import CustomHeader from "./CustomHeader";
+import ContainsDate from "src/utils/ContainsDate";
 
 interface DatePickerProps {
     // System
@@ -157,12 +158,81 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         }
     }, [props.date, props.startDate, props.endDate, ref.current, props.tabIndex]);
 
+    const timeOnly = useMemo(
+        () => props.dateFormatEnum === "TIME" || (props.dateFormatEnum === "CUSTOM" && !ContainsDate(props.dateFormat)),
+        [props.dateFormat, props.dateFormatEnum]
+    );
+
+    const todayIsSelectable = useMemo(() => {
+        const today = RemoveTime(new Date());
+        if (props.minDate && today < RemoveTime(props.minDate as Date)) {
+            return false;
+        } else if (props.maxDate && today > RemoveTime(props.maxDate as Date)) {
+            return false;
+        } else if (
+            props.specificDays &&
+            props.specificDaysMode === "EXCLUDE" &&
+            props.specificDays.find(value => value.getTime() === today.getTime())
+        ) {
+            return false;
+        } else if (
+            props.intervalDays &&
+            props.intervalDaysMode === "EXCLUDE" &&
+            props.intervalDays.find(value => value.start <= today && value.end >= today)
+        ) {
+            return false;
+        } else if (
+            !DayOfWeekSelectable(
+                today,
+                props.disableSunday,
+                props.disableMonday,
+                props.disableTuesday,
+                props.disableWednesday,
+                props.disableThursday,
+                props.disableFriday,
+                props.disableSunday
+            )
+        ) {
+            return false;
+        } else if (
+            (props.specificDays &&
+                props.specificDaysMode === "INCLUDE" &&
+                props.specificDays.find(value => value.getTime() === today.getTime())) ||
+            (props.intervalDays &&
+                props.intervalDaysMode === "INCLUDE" &&
+                props.intervalDays.find(value => value.start <= today && value.end >= today))
+        ) {
+            return true;
+        } else if (
+            (props.specificDays && props.specificDaysMode === "INCLUDE") ||
+            (props.intervalDays && props.intervalDaysMode === "INCLUDE")
+        ) {
+            return false;
+        } else {
+            return true;
+        }
+    }, [
+        props.minDate,
+        props.maxDate,
+        props.specificDays,
+        props.intervalDays,
+        props.specificDaysMode,
+        props.intervalDaysMode,
+        props.disableSunday,
+        props.disableMonday,
+        props.disableTuesday,
+        props.disableWednesday,
+        props.disableThursday,
+        props.disableFriday,
+        props.disableSunday
+    ]);
+
     return (
         <div
             className={classNames(
                 "mendix-react-datepicker",
                 { "icon-inside": props.showIconInside },
-                { "date-and-time": showTimeSelect && props.dateFormatEnum !== "TIME" }
+                { "date-and-time": showTimeSelect && !timeOnly }
             )}
             ref={ref}
             onKeyDown={event => {
@@ -190,7 +260,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 dropdownMode="select"
                 locale={props.language}
                 onChange={handleOnChange}
-                placeholderText={props.placeholder}
+                placeholderText={!props.readonly ? props.placeholder : ""}
                 popperPlacement={
                     props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : "auto"
                 }
@@ -206,7 +276,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     }
                 ]}
                 readOnly={props.readonly}
-                selectsRange={props.selectionType === "MULTI"}
+                selectsRange={props.selectionType === "RANGE"}
                 startDate={props.startDate ? props.startDate : undefined}
                 endDate={props.endDate ? props.endDate : undefined}
                 selected={props.date}
@@ -267,7 +337,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 showQuarterYearPicker={props.dateFormatEnum === "QUARTER"}
                 showYearPicker={props.dateFormatEnum === "YEAR"}
                 showTimeSelect={showTimeSelect}
-                showTimeSelectOnly={props.dateFormatEnum === "TIME"}
+                showTimeSelectOnly={timeOnly}
                 timeIntervals={props.timeInterval}
                 timeCaption={props.timeCaption}
                 openToDate={props.openToDate}
@@ -278,7 +348,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             mask={MapMask(props.dateFormat)}
                             keepCharPositions
                             guide
-                            placeholder={props.placeholder}
+                            placeholder={!props.readonly ? props.placeholder : ""}
                         />
                     ) : undefined
                 }
@@ -293,16 +363,22 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 disabledDayAriaLabelPrefix={props.disabledLabel}
                 clearButtonTitle={props.clearButtonLabel}
             >
-                {props.showTodayButton && (
-                    <button
-                        className="btn btn-default btn-block today-button"
-                        aria-label={props.selectPrefix + " " + props.todayButtonText}
-                        tabIndex={props.tabIndex}
-                        onClick={() => handleOnChange(RemoveTime(new Date()))}
-                    >
-                        {props.todayButtonText}
-                    </button>
-                )}
+                {props.dateFormat !== "MONTH" &&
+                    props.dateFormat !== "YEAR" &&
+                    props.dateFormat !== "TIME" &&
+                    props.dateFormat !== "QUARTER" &&
+                    props.showTodayButton &&
+                    todayIsSelectable &&
+                    !timeOnly && (
+                        <button
+                            className="btn btn-default btn-block today-button"
+                            aria-label={props.selectPrefix + " " + props.todayButtonText}
+                            tabIndex={props.tabIndex}
+                            onClick={() => handleOnChange(RemoveTime(new Date()))}
+                        >
+                            {props.todayButtonText}
+                        </button>
+                    )}
                 {props.customChildren}
             </DatePicker>
             {!props.showInline && props.showIcon && (

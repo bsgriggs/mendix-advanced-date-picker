@@ -57,7 +57,7 @@
                     <description></description>
                     <enumerationValues>
                         <enumerationValue key="SINGLE">Single</enumerationValue>
-                        <enumerationValue key="MULTI">Muliple</enumerationValue>
+                        <enumerationValue key="RANGE">Range</enumerationValue>
                     </enumerationValues>
                 </property>
                 <property key="dateAttribute" type="attribute" required="true" onChange="onChange">
