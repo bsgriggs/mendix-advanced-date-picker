@@ -22,8 +22,8 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
     // @ts-ignore
     const { languageTag = "en-US", patterns, firstDayOfWeek } = window.mx.session.getConfig().locale;
     /* eslint-enable */
-    const [language] = useMemo(() => {
-        const language = languageTag.split("-");
+    const language = useMemo(() => {
+        const [language] = (languageTag as string).split("-");
         const languageTagWithoutDash = languageTag.replace("-", "");
         if (languageTagWithoutDash in locales) {
             registerLocale(language, (locales as Locale)[languageTagWithoutDash]);

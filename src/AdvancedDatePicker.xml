@@ -45,6 +45,7 @@
                     <description></description>
                     <translations>
                         <translation lang="en_US">Time</translation>
+                        <translation lang="nl_NL">Tijd</translation>
                     </translations>
                 </property>
                 <property key="customDateFormat" type="textTemplate" required="true">
@@ -286,6 +287,7 @@
                     <description></description>
                     <translations>
                         <translation lang="en_US">Today</translation>
+                        <translation lang="nl_NL">Vandaag</translation>
                     </translations>
                 </property>
             </propertyGroup>
@@ -364,6 +366,7 @@
                     <description></description>
                     <translations>
                         <translation lang="en_US">Toggle calendar</translation>
+                        <translation lang="nl_NL">Wijzig</translation>
                     </translations>
                 </property>
                 <property key="navigateButtonPrefix" type="textTemplate" required="true">
@@ -371,6 +374,7 @@
                     <description>Used for the header arrows as '{Show} {Year/Month}'</description>
                     <translations>
                         <translation lang="en_US">Show</translation>
+                        <translation lang="nl_NL">Toon</translation>
                     </translations>
                 </property>
                 <property key="selectPrefix" type="textTemplate" required="true">
@@ -378,6 +382,7 @@
                     <description>Used on focus of each day</description>
                     <translations>
                         <translation lang="en_US">Select</translation>
+                        <translation lang="nl_NL">Selecteer</translation>
                     </translations>
                 </property>
                 <property key="weekPrefix" type="textTemplate" required="true">
@@ -385,6 +390,7 @@
                     <description>Used for announcing the week number as '{Week} {WeekNumber}'</description>
                     <translations>
                         <translation lang="en_US">Week</translation>
+                        <translation lang="nl_NL">Week</translation>
                     </translations>
                 </property>
                 <property key="monthPrefix" type="textTemplate" required="true">
@@ -392,6 +398,7 @@
                     <description>Used for announcing the month container</description>
                     <translations>
                         <translation lang="en_US">Month</translation>
+                        <translation lang="nl_NL">Maand</translation>
                     </translations>
                 </property>
                 <property key="monthSelectLabel" type="textTemplate" required="true">
@@ -399,6 +406,7 @@
                     <description></description>
                     <translations>
                         <translation lang="en_US">Select Month</translation>
+                        <translation lang="nl_NL">Selecteer maand</translation>
                     </translations>
                 </property>
                 <property key="yearSelectLabel" type="textTemplate" required="true">
@@ -406,6 +414,7 @@
                     <description></description>
                     <translations>
                         <translation lang="en_US">Select Year</translation>
+                        <translation lang="nl_NL">Selecteer jaar</translation>
                     </translations>
                 </property>
                 <property key="disabledLabel" type="textTemplate" required="true">
@@ -413,6 +422,7 @@
                     <description></description>
                     <translations>
                         <translation lang="en_US">Not selectable</translation>
+                        <translation lang="nl_NL">Niet mogelijk</translation>
                     </translations>
                 </property>
                 <property key="clearButtonLabel" type="textTemplate" required="true">
@@ -420,6 +430,7 @@
                     <description></description>
                     <translations>
                         <translation lang="en_US">Clear</translation>
+                        <translation lang="nl_NL">Annuleren</translation>
                     </translations>
                 </property>
             </propertyGroup>
