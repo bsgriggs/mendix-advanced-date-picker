@@ -84,7 +84,7 @@ const CustomHeader = forwardRef<HTMLButtonElement, CustomHeaderProps>((props, re
             });
         }
         return months;
-    }, [dates, monthSelect, props.minDate, props.maxDate, showMonthSelect, yearSelect]);
+    }, [dates, monthSelect, props.minDate, props.maxDate, showMonthSelect, yearSelect, props.monthDate]);
 
     const yearOptions = useMemo((): ReactElement[] => {
         const years: ReactElement[] = [];
@@ -127,7 +127,7 @@ const CustomHeader = forwardRef<HTMLButtonElement, CustomHeaderProps>((props, re
             }
         }
         return years;
-    }, [props.minDate, props.maxDate, yearSelect, showYearSelect]);
+    }, [props.minDate, props.maxDate, yearSelect, showYearSelect, props.monthDate]);
 
     return (
         <div
