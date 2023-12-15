@@ -59,6 +59,8 @@ with your language code & translations in the following format.
 
 The following section will break down each property and how they affect the widget's appearance/logic.
 
+*Tip: Do you have many customized settings you want to use throughout the application? Use [Building Blocks](https://docs.mendix.com/refguide/building-block/) in Studio Pro to save and re-use your customized settings*
+
 ### General
 
 ![generalCustomDateFormat](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/generalCustomDateFormat.png)  
