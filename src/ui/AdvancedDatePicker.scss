@@ -6,6 +6,10 @@ $disabled-background: #c8c8c8;
     .react-datepicker-wrapper {
         flex-grow: 1;
     }
+    .react-datepicker__day--disabled {
+        // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
+        background-color: $disabled-background !important;
+    }
     .react-datepicker__day--selected,
     .react-datepicker__day--range-start,
     .react-datepicker__day--range-end,
@@ -15,10 +19,6 @@ $disabled-background: #c8c8c8;
         color: #fff !important;
     }
 
-    .react-datepicker__day--disabled {
-        // Less than ideal, but the Mendix Data Grid 2 Date Filter's styling is overriding this
-        background-color: $disabled-background !important;
-    }
     .react-datepicker__day--disabled.react-datepicker__day--outside-month {
         color: white;
     }
