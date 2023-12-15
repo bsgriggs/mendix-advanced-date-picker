@@ -132,10 +132,7 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
     }, [open, props.showInline]);
 
     const specificTimes = useMemo(
-        () =>
-            props.specificTimesDatasource?.items?.map(obj =>
-                RemoveTime(props.specificTimeAttribute.get(obj).value as Date)
-            ),
+        () => props.specificTimesDatasource?.items?.map(obj => props.specificTimeAttribute.get(obj).value as Date),
         [props.specificTimesDatasource, props.specificTimeAttribute]
     );
 

@@ -46,6 +46,27 @@
                     <translations>
                         <translation lang="en_US">Time</translation>
                         <translation lang="nl_NL">Tijd</translation>
+                        <translation lang="nl_BE">Tijd</translation>
+                        <translation lang="es_AR">Tiempo</translation>
+                        <translation lang="es_BO">Tiempo</translation>
+                        <translation lang="es_CL">Tiempo</translation>
+                        <translation lang="es_CO">Tiempo</translation>
+                        <translation lang="es_CR">Tiempo</translation>
+                        <translation lang="es_DO">Tiempo</translation>
+                        <translation lang="es_EC">Tiempo</translation>
+                        <translation lang="es_SV">Tiempo</translation>
+                        <translation lang="es_GT">Tiempo</translation>
+                        <translation lang="es_HN">Tiempo</translation>
+                        <translation lang="es_MX">Tiempo</translation>
+                        <translation lang="es_NI">Tiempo</translation>
+                        <translation lang="es_PA">Tiempo</translation>
+                        <translation lang="es_PY">Tiempo</translation>
+                        <translation lang="es_PE">Tiempo</translation>
+                        <translation lang="es_PR">Tiempo</translation>
+                        <translation lang="es_ES">Tiempo</translation>
+                        <translation lang="es_US">Tiempo</translation>
+                        <translation lang="es_UY">Tiempo</translation>
+                        <translation lang="es_VE">Tiempo</translation>
                     </translations>
                 </property>
                 <property key="customDateFormat" type="textTemplate" required="true">
@@ -288,6 +309,27 @@
                     <translations>
                         <translation lang="en_US">Today</translation>
                         <translation lang="nl_NL">Vandaag</translation>
+                        <translation lang="nl_BE">Vandaag</translation>
+                        <translation lang="es_AR">Hoy</translation>
+                        <translation lang="es_BO">Hoy</translation>
+                        <translation lang="es_CL">Hoy</translation>
+                        <translation lang="es_CO">Hoy</translation>
+                        <translation lang="es_CR">Hoy</translation>
+                        <translation lang="es_DO">Hoy</translation>
+                        <translation lang="es_EC">Hoy</translation>
+                        <translation lang="es_SV">Hoy</translation>
+                        <translation lang="es_GT">Hoy</translation>
+                        <translation lang="es_HN">Hoy</translation>
+                        <translation lang="es_MX">Hoy</translation>
+                        <translation lang="es_NI">Hoy</translation>
+                        <translation lang="es_PA">Hoy</translation>
+                        <translation lang="es_PY">Hoy</translation>
+                        <translation lang="es_PE">Hoy</translation>
+                        <translation lang="es_PR">Hoy</translation>
+                        <translation lang="es_ES">Hoy</translation>
+                        <translation lang="es_US">Hoy</translation>
+                        <translation lang="es_UY">Hoy</translation>
+                        <translation lang="es_VE">Hoy</translation>
                     </translations>
                 </property>
             </propertyGroup>
@@ -367,6 +409,27 @@
                     <translations>
                         <translation lang="en_US">Toggle calendar</translation>
                         <translation lang="nl_NL">Wijzig</translation>
+                        <translation lang="nl_BE">Wijzig</translation>
+                        <translation lang="es_AR">Cambia Calendario</translation>
+                        <translation lang="es_BO">Cambia Calendario</translation>
+                        <translation lang="es_CL">Cambia Calendario</translation>
+                        <translation lang="es_CO">Cambia Calendario</translation>
+                        <translation lang="es_CR">Cambia Calendario</translation>
+                        <translation lang="es_DO">Cambia Calendario</translation>
+                        <translation lang="es_EC">Cambia Calendario</translation>
+                        <translation lang="es_SV">Cambia Calendario</translation>
+                        <translation lang="es_GT">Cambia Calendario</translation>
+                        <translation lang="es_HN">Cambia Calendario</translation>
+                        <translation lang="es_MX">Cambia Calendario</translation>
+                        <translation lang="es_NI">Cambia Calendario</translation>
+                        <translation lang="es_PA">Cambia Calendario</translation>
+                        <translation lang="es_PY">Cambia Calendario</translation>
+                        <translation lang="es_PE">Cambia Calendario</translation>
+                        <translation lang="es_PR">Cambia Calendario</translation>
+                        <translation lang="es_ES">Cambia Calendario</translation>
+                        <translation lang="es_US">Cambia Calendario</translation>
+                        <translation lang="es_UY">Cambia Calendario</translation>
+                        <translation lang="es_VE">Cambia Calendario</translation>
                     </translations>
                 </property>
                 <property key="navigateButtonPrefix" type="textTemplate" required="true">
@@ -375,6 +438,27 @@
                     <translations>
                         <translation lang="en_US">Show</translation>
                         <translation lang="nl_NL">Toon</translation>
+                        <translation lang="nl_BE">Toon</translation>
+                        <translation lang="es_AR">Mostrar</translation>
+                        <translation lang="es_BO">Mostrar</translation>
+                        <translation lang="es_CL">Mostrar</translation>
+                        <translation lang="es_CO">Mostrar</translation>
+                        <translation lang="es_CR">Mostrar</translation>
+                        <translation lang="es_DO">Mostrar</translation>
+                        <translation lang="es_EC">Mostrar</translation>
+                        <translation lang="es_SV">Mostrar</translation>
+                        <translation lang="es_GT">Mostrar</translation>
+                        <translation lang="es_HN">Mostrar</translation>
+                        <translation lang="es_MX">Mostrar</translation>
+                        <translation lang="es_NI">Mostrar</translation>
+                        <translation lang="es_PA">Mostrar</translation>
+                        <translation lang="es_PY">Mostrar</translation>
+                        <translation lang="es_PE">Mostrar</translation>
+                        <translation lang="es_PR">Mostrar</translation>
+                        <translation lang="es_ES">Mostrar</translation>
+                        <translation lang="es_US">Mostrar</translation>
+                        <translation lang="es_UY">Mostrar</translation>
+                        <translation lang="es_VE">Mostrar</translation>
                     </translations>
                 </property>
                 <property key="selectPrefix" type="textTemplate" required="true">
@@ -383,6 +467,27 @@
                     <translations>
                         <translation lang="en_US">Select</translation>
                         <translation lang="nl_NL">Selecteer</translation>
+                        <translation lang="nl_BE">Selecteer</translation>
+                        <translation lang="es_AR">Seleccionar</translation>
+                        <translation lang="es_BO">Seleccionar</translation>
+                        <translation lang="es_CL">Seleccionar</translation>
+                        <translation lang="es_CO">Seleccionar</translation>
+                        <translation lang="es_CR">Seleccionar</translation>
+                        <translation lang="es_DO">Seleccionar</translation>
+                        <translation lang="es_EC">Seleccionar</translation>
+                        <translation lang="es_SV">Seleccionar</translation>
+                        <translation lang="es_GT">Seleccionar</translation>
+                        <translation lang="es_HN">Seleccionar</translation>
+                        <translation lang="es_MX">Seleccionar</translation>
+                        <translation lang="es_NI">Seleccionar</translation>
+                        <translation lang="es_PA">Seleccionar</translation>
+                        <translation lang="es_PY">Seleccionar</translation>
+                        <translation lang="es_PE">Seleccionar</translation>
+                        <translation lang="es_PR">Seleccionar</translation>
+                        <translation lang="es_ES">Seleccionar</translation>
+                        <translation lang="es_US">Seleccionar</translation>
+                        <translation lang="es_UY">Seleccionar</translation>
+                        <translation lang="es_VE">Seleccionar</translation>
                     </translations>
                 </property>
                 <property key="weekPrefix" type="textTemplate" required="true">
@@ -391,6 +496,27 @@
                     <translations>
                         <translation lang="en_US">Week</translation>
                         <translation lang="nl_NL">Week</translation>
+                        <translation lang="nl_BE">Week</translation>
+                        <translation lang="es_AR">Semana</translation>
+                        <translation lang="es_BO">Semana</translation>
+                        <translation lang="es_CL">Semana</translation>
+                        <translation lang="es_CO">Semana</translation>
+                        <translation lang="es_CR">Semana</translation>
+                        <translation lang="es_DO">Semana</translation>
+                        <translation lang="es_EC">Semana</translation>
+                        <translation lang="es_SV">Semana</translation>
+                        <translation lang="es_GT">Semana</translation>
+                        <translation lang="es_HN">Semana</translation>
+                        <translation lang="es_MX">Semana</translation>
+                        <translation lang="es_NI">Semana</translation>
+                        <translation lang="es_PA">Semana</translation>
+                        <translation lang="es_PY">Semana</translation>
+                        <translation lang="es_PE">Semana</translation>
+                        <translation lang="es_PR">Semana</translation>
+                        <translation lang="es_ES">Semana</translation>
+                        <translation lang="es_US">Semana</translation>
+                        <translation lang="es_UY">Semana</translation>
+                        <translation lang="es_VE">Semana</translation>
                     </translations>
                 </property>
                 <property key="monthPrefix" type="textTemplate" required="true">
@@ -399,6 +525,27 @@
                     <translations>
                         <translation lang="en_US">Month</translation>
                         <translation lang="nl_NL">Maand</translation>
+                        <translation lang="nl_BE">Maand</translation>
+                        <translation lang="es_AR">Mes</translation>
+                        <translation lang="es_BO">Mes</translation>
+                        <translation lang="es_CL">Mes</translation>
+                        <translation lang="es_CO">Mes</translation>
+                        <translation lang="es_CR">Mes</translation>
+                        <translation lang="es_DO">Mes</translation>
+                        <translation lang="es_EC">Mes</translation>
+                        <translation lang="es_SV">Mes</translation>
+                        <translation lang="es_GT">Mes</translation>
+                        <translation lang="es_HN">Mes</translation>
+                        <translation lang="es_MX">Mes</translation>
+                        <translation lang="es_NI">Mes</translation>
+                        <translation lang="es_PA">Mes</translation>
+                        <translation lang="es_PY">Mes</translation>
+                        <translation lang="es_PE">Mes</translation>
+                        <translation lang="es_PR">Mes</translation>
+                        <translation lang="es_ES">Mes</translation>
+                        <translation lang="es_US">Mes</translation>
+                        <translation lang="es_UY">Mes</translation>
+                        <translation lang="es_VE">Mes</translation>
                     </translations>
                 </property>
                 <property key="monthSelectLabel" type="textTemplate" required="true">
@@ -407,6 +554,27 @@
                     <translations>
                         <translation lang="en_US">Select Month</translation>
                         <translation lang="nl_NL">Selecteer maand</translation>
+                        <translation lang="nl_BE">Selecteer maand</translation>
+                        <translation lang="es_AR">Seleccionar Mes</translation>
+                        <translation lang="es_BO">Seleccionar Mes</translation>
+                        <translation lang="es_CL">Seleccionar Mes</translation>
+                        <translation lang="es_CO">Seleccionar Mes</translation>
+                        <translation lang="es_CR">Seleccionar Mes</translation>
+                        <translation lang="es_DO">Seleccionar Mes</translation>
+                        <translation lang="es_EC">Seleccionar Mes</translation>
+                        <translation lang="es_SV">Seleccionar Mes</translation>
+                        <translation lang="es_GT">Seleccionar Mes</translation>
+                        <translation lang="es_HN">Seleccionar Mes</translation>
+                        <translation lang="es_MX">Seleccionar Mes</translation>
+                        <translation lang="es_NI">Seleccionar Mes</translation>
+                        <translation lang="es_PA">Seleccionar Mes</translation>
+                        <translation lang="es_PY">Seleccionar Mes</translation>
+                        <translation lang="es_PE">Seleccionar Mes</translation>
+                        <translation lang="es_PR">Seleccionar Mes</translation>
+                        <translation lang="es_ES">Seleccionar Mes</translation>
+                        <translation lang="es_US">Seleccionar Mes</translation>
+                        <translation lang="es_UY">Seleccionar Mes</translation>
+                        <translation lang="es_VE">Seleccionar Mes</translation>
                     </translations>
                 </property>
                 <property key="yearSelectLabel" type="textTemplate" required="true">
@@ -415,6 +583,27 @@
                     <translations>
                         <translation lang="en_US">Select Year</translation>
                         <translation lang="nl_NL">Selecteer jaar</translation>
+                        <translation lang="nl_BE">Selecteer jaar</translation>
+                        <translation lang="es_AR">Seleccionar Año</translation>
+                        <translation lang="es_BO">Seleccionar Año</translation>
+                        <translation lang="es_CL">Seleccionar Año</translation>
+                        <translation lang="es_CO">Seleccionar Año</translation>
+                        <translation lang="es_CR">Seleccionar Año</translation>
+                        <translation lang="es_DO">Seleccionar Año</translation>
+                        <translation lang="es_EC">Seleccionar Año</translation>
+                        <translation lang="es_SV">Seleccionar Año</translation>
+                        <translation lang="es_GT">Seleccionar Año</translation>
+                        <translation lang="es_HN">Seleccionar Año</translation>
+                        <translation lang="es_MX">Seleccionar Año</translation>
+                        <translation lang="es_NI">Seleccionar Año</translation>
+                        <translation lang="es_PA">Seleccionar Año</translation>
+                        <translation lang="es_PY">Seleccionar Año</translation>
+                        <translation lang="es_PE">Seleccionar Año</translation>
+                        <translation lang="es_PR">Seleccionar Año</translation>
+                        <translation lang="es_ES">Seleccionar Año</translation>
+                        <translation lang="es_US">Seleccionar Año</translation>
+                        <translation lang="es_UY">Seleccionar Año</translation>
+                        <translation lang="es_VE">Seleccionar Año</translation>
                     </translations>
                 </property>
                 <property key="disabledLabel" type="textTemplate" required="true">
@@ -423,6 +612,27 @@
                     <translations>
                         <translation lang="en_US">Not selectable</translation>
                         <translation lang="nl_NL">Niet mogelijk</translation>
+                        <translation lang="nl_BE">Niet mogelijk</translation>
+                        <translation lang="es_AR">No Elegible</translation>
+                        <translation lang="es_BO">No Elegible</translation>
+                        <translation lang="es_CL">No Elegible</translation>
+                        <translation lang="es_CO">No Elegible</translation>
+                        <translation lang="es_CR">No Elegible</translation>
+                        <translation lang="es_DO">No Elegible</translation>
+                        <translation lang="es_EC">No Elegible</translation>
+                        <translation lang="es_SV">No Elegible</translation>
+                        <translation lang="es_GT">No Elegible</translation>
+                        <translation lang="es_HN">No Elegible</translation>
+                        <translation lang="es_MX">No Elegible</translation>
+                        <translation lang="es_NI">No Elegible</translation>
+                        <translation lang="es_PA">No Elegible</translation>
+                        <translation lang="es_PY">No Elegible</translation>
+                        <translation lang="es_PE">No Elegible</translation>
+                        <translation lang="es_PR">No Elegible</translation>
+                        <translation lang="es_ES">No Elegible</translation>
+                        <translation lang="es_US">No Elegible</translation>
+                        <translation lang="es_UY">No Elegible</translation>
+                        <translation lang="es_VE">No Elegible</translation>
                     </translations>
                 </property>
                 <property key="clearButtonLabel" type="textTemplate" required="true">
@@ -431,6 +641,27 @@
                     <translations>
                         <translation lang="en_US">Clear</translation>
                         <translation lang="nl_NL">Annuleren</translation>
+                        <translation lang="nl_BE">Annuleren</translation>
+                        <translation lang="es_AR">Limpiar</translation>
+                        <translation lang="es_BO">Limpiar</translation>
+                        <translation lang="es_CL">Limpiar</translation>
+                        <translation lang="es_CO">Limpiar</translation>
+                        <translation lang="es_CR">Limpiar</translation>
+                        <translation lang="es_DO">Limpiar</translation>
+                        <translation lang="es_EC">Limpiar</translation>
+                        <translation lang="es_SV">Limpiar</translation>
+                        <translation lang="es_GT">Limpiar</translation>
+                        <translation lang="es_HN">Limpiar</translation>
+                        <translation lang="es_MX">Limpiar</translation>
+                        <translation lang="es_NI">Limpiar</translation>
+                        <translation lang="es_PA">Limpiar</translation>
+                        <translation lang="es_PY">Limpiar</translation>
+                        <translation lang="es_PE">Limpiar</translation>
+                        <translation lang="es_PR">Limpiar</translation>
+                        <translation lang="es_ES">Limpiar</translation>
+                        <translation lang="es_US">Limpiar</translation>
+                        <translation lang="es_UY">Limpiar</translation>
+                        <translation lang="es_VE">Limpiar</translation>
                     </translations>
                 </property>
             </propertyGroup>

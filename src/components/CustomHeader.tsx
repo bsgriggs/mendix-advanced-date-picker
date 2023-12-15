@@ -70,10 +70,10 @@ const CustomHeader = forwardRef<HTMLButtonElement, CustomHeaderProps>((props, re
         const months: ReactElement[] = [];
         if (showMonthSelect) {
             dates.months.forEach((value: string, index: number) => {
-                const compareDate = new Date(yearSelect, index + 1, 0); // Last day of iterator month
                 if (
-                    (props.minDate === undefined || props.minDate <= compareDate) &&
-                    (props.maxDate === undefined || props.maxDate >= compareDate)
+                    props.monthDate.getMonth() === index || // Always show the current display month
+                    ((props.minDate === undefined || props.minDate <= new Date(yearSelect, index + 1, 0)) &&
+                        (props.maxDate === undefined || props.maxDate >= new Date(yearSelect, index, 1)))
                 ) {
                     months.push(
                         <option key={index} value={index} selected={monthSelect === index}>
@@ -89,13 +89,39 @@ const CustomHeader = forwardRef<HTMLButtonElement, CustomHeaderProps>((props, re
     const yearOptions = useMemo((): ReactElement[] => {
         const years: ReactElement[] = [];
         if (showYearSelect) {
+            const currentDisplayYear = props.monthDate.getFullYear();
             const minYear = props.minDate?.getFullYear() || 1900;
             const maxYear = props.maxDate?.getFullYear() || 2100;
+
+            if (currentDisplayYear < minYear) {
+                // add current display year if it is outside the range
+                years.push(
+                    <option
+                        key={currentDisplayYear}
+                        value={currentDisplayYear}
+                        selected={yearSelect === currentDisplayYear}
+                    >
+                        {currentDisplayYear}
+                    </option>
+                );
+            }
 
             for (let iYear: number = minYear; iYear <= maxYear; iYear++) {
                 years.push(
                     <option key={iYear} value={iYear} selected={yearSelect === iYear}>
                         {iYear}
+                    </option>
+                );
+            }
+            if (currentDisplayYear > maxYear) {
+                // add current display year if it is outside the range
+                years.push(
+                    <option
+                        key={currentDisplayYear}
+                        value={currentDisplayYear}
+                        selected={yearSelect === currentDisplayYear}
+                    >
+                        {currentDisplayYear}
                     </option>
                 );
             }
