@@ -1,7 +1,7 @@
 const MapMask = (dateFormat: string): Array<RegExp | string> => {
     const newMask: Array<RegExp | string> = [];
     dateFormat.split("").forEach(value => {
-        if (value === "d" || value === "y" || value === "h" || value === "m" || value === "s") {
+        if (value === "d" || value === "y" || value === "h" || value === "H" || value === "m" || value === "s") {
             newMask.push(/\d/);
         } else if (value === "M") {
             const numberOfMonthDigits = dateFormat.match(/M/g);
