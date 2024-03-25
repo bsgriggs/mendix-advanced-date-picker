@@ -376,19 +376,19 @@
         </propertyGroup>
         <propertyGroup caption="Events">
             <propertyGroup caption="On change">
-                <property key="onChange" type="action">
+                <property key="onChange" type="action" required="false">
                     <caption>On change</caption>
                     <description></description>
                 </property>
             </propertyGroup>
             <propertyGroup caption="On enter">
-                <property key="onEnter" type="action">
+                <property key="onEnter" type="action" required="false">
                     <caption>On enter</caption>
                     <description></description>
                 </property>
             </propertyGroup>
             <propertyGroup caption="On leave">
-                <property key="onLeave" type="action">
+                <property key="onLeave" type="action" required="false">
                     <caption>On leave</caption>
                     <description></description>
                 </property>
