@@ -281,7 +281,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 endDate={props.endDate ? props.endDate : undefined}
                 selected={props.date}
                 showPopperArrow={props.showArrow}
-                strictParsing
+                strictParsing={props.maskInput}
                 useWeekdaysShort={false}
                 minDate={props.minDate}
                 maxDate={props.maxDate}
@@ -374,6 +374,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                             className="btn btn-default btn-block today-button"
                             aria-label={props.selectPrefix + " " + props.todayButtonText}
                             tabIndex={props.tabIndex}
+                            disabled={props.readonly}
                             onClick={() => handleOnChange(RemoveTime(new Date()))}
                         >
                             {props.todayButtonText}
@@ -386,6 +387,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     title={props.calendarIconLabel}
                     aria-label={props.calendarIconLabel}
                     aria-controls={props.id}
+                    disabled={props.readonly}
                     aria-haspopup
                     ref={toggleBtnRef}
                     className="btn btn-default btn-calendar spacing-outer-left"
