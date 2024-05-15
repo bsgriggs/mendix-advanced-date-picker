@@ -281,7 +281,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 endDate={props.endDate ? props.endDate : undefined}
                 selected={props.date}
                 showPopperArrow={props.showArrow}
-                strictParsing={props.maskInput}
+                // strictParsing={props.maskInput}
                 useWeekdaysShort={false}
                 minDate={props.minDate}
                 maxDate={props.maxDate}

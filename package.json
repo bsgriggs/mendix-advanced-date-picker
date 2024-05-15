@@ -1,7 +1,7 @@
 {
     "name": "advanceddatepicker",
     "widgetName": "AdvancedDatePicker",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Mendix date picker with most of the customization available in the React Date Picker library",
     "copyright": "Benjamin Griggs",
     "author": "Benjamin Griggs",
