@@ -123,11 +123,12 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             if (props.selectionType === "SINGLE") {
                 if (
                     (props.dateFormatEnum !== "DATETIME" && props.dateFormatEnum !== "CUSTOM") ||
+                    (props.dateFormatEnum === "CUSTOM" && !showTimeSelect) || // custom but no time component
                     (showTimeSelect &&
                         date !== null &&
                         props.date !== null &&
                         !Array.isArray(date) &&
-                        !TimeMatch(date, props.date))
+                        !TimeMatch(date, props.date)) // Time selected
                 ) {
                     // if not date & time picker, close the popper
                     // if date & time picker, close the popper when the time is selected

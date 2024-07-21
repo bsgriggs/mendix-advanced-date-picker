@@ -24,9 +24,7 @@ const MxIconButton = forwardRef<HTMLButtonElement, IconProps>(
             aria-disabled={props.disabled}
             className={classNames("mx-icon-button", { disabled: props.disabled })}
         >
-            {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
-        @ts-ignore */}
-            <Icon icon={props.icon} />
+            {Icon({ icon: props.icon, altText: props.title }) as ReactElement}
         </button>
     )
 );
