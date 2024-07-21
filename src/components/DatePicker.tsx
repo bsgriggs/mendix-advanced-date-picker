@@ -135,7 +135,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                     props.setOpen(false);
                     focusInput();
                 }
-            } else if (props.startDate !== null) {
+            } else if (props.startDate !== null && props.endDate === null) {
                 // if multi, close the popper when the end date is selected
                 props.setOpen(false);
                 focusInput();
