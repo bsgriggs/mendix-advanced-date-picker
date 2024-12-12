@@ -32,7 +32,7 @@ export function IMask(props: IMaskProps): ReactElement {
         if (document.activeElement !== inputRef.current) {
             setStrValue(MxFormatter(props.date, props.format));
         }
-    }, [props.date]);
+    }, [props.date, props.format]);
 
     // https://imask.js.org/guide.html#masked-date
     return (

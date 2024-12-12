@@ -20,6 +20,7 @@ import RemoveTime from "../utils/RemoveTime";
 import CustomHeader from "./CustomHeader";
 import ContainsDate from "src/utils/ContainsDate";
 import { IMask } from "./IMask";
+import { Day } from "date-fns";
 
 interface DatePickerProps {
     // System
@@ -320,7 +321,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         showMonthYearPicker: props.dateFormatEnum === "MONTH",
         showQuarterYearPicker: props.dateFormatEnum === "QUARTER",
         showYearPicker: props.dateFormatEnum === "YEAR",
-        showTimeSelect: showTimeSelect,
+        showTimeSelect,
         showTimeSelectOnly: timeOnly,
         timeIntervals: props.timeInterval,
         timeCaption: props.timeCaption,
