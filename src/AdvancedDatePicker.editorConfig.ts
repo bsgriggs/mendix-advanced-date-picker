@@ -119,7 +119,7 @@ export function getProperties(
     if (_values.selectionType === "SINGLE") {
         hidePropertiesIn(defaultProperties, _values, ["startDateAttribute", "endDateAttribute"]);
     } else {
-        hidePropertiesIn(defaultProperties, _values, ["dateAttribute", "clearable"]);
+        hidePropertiesIn(defaultProperties, _values, ["dateAttribute", "clearable", "maskInput"]);
     }
 
     if (!_values.useCustomContent) {

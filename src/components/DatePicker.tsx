@@ -1,5 +1,5 @@
 import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo, useEffect } from "react";
-import DatePicker from "react-datepicker"; // , { DatePickerProps as RDPProps }
+import DatePicker, { DatePickerProps as RDPProps } from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
 import "react-datepicker/dist/react-datepicker.css";
@@ -226,6 +226,128 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         props.disableSunday
     ]);
 
+    const todayButton = props.dateFormatEnum !== "MONTH" &&
+        props.dateFormatEnum !== "YEAR" &&
+        props.dateFormatEnum !== "TIME" &&
+        props.dateFormatEnum !== "QUARTER" &&
+        props.showTodayButton &&
+        todayIsSelectable &&
+        !timeOnly && (
+            <button
+                className="btn btn-default btn-block today-button"
+                aria-label={props.selectPrefix + " " + props.todayButtonText}
+                tabIndex={props.tabIndex}
+                disabled={props.readonly}
+                onClick={() => handleOnChange(RemoveTime(new Date()))}
+            >
+                {props.todayButtonText}
+            </button>
+        );
+
+    const commonProps: RDPProps = {
+        id: props.id,
+        tabIndex: props.tabIndex,
+        allowSameDay: false,
+        ariaLabelledBy: `${props.id}-label`,
+        autoFocus: false,
+        calendarStartDay: props.firstDayOfWeek as Day,
+        className: "form-control",
+        dateFormat: props.dateFormat,
+        timeFormat: showTimeSelect ? ExtractTimeFormat(props.dateFormat) : undefined,
+        disabled: props.readonly,
+        disabledKeyboardNavigation: false,
+        dropdownMode: "select",
+        locale: props.language,
+        placeholderText: !props.readonly ? props.placeholder : "",
+        popperPlacement:
+            props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : undefined,
+        popperProps: {
+            strategy: "fixed"
+        },
+        readOnly: props.readonly,
+        showPopperArrow: props.showArrow,
+        // strictParsing={props.maskInput}
+        useWeekdaysShort: false,
+        minDate: props.minDate,
+        maxDate: props.maxDate,
+        minTime: props.minTime,
+        maxTime: props.maxTime,
+        includeDates: props.specificDaysMode === "INCLUDE" ? props.specificDays : undefined,
+        excludeDates: props.specificDaysMode === "EXCLUDE" ? props.specificDays : undefined,
+        includeTimes: props.specificTimesMode === "INCLUDE" ? props.specificTimes : undefined,
+        excludeTimes: props.specificTimesMode === "EXCLUDE" ? props.specificTimes : undefined,
+        includeDateIntervals: props.intervalDaysMode === "INCLUDE" ? props.intervalDays : undefined,
+        excludeDateIntervals: props.intervalDaysMode === "EXCLUDE" ? props.intervalDays : undefined,
+        filterDate: date =>
+            DayOfWeekSelectable(
+                date,
+                props.disableSunday,
+                props.disableMonday,
+                props.disableTuesday,
+                props.disableWednesday,
+                props.disableThursday,
+                props.disableFriday,
+                props.disableSaturday
+            ),
+        open: props.open,
+        onInputClick: () => props.setOpen(true),
+        onClickOutside: event => {
+            if (toggleBtnRef.current?.contains(event.target as Node)) {
+                return;
+            }
+            props.setOpen(false);
+        },
+        onKeyDown: event => {
+            switch (event.key) {
+                case " ":
+                    if (!props.open) {
+                        event.preventDefault();
+                        props.setOpen(true);
+                        focusFirstBtn();
+                    }
+                    break;
+                case "Escape":
+                    props.setOpen(false);
+                    focusInput();
+                    break;
+            }
+        },
+        isClearable: props.clearable,
+        monthsShown: props.monthsToDisplay,
+        showWeekNumbers: props.showWeekNumbers,
+        showPreviousMonths: props.showPreviousMonths,
+        inline: props.showInline,
+        showMonthYearPicker: props.dateFormatEnum === "MONTH",
+        showQuarterYearPicker: props.dateFormatEnum === "QUARTER",
+        showYearPicker: props.dateFormatEnum === "YEAR",
+        showTimeSelect: showTimeSelect,
+        showTimeSelectOnly: timeOnly,
+        timeIntervals: props.timeInterval,
+        timeCaption: props.timeCaption,
+        openToDate: props.openToDate,
+        autoComplete: "off",
+        customInput: props.maskInput ? (
+            <IMask
+                id={props.id + "_mask"}
+                tabIndex={props.tabIndex}
+                date={props.date}
+                setDate={(newDate: Date | null) => props.setDate(newDate)}
+                format={props.dateFormat}
+                readOnly={props.readonly}
+                placeholder={!props.readonly ? props.placeholder : ""}
+            />
+        ) : undefined,
+
+        renderCustomHeader: params => <CustomHeader {...props} ref={firstBtnRef} {...params} focusInput={focusInput} />,
+        ariaInvalid: props.invalid ? "true" : "false",
+        ariaRequired: props.required ? "true" : "false",
+        chooseDayAriaLabelPrefix: props.selectPrefix,
+        monthAriaLabelPrefix: props.monthPrefix,
+        weekAriaLabelPrefix: props.weekPrefix,
+        disabledDayAriaLabelPrefix: props.disabledLabel,
+        clearButtonTitle: props.clearButtonLabel
+    };
+
     return (
         <div
             className={classNames(
@@ -244,138 +366,25 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 }
             }}
         >
-            <DatePicker
-                id={props.id}
-                tabIndex={props.tabIndex}
-                allowSameDay={false}
-                ariaLabelledBy={`${props.id}-label`}
-                autoFocus={false}
-                calendarStartDay={props.firstDayOfWeek as Day}
-                className="form-control"
-                dateFormat={props.dateFormat}
-                timeFormat={showTimeSelect ? ExtractTimeFormat(props.dateFormat) : undefined}
-                disabled={props.readonly}
-                disabledKeyboardNavigation={false}
-                dropdownMode="select"
-                locale={props.language}
-                onChange={handleOnChange}
-                placeholderText={!props.readonly ? props.placeholder : ""}
-                popperPlacement={
-                    props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : undefined
-                }
-                popperProps={{
-                    strategy: "fixed"
-                }}
-                readOnly={props.readonly}
-                // selectsRange={props.selectionType === "RANGE"}
-                // startDate={props.selectionType === "RANGE" ? props.startDate : undefined}
-                // endDate={props.selectionType === "RANGE" ? props.endDate : undefined}
-                selected={props.selectionType === "SINGLE" ? props.date : undefined}
-                showPopperArrow={props.showArrow}
-                // strictParsing={props.maskInput}
-                useWeekdaysShort={false}
-                minDate={props.minDate}
-                maxDate={props.maxDate}
-                minTime={props.minTime}
-                maxTime={props.maxTime}
-                includeDates={props.specificDaysMode === "INCLUDE" ? props.specificDays : undefined}
-                excludeDates={props.specificDaysMode === "EXCLUDE" ? props.specificDays : undefined}
-                includeTimes={props.specificTimesMode === "INCLUDE" ? props.specificTimes : undefined}
-                excludeTimes={props.specificTimesMode === "EXCLUDE" ? props.specificTimes : undefined}
-                includeDateIntervals={props.intervalDaysMode === "INCLUDE" ? props.intervalDays : undefined}
-                excludeDateIntervals={props.intervalDaysMode === "EXCLUDE" ? props.intervalDays : undefined}
-                filterDate={date =>
-                    DayOfWeekSelectable(
-                        date,
-                        props.disableSunday,
-                        props.disableMonday,
-                        props.disableTuesday,
-                        props.disableWednesday,
-                        props.disableThursday,
-                        props.disableFriday,
-                        props.disableSaturday
-                    )
-                }
-                open={props.open}
-                onInputClick={() => props.setOpen(true)}
-                onClickOutside={event => {
-                    if (toggleBtnRef.current?.contains(event.target as Node)) {
-                        return;
-                    }
-                    props.setOpen(false);
-                }}
-                onKeyDown={event => {
-                    switch (event.key) {
-                        case " ":
-                            if (!props.open) {
-                                event.preventDefault();
-                                props.setOpen(true);
-                                focusFirstBtn();
-                            }
-                            break;
-                        case "Escape":
-                            props.setOpen(false);
-                            focusInput();
-                            break;
-                    }
-                }}
-                isClearable={props.clearable}
-                monthsShown={props.monthsToDisplay}
-                showWeekNumbers={props.showWeekNumbers}
-                showPreviousMonths={props.showPreviousMonths}
-                inline={props.showInline}
-                showMonthYearPicker={props.dateFormatEnum === "MONTH"}
-                showQuarterYearPicker={props.dateFormatEnum === "QUARTER"}
-                showYearPicker={props.dateFormatEnum === "YEAR"}
-                showTimeSelect={showTimeSelect}
-                showTimeSelectOnly={timeOnly}
-                timeIntervals={props.timeInterval}
-                timeCaption={props.timeCaption}
-                openToDate={props.openToDate}
-                autoComplete="off"
-                customInput={
-                    props.maskInput ? (
-                        <IMask
-                            id={props.id + "_mask"}
-                            tabIndex={props.tabIndex}
-                            date={props.date}
-                            setDate={(newDate: Date | null) => props.setDate(newDate)}
-                            format={props.dateFormat}
-                            readOnly={props.readonly}
-                            placeholder={!props.readonly ? props.placeholder : ""}
-                        />
-                    ) : undefined
-                }
-                renderCustomHeader={params => (
-                    <CustomHeader {...props} ref={firstBtnRef} {...params} focusInput={focusInput} />
-                )}
-                ariaInvalid={props.invalid ? "true" : "false"}
-                ariaRequired={props.required ? "true" : "false"}
-                chooseDayAriaLabelPrefix={props.selectPrefix}
-                monthAriaLabelPrefix={props.monthPrefix}
-                weekAriaLabelPrefix={props.weekPrefix}
-                disabledDayAriaLabelPrefix={props.disabledLabel}
-                clearButtonTitle={props.clearButtonLabel}
-            >
-                {props.dateFormatEnum !== "MONTH" &&
-                    props.dateFormatEnum !== "YEAR" &&
-                    props.dateFormatEnum !== "TIME" &&
-                    props.dateFormatEnum !== "QUARTER" &&
-                    props.showTodayButton &&
-                    todayIsSelectable &&
-                    !timeOnly && (
-                        <button
-                            className="btn btn-default btn-block today-button"
-                            aria-label={props.selectPrefix + " " + props.todayButtonText}
-                            tabIndex={props.tabIndex}
-                            disabled={props.readonly}
-                            onClick={() => handleOnChange(RemoveTime(new Date()))}
-                        >
-                            {props.todayButtonText}
-                        </button>
-                    )}
-                {props.customChildren}
-            </DatePicker>
+            {/* really dumb format because library's typing doesn't allow overloading props */}
+            {props.selectionType === "SINGLE" ? (
+                <DatePicker {...commonProps} selected={props.date} onChange={handleOnChange}>
+                    {todayButton}
+                    {props.customChildren}
+                </DatePicker>
+            ) : (
+                <DatePicker
+                    {...commonProps}
+                    selectsRange
+                    startDate={props.startDate || undefined}
+                    endDate={props.endDate || undefined}
+                    onChange={handleOnChange}
+                >
+                    {todayButton}
+                    {props.customChildren}
+                </DatePicker>
+            )}
+
             {!props.showInline && props.showIcon && (
                 <button
                     title={props.calendarIconLabel}

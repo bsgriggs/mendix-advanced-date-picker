@@ -59,7 +59,6 @@ export function IMask(props: IMaskProps): ReactElement {
                     if (inputRef.current) {
                         const newDate = MxParser(strValue, props.format);
                         const newDateStr = MxFormatter(newDate, props.format);
-                        console.info("onBlur", { strValue, format: props.format, newDate, newDateStr });
                         inputRef.current.value = newDateStr;
                         props.setDate(newDate);
                         setStrValue(newDateStr);
