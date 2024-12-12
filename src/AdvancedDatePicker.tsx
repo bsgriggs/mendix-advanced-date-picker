@@ -59,7 +59,9 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
             setPlaceholder(
                 props.placeholder && props.placeholder.value?.trim() !== ""
                     ? (props.placeholder.value as string)
-                    : dateFormat.replace(/a/, "AM/PM")
+                    : dateFormat !== undefined
+                    ? dateFormat.replace(/a/, "AM/PM")
+                    : ""
             ),
         [props.placeholder, dateFormat]
     );

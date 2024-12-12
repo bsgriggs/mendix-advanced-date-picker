@@ -1,5 +1,5 @@
 import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo, useEffect } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker from "react-datepicker"; // , { DatePickerProps as RDPProps }
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,14 +13,13 @@ import {
     DateFormatEnum
 } from "typings/AdvancedDatePickerProps";
 import ContainsTime from "../utils/ContainsTime";
-import MaskedInput from "react-text-mask";
-import MapMask from "../utils/MapMask";
 import TimeMatch from "../utils/TimeMatch";
 import ExtractTimeFormat from "../utils/ExtractTimeFormat";
 import DayOfWeekSelectable from "../utils/DayOfWeekSelectable";
 import RemoveTime from "../utils/RemoveTime";
 import CustomHeader from "./CustomHeader";
 import ContainsDate from "src/utils/ContainsDate";
+import { IMask } from "./IMask";
 
 interface DatePickerProps {
     // System
@@ -96,7 +95,6 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
     const ref = useRef<HTMLDivElement>(null);
     const toggleBtnRef = useRef<HTMLButtonElement>(null);
     const firstBtnRef = useRef<HTMLButtonElement>(null);
-
     const showTimeSelect = useMemo(
         () =>
             props.dateFormatEnum === "TIME" ||
@@ -252,7 +250,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 allowSameDay={false}
                 ariaLabelledBy={`${props.id}-label`}
                 autoFocus={false}
-                calendarStartDay={props.firstDayOfWeek}
+                calendarStartDay={props.firstDayOfWeek as Day}
                 className="form-control"
                 dateFormat={props.dateFormat}
                 timeFormat={showTimeSelect ? ExtractTimeFormat(props.dateFormat) : undefined}
@@ -263,24 +261,16 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 onChange={handleOnChange}
                 placeholderText={!props.readonly ? props.placeholder : ""}
                 popperPlacement={
-                    props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : "auto"
+                    props.alignment === "LEFT" ? "bottom-start" : props.alignment === "RIGHT" ? "bottom-end" : undefined
                 }
                 popperProps={{
                     strategy: "fixed"
                 }}
-                popperModifiers={[
-                    {
-                        name: "offset",
-                        options: {
-                            offset: [0, 0]
-                        }
-                    }
-                ]}
                 readOnly={props.readonly}
-                selectsRange={props.selectionType === "RANGE"}
-                startDate={props.startDate ? props.startDate : undefined}
-                endDate={props.endDate ? props.endDate : undefined}
-                selected={props.date}
+                // selectsRange={props.selectionType === "RANGE"}
+                // startDate={props.selectionType === "RANGE" ? props.startDate : undefined}
+                // endDate={props.selectionType === "RANGE" ? props.endDate : undefined}
+                selected={props.selectionType === "SINGLE" ? props.date : undefined}
                 showPopperArrow={props.showArrow}
                 // strictParsing={props.maskInput}
                 useWeekdaysShort={false}
@@ -345,10 +335,13 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 autoComplete="off"
                 customInput={
                     props.maskInput ? (
-                        <MaskedInput
-                            mask={MapMask(props.dateFormat)}
-                            keepCharPositions
-                            guide
+                        <IMask
+                            id={props.id + "_mask"}
+                            tabIndex={props.tabIndex}
+                            date={props.date}
+                            setDate={(newDate: Date | null) => props.setDate(newDate)}
+                            format={props.dateFormat}
+                            readOnly={props.readonly}
                             placeholder={!props.readonly ? props.placeholder : ""}
                         />
                     ) : undefined

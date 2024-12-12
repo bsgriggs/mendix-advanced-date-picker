@@ -115,4 +115,8 @@ $disabled-background: #c8c8c8;
             min-width: 347px;
         }
     }
+    .iMask,
+    .iMask input {
+        width: 100%;
+    }
 }
