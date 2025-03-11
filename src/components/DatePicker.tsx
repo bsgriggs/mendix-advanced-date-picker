@@ -2,7 +2,6 @@ import { ReactElement, createElement, useCallback, useRef, ReactNode, useMemo, u
 import DatePicker, { DatePickerProps as RDPProps } from "react-datepicker";
 import { WebIcon } from "mendix";
 import { Icon } from "mendix/components/web/Icon";
-import "react-datepicker/dist/react-datepicker.css";
 import classNames from "classnames";
 import {
     IntervalDaysModeEnum,
@@ -11,7 +10,7 @@ import {
     SpecificTimesModeEnum,
     AlignmentEnum,
     DateFormatEnum
-} from "typings/AdvancedDatePickerProps";
+} from "../../typings/AdvancedDatePickerProps";
 import ContainsTime from "../utils/ContainsTime";
 import TimeMatch from "../utils/TimeMatch";
 import ExtractTimeFormat from "../utils/ExtractTimeFormat";

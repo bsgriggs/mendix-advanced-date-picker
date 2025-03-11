@@ -211,13 +211,13 @@ export function check(_values: AdvancedDatePickerPreviewProps): Problem[] {
     //     errors.push({
     //         property: `maxTime`,
     //         message: `If Min Time is set, Max Time is required`,
-    //         url: "https://github.com/bsgriggs/mendix-react-date-picker"
+    //         url: "https://github.com/bsgriggs/mendix-advanced-date-picker/blob/master/README.md"
     //     });
     // } else if (_values.minTime === "" && _values.maxTime !== "") {
     //     errors.push({
     //         property: `minTime`,
     //         message: `If Max Time is set, Min Time is required`,
-    //         url: "https://github.com/bsgriggs/mendix-react-date-picker"
+    //         url: "https://github.com/bsgriggs/mendix-advanced-date-picker/blob/master/README.md"
     //     });
     // }
     return errors;

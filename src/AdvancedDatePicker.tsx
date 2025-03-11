@@ -117,13 +117,16 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, props.showInline, props.minDate, props.maxDate, props.specificDaysAttribute]);
 
-    const specificDays = useMemo(
-        () =>
-            props.specificDaysDatasource?.items?.map(obj =>
-                RemoveTime(props.specificDaysAttribute.get(obj).value as Date)
-            ),
-        [props.specificDaysDatasource, props.specificDaysAttribute]
-    );
+    const specificDays = useMemo(() => {
+        const newSpecificDays: Date[] = [];
+        props.specificDaysDatasource?.items?.forEach(obj => {
+            const value = props.specificDaysAttribute.get(obj).value;
+            if (value !== undefined && value !== null) {
+                newSpecificDays.push(RemoveTime(value as Date));
+            }
+        });
+        return newSpecificDays;
+    }, [props.specificDaysDatasource, props.specificDaysAttribute]);
 
     // Ensure the list of specific times is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
@@ -133,10 +136,16 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, props.showInline]);
 
-    const specificTimes = useMemo(
-        () => props.specificTimesDatasource?.items?.map(obj => props.specificTimeAttribute.get(obj).value as Date),
-        [props.specificTimesDatasource, props.specificTimeAttribute]
-    );
+    const specificTimes = useMemo(() => {
+        const newSpecificTimes: Date[] = [];
+        props.specificTimesDatasource?.items?.forEach(obj => {
+            const value = props.specificTimeAttribute.get(obj).value;
+            if (value !== undefined && value !== null) {
+                newSpecificTimes.push(value as Date);
+            }
+        });
+        return newSpecificTimes;
+    }, [props.specificTimesDatasource, props.specificTimeAttribute]);
 
     // Focus and blur events
     useEffect(
