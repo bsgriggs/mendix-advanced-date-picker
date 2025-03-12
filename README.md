@@ -159,14 +159,17 @@ empty the date via the textbox.
 **Open to date** - Date expression. Controls which date is focused when the popper opens. Can be used to control what is
 being displayed while the popper is open (i.e. with Use Custom Content enabled, you could have buttons that move the
 date picker +/- 1 year.)  
+**Use custom content** - When enabled, a new container will appear in Studio Pro to put any content inside. Most useful
+in combination with Open to Date to create controls that change the month being displayed.  
+![customContent](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/customContent.png)  
 **Mask input** - Applies and input mask based on the Date Format. When enabled, the user does not have to enter slashes,
 spaces, colons, or dashes. It **ONLY** works with date formats that always display the same number of characters as the
 format itself (i.e. yyyy MMM dd works but yyyy MMMM dd does not work because there is no way to enter 'May'). It also
 does not work with the Quarter picker because the format is yyyy QQQ but displays as yyyy QQ.  
 ![mask](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/mask.png)  
-**Use custom content** - When enabled, a new container will appear in Studio Pro to put any content inside. Most useful
-in combination with Open to Date to create controls that change the month being displayed.  
-![customContent](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/customContent.png)  
+**Mask error text** - Text shown if the user tries to type a character that does not match the mask. If empty, no message is shown.  
+**Include invalid char** - When true, the mask error text will include the character that failed. For example, if the user tries the character 'd' when a number is expected:  
+![maskError](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/maskError.png)  
 **Icons** - Control whether or not to show the calendar icon. If it is being shown, choose to display the icon as a
 button on the side or inside the input. A custom icon can be selected.  
 ![icon](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/icon.png)  
