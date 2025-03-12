@@ -335,6 +335,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 format={props.dateFormat}
                 readOnly={props.readonly}
                 placeholder={!props.readonly ? props.placeholder : ""}
+                languageTag={props.language}
             />
         ) : undefined,
 
