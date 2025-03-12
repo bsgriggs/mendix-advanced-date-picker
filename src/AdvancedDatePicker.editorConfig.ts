@@ -201,6 +201,10 @@ export function getProperties(
         hidePropertyIn(defaultProperties, _values, "weekPrefix");
     }
 
+    if (!_values.maskInput) {
+        hidePropertiesIn(defaultProperties, _values, ["maskErrorText", "includeInvalidChar"]);
+    }
+
     return defaultProperties;
 }
 

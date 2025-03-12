@@ -47,6 +47,7 @@ export function preview(props: AdvancedDatePickerPreviewProps): ReactElement {
             dateFormat={"MM/dd/yyyy"}
             invalid={false}
             required={false}
+            includeInvalidChar={false}
         />
     );
 }

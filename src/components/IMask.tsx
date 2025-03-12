@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactElement, createElement, useRef, useState, useEffect, KeyboardEvent, useCallback } from "react";
+import { ReactElement, createElement, useRef, useState, useEffect, KeyboardEvent, useMemo } from "react";
 import { IMaskInput, IMask as IM } from "react-imask";
 import MxFormatter from "../utils/MxFormatter";
 import MxParser from "../utils/MxParser";
@@ -12,31 +12,32 @@ export interface IMaskProps {
     format: string;
     readOnly: boolean;
     placeholder: string;
-    languageTag: string;
+    maskErrorText: string | undefined;
+    includeInvalidChar: boolean;
 }
 
 export function IMask(props: IMaskProps): ReactElement {
     const ref = useRef<HTMLInputElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [strValue, setStrValue] = useState<string>("");
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [showError, setShowError] = useState<boolean>(false);
     const [lastKeyPressed, setLastKeyPressed] = useState<string | null>(null);
     const [accepted, setAccepted] = useState<boolean>(false);
+    const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
     /* eslint-disable */
     // @ts-ignore
     const locale = window.mx.session.getConfig().locale;
-
     /* eslint-enable */
 
-    const getErrorMessage = useCallback((): string => {
-        const currentLanguage: string = props.languageTag ? props.languageTag : "en";
-        const errorMessages: Record<string, string> = {
-            en: "Invalid date format",
-            nl: "Ongeldig datumformaat"
-        };
-        return errorMessages[currentLanguage] || errorMessages.en;
-    }, [props.languageTag]);
+    const errorMessage = useMemo(
+        (): string | null =>
+            props.maskErrorText === undefined || props.maskErrorText === null || props.maskErrorText.trim() === ""
+                ? null
+                : props.maskErrorText.trim() +
+                  (props.includeInvalidChar && lastKeyPressed !== null ? `: '${lastKeyPressed}'` : ""),
+        [props.maskErrorText, lastKeyPressed, props.includeInvalidChar]
+    );
 
     if (inputRef.current !== null) {
         inputRef.current.className = classNames("form-control");
@@ -45,31 +46,34 @@ export function IMask(props: IMaskProps): ReactElement {
     useEffect(() => {
         if (document.activeElement !== inputRef.current) {
             setStrValue(MxFormatter(props.date, props.format));
-            setErrorMessage(null);
+            setShowError(false);
         }
     }, [props.date, props.format]);
 
     useEffect(() => {
         if (lastKeyPressed !== null) {
             // If a key was pressed but not accepted, show the error
-            if (!accepted) {
-                setErrorMessage(getErrorMessage());
-            } else {
-                setErrorMessage(null); // Clear error if accepted
-            }
+            setShowError(!accepted);
         }
-    }, [lastKeyPressed, accepted, getErrorMessage]); // Runs after every key press
+    }, [lastKeyPressed, accepted]); // Runs after every key press
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
         // Ignore special keys like backspace, delete, arrow keys, etc.
         if ((event.key.length > 1 && event.key !== "Enter") || props.date) {
             return;
         }
+        setTimeoutId(
+            window.setTimeout(() => {
+                setAccepted(false);
+            }, 100) // Assume rejection unless onAccept proves otherwise
+        ); // debounce the setAccept so the message doesn't show then hid after < 100ms
         setLastKeyPressed(event.key);
-        setAccepted(false); // Assume rejection unless onAccept proves otherwise
     };
 
     const handleOnAccept = (value: string): void => {
+        if (timeoutId !== null) {
+            window.clearTimeout(timeoutId);
+        }
         setStrValue(value);
         setAccepted(true); // Mark that the last keypress was accepted
         const parsedDate = MxParser(value, props.format);
@@ -81,15 +85,16 @@ export function IMask(props: IMaskProps): ReactElement {
     };
 
     const handleOnBlur = (value: string): void => {
+        setLastKeyPressed(null);
         if (value.trim() === "") {
-            setErrorMessage(null);
+            setShowError(false);
             props.setDate(null);
         } else {
             const parsedDate = MxParser(value, props.format);
-            if (!parsedDate) {
-                setErrorMessage(getErrorMessage());
+            if (parsedDate === null) {
+                setShowError(true);
             } else {
-                setErrorMessage(null);
+                setShowError(false);
                 const newDateStr = MxFormatter(parsedDate, props.format);
                 if (inputRef.current) {
                     inputRef.current.value = newDateStr;
@@ -214,7 +219,7 @@ export function IMask(props: IMaskProps): ReactElement {
                     }
                 }}
             />
-            {errorMessage && <div className="text-danger mt-1">{errorMessage}</div>}
+            {errorMessage !== null && showError && <div className="text-danger mt-1">{errorMessage}</div>}
         </div>
     );
 }

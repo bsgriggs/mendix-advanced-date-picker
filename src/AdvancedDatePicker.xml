@@ -270,10 +270,6 @@
                     <description></description>
                     <returnType type="DateTime" />
                 </property>
-                <property key="maskInput" type="boolean" defaultValue="false">
-                    <caption>Mask input?</caption>
-                    <description></description>
-                </property>
                 <property key="useCustomContent" type="boolean" defaultValue="false">
                     <caption>Use custom content?</caption>
                     <description></description>
@@ -281,6 +277,47 @@
                 <property key="customContent" type="widgets" required="true">
                     <caption>Custom content</caption>
                     <description></description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Mask">
+                <property key="maskInput" type="boolean" defaultValue="false">
+                    <caption>Mask input?</caption>
+                    <description></description>
+                </property>
+
+                <property key="maskErrorText" type="textTemplate" required="false">
+                    <caption>Mask error text</caption>
+                    <description>Text shown if the user tries to type a character that does not match the mask. If empty, no message is shown.</description>
+                    <translations>
+                        <translation lang="en_US">Invalid date format</translation>
+                        <translation lang="nl_NL">Ongeldig datumformaat</translation>
+                        <translation lang="nl_BE">Ongeldig datumformaat</translation>
+                        <translation lang="es_AR">Formato de fecha no válido</translation>
+                        <translation lang="es_BO">Formato de fecha no válido</translation>
+                        <translation lang="es_CL">Formato de fecha no válido</translation>
+                        <translation lang="es_CO">Formato de fecha no válido</translation>
+                        <translation lang="es_CR">Formato de fecha no válido</translation>
+                        <translation lang="es_DO">Formato de fecha no válido</translation>
+                        <translation lang="es_EC">Formato de fecha no válido</translation>
+                        <translation lang="es_SV">Formato de fecha no válido</translation>
+                        <translation lang="es_GT">Formato de fecha no válido</translation>
+                        <translation lang="es_HN">Formato de fecha no válido</translation>
+                        <translation lang="es_MX">Formato de fecha no válido</translation>
+                        <translation lang="es_NI">Formato de fecha no válido</translation>
+                        <translation lang="es_PA">Formato de fecha no válido</translation>
+                        <translation lang="es_PY">Formato de fecha no válido</translation>
+                        <translation lang="es_PE">Formato de fecha no válido</translation>
+                        <translation lang="es_PR">Formato de fecha no válido</translation>
+                        <translation lang="es_ES">Formato de fecha no válido</translation>
+                        <translation lang="es_US">Formato de fecha no válido</translation>
+                        <translation lang="es_UY">Formato de fecha no válido</translation>
+                        <translation lang="es_VE">Formato de fecha no válido</translation>
+                    </translations>
+                </property>
+                <property key="includeInvalidChar" type="expression" defaultValue="true">
+                    <caption>Include invalid char</caption>
+                    <description>When true, the mask error text will include the character that failed.</description>
+                    <returnType type="Boolean" />
                 </property>
             </propertyGroup>
             <propertyGroup caption="Icon">

@@ -55,9 +55,11 @@ export interface AdvancedDatePickerContainerProps {
     specificTimeAttribute: ListAttributeValue<Date>;
     clearable: DynamicValue<boolean>;
     openToDate?: DynamicValue<Date>;
-    maskInput: boolean;
     useCustomContent: boolean;
     customContent: ReactNode;
+    maskInput: boolean;
+    maskErrorText?: DynamicValue<string>;
+    includeInvalidChar: DynamicValue<boolean>;
     showIcon: boolean;
     showIconInside: boolean;
     customIcon?: DynamicValue<WebIcon>;
@@ -117,9 +119,11 @@ export interface AdvancedDatePickerPreviewProps {
     specificTimeAttribute: string;
     clearable: string;
     openToDate: string;
-    maskInput: boolean;
     useCustomContent: boolean;
     customContent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    maskInput: boolean;
+    maskErrorText: string;
+    includeInvalidChar: string;
     showIcon: boolean;
     showIconInside: boolean;
     customIcon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;

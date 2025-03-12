@@ -261,6 +261,8 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
                 dateFormat={dateFormat}
                 required={props.required.value === true}
                 invalid={invalid}
+                maskErrorText={props.maskErrorText?.value}
+                includeInvalidChar={props.includeInvalidChar.value === true}
                 calendarIconLabel={props.calendarIconLabel.value as string}
                 navigateButtonPrefix={props.navigateButtonPrefix.value as string}
                 selectPrefix={props.selectPrefix.value as string}

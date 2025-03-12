@@ -73,6 +73,8 @@ interface DatePickerProps {
     clearable: boolean;
     openToDate: Date | undefined;
     maskInput: boolean;
+    maskErrorText: string | undefined;
+    includeInvalidChar: boolean;
     // Accessibility
     required: boolean;
     calendarIconLabel: string;
@@ -335,7 +337,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
                 format={props.dateFormat}
                 readOnly={props.readonly}
                 placeholder={!props.readonly ? props.placeholder : ""}
-                languageTag={props.language}
+                maskErrorText={props.maskErrorText}
+                includeInvalidChar={props.includeInvalidChar}
             />
         ) : undefined,
 
