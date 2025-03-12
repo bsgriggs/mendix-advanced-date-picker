@@ -284,7 +284,6 @@
                     <caption>Mask input?</caption>
                     <description></description>
                 </property>
-
                 <property key="maskErrorText" type="textTemplate" required="false">
                     <caption>Mask error text</caption>
                     <description>Text shown if the user tries to type a character that does not match the mask. If empty, no message is shown.</description>
