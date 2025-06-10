@@ -162,6 +162,7 @@ date picker +/- 1 year.)
 **Use custom content** - When enabled, a new container will appear in Studio Pro to put any content inside. Most useful
 in combination with Open to Date to create controls that change the month being displayed.  
 ![customContent](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/customContent.png)  
+__Want to close the popup programatically? [See below](https://github.com/bsgriggs/mendix-advanced-date-picker?tab=readme-ov-file#close-the-date-time-picker-programatically)__
 **Mask input** - Applies and input mask based on the Date Format. When enabled, the user does not have to enter slashes,
 spaces, colons, or dashes. It **ONLY** works with date formats that always display the same number of characters as the
 format itself (i.e. yyyy MMM dd works but yyyy MMMM dd does not work because there is no way to enter 'May'). It also
@@ -215,6 +216,24 @@ with your language code & translations in the following format.
 ### Common
 
 ![Common](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/Common.png)
+
+## Close the Date-Time picker Programatically
+There are some situations where the pop-up cannot close automatically. For example, the date & time pop-up will wait for the user to specifically pick a time.  
+This can become a poor user experience if the date & time are set outside the widget (e.g., a custom-content button).
+
+To close the pop-up programmatically, create a JavaScript action that clicks the calendar button (closing the pop-up) and then refocuses the input on a delay (for accessibility). For example:
+
+```
+//get the element that has the calendar button and input
+const advancedDatePicker = document.activeElement.closest('.mendix-advanced-datepicker')
+
+if (advancedDatePicker){
+    advancedDatePicker.querySelector('.btn-calendar').click();
+    setTimeout(()=>{
+        advancedDatePicker.querySelector('input').focus();
+    }, 125)
+}
+```
 
 ## Demo project
 
