@@ -27,9 +27,11 @@ interface DatePickerProps {
     tabIndex: number;
     open: boolean;
     setOpen: (newOpen: boolean) => void;
+
     // General
     placeholder: string;
     dateFormatEnum: DateFormatEnum;
+    showFullMonthYearPicker: boolean;
     timeInterval: number;
     timeCaption: string;
     selectionType: SelectionTypeEnum;
@@ -38,6 +40,7 @@ interface DatePickerProps {
     startDate: Date | null;
     endDate: Date | null;
     readonly: boolean;
+
     // Selectable Dates
     minDate: Date | undefined;
     maxDate: Date | undefined;
@@ -52,11 +55,13 @@ interface DatePickerProps {
     disableThursday: boolean;
     disableFriday: boolean;
     disableSaturday: boolean;
+
     // Selectable Times
     minTime: Date | undefined;
     maxTime: Date | undefined;
     specificTimesMode: SpecificTimesModeEnum;
     specificTimes: Date[];
+
     // Customization
     showIcon: boolean;
     showIconInside: boolean;
@@ -75,6 +80,7 @@ interface DatePickerProps {
     maskInput: boolean;
     maskErrorText: string | undefined;
     includeInvalidChar: boolean;
+
     // Accessibility
     required: boolean;
     calendarIconLabel: string;
@@ -86,6 +92,7 @@ interface DatePickerProps {
     yearSelectLabel: string;
     disabledLabel: string;
     clearButtonLabel: string;
+
     // MxDate Meta Data
     invalid: boolean;
     firstDayOfWeek: number;
@@ -256,6 +263,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         className: "form-control",
         dateFormat: props.dateFormat,
         timeFormat: showTimeSelect ? ExtractTimeFormat(props.dateFormat) : undefined,
+        showFullMonthYearPicker: props.showFullMonthYearPicker,
         disabled: props.readonly,
         disabledKeyboardNavigation: false,
         dropdownMode: "select",
@@ -357,7 +365,8 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
             className={classNames(
                 "mendix-advanced-datepicker",
                 { "icon-inside": props.showIconInside },
-                { "date-and-time": showTimeSelect && !timeOnly }
+                { "date-and-time": showTimeSelect && !timeOnly },
+                { "full-month": props.showFullMonthYearPicker }
             )}
             ref={ref}
             onKeyDown={event => {

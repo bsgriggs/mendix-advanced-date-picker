@@ -46,11 +46,17 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
                 : props.dateFormat === "MONTH"
                 ? props.maskInput
                     ? "MMM yyyy"
-                    : "MMMM yyyy"
+                    : props.monthFormat === "FULL"
+                    ? "MMMM yyyy"
+                    : props.monthFormat === "ABBREVIATION"
+                    ? "MMM yyyy"
+                    : props.monthFormat === "PADDED"
+                    ? "MM yyyy"
+                    : "M yyyy"
                 : props.dateFormat === "QUARTER"
                 ? "yyyy QQQ"
                 : props.customDateFormat.value,
-        [props.dateFormat, props.customDateFormat, patterns, props.maskInput]
+        [props.dateFormat, props.customDateFormat, patterns, props.maskInput, props.monthFormat]
     );
 
     // Seperated so the placeholder can be set to the current value if props.clearable is off
@@ -219,6 +225,7 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
                 tabIndex={props.tabIndex || 0}
                 placeholder={placeholder}
                 dateFormatEnum={props.dateFormat}
+                showFullMonthYearPicker={props.dateFormat === "MONTH" && props.monthFormat === "FULL"}
                 date={props.dateAttribute?.value ? (props.dateAttribute.value as Date) : null}
                 startDate={props.startDateAttribute?.value ? (props.startDateAttribute.value as Date) : null}
                 endDate={props.endDateAttribute?.value ? (props.endDateAttribute.value as Date) : null}

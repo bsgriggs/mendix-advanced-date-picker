@@ -126,6 +126,10 @@ export function getProperties(
         hidePropertyIn(defaultProperties, _values, "customContent");
     }
 
+    if (_values.dateFormat !== "MONTH" || _values.maskInput) {
+        hidePropertyIn(defaultProperties, _values, "monthFormat");
+    }
+
     if (
         _values.dateFormat === "MONTH" ||
         _values.dateFormat === "YEAR" ||

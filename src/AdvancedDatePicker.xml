@@ -35,6 +35,16 @@
                         <enumerationValue key="CUSTOM">Custom</enumerationValue>
                     </enumerationValues>
                 </property>
+                <property key="monthFormat" type="enumeration" defaultValue="FULL">
+                    <caption>Month format</caption>
+                    <description>E.g., September, Sep, 09, 9</description>
+                    <enumerationValues>
+                        <enumerationValue key="FULL">Full Word</enumerationValue>
+                        <enumerationValue key="ABBREVIATION">Abbreviation</enumerationValue>
+                        <enumerationValue key="PADDED">Padded Number</enumerationValue>
+                        <enumerationValue key="MIN">Min Number</enumerationValue>
+                    </enumerationValues>
+                </property>
                 <property key="timeInterval" type="expression" required="true" defaultValue="15">
                     <caption>Time interval</caption>
                     <description></description>

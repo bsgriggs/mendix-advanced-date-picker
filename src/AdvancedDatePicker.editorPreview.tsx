@@ -10,6 +10,7 @@ export function preview(props: AdvancedDatePickerPreviewProps): ReactElement {
             id=""
             tabIndex={0}
             dateFormatEnum={props.dateFormat}
+            showFullMonthYearPicker={props.dateFormat === "MONTH" && props.monthFormat === "FULL"}
             date={null}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             setDate={() => {}}

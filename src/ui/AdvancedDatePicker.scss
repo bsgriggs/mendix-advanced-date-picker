@@ -110,6 +110,11 @@ $disabled-background: #c8c8c8;
             right: 2rem;
         }
     }
+    &.full-month {
+        .react-datepicker__month-text {
+            width: 8rem;
+        }
+    }
     &.date-and-time {
         .react-datepicker {
             min-width: 347px;

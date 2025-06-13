@@ -9,6 +9,8 @@ import { Big } from "big.js";
 
 export type DateFormatEnum = "DATE" | "MONTH" | "QUARTER" | "YEAR" | "TIME" | "DATETIME" | "CUSTOM";
 
+export type MonthFormatEnum = "FULL" | "ABBREVIATION" | "PADDED" | "MIN";
+
 export type SelectionTypeEnum = "SINGLE" | "RANGE";
 
 export type SpecificDaysModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
@@ -25,6 +27,7 @@ export interface AdvancedDatePickerContainerProps {
     id: string;
     placeholder?: DynamicValue<string>;
     dateFormat: DateFormatEnum;
+    monthFormat: MonthFormatEnum;
     timeInterval: DynamicValue<Big>;
     timeCaption: DynamicValue<string>;
     customDateFormat: DynamicValue<string>;
@@ -89,6 +92,7 @@ export interface AdvancedDatePickerPreviewProps {
     readOnly: boolean;
     placeholder: string;
     dateFormat: DateFormatEnum;
+    monthFormat: MonthFormatEnum;
     timeInterval: string;
     timeCaption: string;
     customDateFormat: string;
