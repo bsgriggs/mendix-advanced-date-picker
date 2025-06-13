@@ -69,9 +69,12 @@ depending on this setting.
 
 -   Date - Uses the date format from the User's language settings (Language -> Language Settings... -> Edit a language
     -> Date format)
--   Month - Uses format MMMM yyyy (e.g. September 2023). If Mask Input is enabled, then uses format MMM yyyy (e.g.
-    Sep 2023)  
-    ![month](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/month.png)
+-   Month - Shows an additional "Month format" property with options "Full Word", "Abbreviation", "Padded Number", or "Min Number". These translate into "MMMM yyyy", "MMM yyyy", "MM yyyy", or "M yyyy" respectively (e.g., September, Sep, 09, 9).
+
+| Full Word | Abbreviation, Padded Number, or Min Number |
+| -------------------| ------------------|
+| ![monthFull](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/monthFull.png) | ![monthSmall](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/monthSmall.png) |
+
 -   Quarter - Uses format yyyy QQQ (e.g. 2023 Q3)  
     ![quarter](https://github.com/bsgriggs/mendix-advanced-date-picker/blob/media/quarter.png)
 -   Year - Uses format yyyy (e.g. 2023)  
