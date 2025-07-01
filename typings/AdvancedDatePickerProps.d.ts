@@ -21,6 +21,8 @@ export type SpecificTimesModeEnum = "OFF" | "INCLUDE" | "EXCLUDE";
 
 export type AlignmentEnum = "LEFT" | "RIGHT" | "AUTO";
 
+export type ReadOnlyDisplayTypeEnum = "CONTROL" | "TEXT";
+
 export interface AdvancedDatePickerContainerProps {
     name: string;
     tabIndex?: number;
@@ -86,10 +88,13 @@ export interface AdvancedDatePickerContainerProps {
     yearSelectLabel: DynamicValue<string>;
     disabledLabel: DynamicValue<string>;
     clearButtonLabel: DynamicValue<string>;
+    readOnlyDisplayType: ReadOnlyDisplayTypeEnum;
 }
 
 export interface AdvancedDatePickerPreviewProps {
     readOnly: boolean;
+    renderMode: "design" | "xray" | "structure";
+    translate: (text: string) => string;
     placeholder: string;
     dateFormat: DateFormatEnum;
     monthFormat: MonthFormatEnum;
@@ -152,4 +157,5 @@ export interface AdvancedDatePickerPreviewProps {
     yearSelectLabel: string;
     disabledLabel: string;
     clearButtonLabel: string;
+    readOnlyDisplayType: ReadOnlyDisplayTypeEnum;
 }

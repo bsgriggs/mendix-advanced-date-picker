@@ -59,7 +59,7 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
         [props.dateFormat, props.customDateFormat, patterns, props.maskInput, props.monthFormat]
     );
 
-    // Seperated so the placeholder can be set to the current value if props.clearable is off
+    // Separated so the placeholder can be set to the current value if props.clearable is off
     useEffect(
         () =>
             setPlaceholder(
@@ -218,68 +218,96 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
         return props.maxTime.value || new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
     }, [props.maxTime]);
 
+    const readOnly: boolean = useMemo(
+        () =>
+            props.selectionType === "SINGLE"
+                ? props.dateAttribute.readOnly
+                : props.startDateAttribute.readOnly || props.endDateAttribute.readOnly,
+        [props.selectionType, props.dateAttribute, props.startDateAttribute, props.endDateAttribute]
+    );
+
     return (
         <Fragment>
-            <DatePicker
-                {...props}
-                tabIndex={props.tabIndex || 0}
-                placeholder={placeholder}
-                dateFormatEnum={props.dateFormat}
-                showFullMonthYearPicker={props.dateFormat === "MONTH" && props.monthFormat === "FULL"}
-                date={props.dateAttribute?.value ? (props.dateAttribute.value as Date) : null}
-                startDate={props.startDateAttribute?.value ? (props.startDateAttribute.value as Date) : null}
-                endDate={props.endDateAttribute?.value ? (props.endDateAttribute.value as Date) : null}
-                setDate={onChangeHandler}
-                readonly={
-                    props.selectionType === "SINGLE"
-                        ? props.dateAttribute.readOnly
-                        : props.startDateAttribute.readOnly || props.endDateAttribute.readOnly
-                }
-                icon={props.customIcon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
-                minDate={props.minDate?.value ? RemoveTime(props.minDate.value) : undefined}
-                maxDate={props.maxDate?.value ? RemoveTime(props.maxDate.value) : undefined}
-                minTime={props.minTime ? props.minTime.value || RemoveTime(new Date()) : undefined}
-                maxTime={maxTime}
-                specificDays={specificDays || []}
-                specificTimes={specificTimes || []}
-                intervalDays={intervalDays || []}
-                disableSunday={props.disableSunday.value === true}
-                disableMonday={props.disableMonday.value === true}
-                disableTuesday={props.disableTuesday.value === true}
-                disableWednesday={props.disableWednesday.value === true}
-                disableThursday={props.disableThursday.value === true}
-                disableFriday={props.disableFriday.value === true}
-                disableSaturday={props.disableSaturday.value === true}
-                open={open}
-                setOpen={setOpen}
-                showTodayButton={props.showTodayButton}
-                todayButtonText={props.todayButtonText?.value || ""}
-                customChildren={props.useCustomContent && props.customContent}
-                clearable={props.clearable.value === true || props.selectionType === "RANGE"}
-                monthsToDisplay={monthsToDisplay}
-                showWeekNumbers={props.showWeekNumbers}
-                showPreviousMonths={props.showPreviousMonth.value === true}
-                showInline={props.showInline.value === true}
-                timeInterval={Number(props.timeInterval.value)}
-                timeCaption={props.timeCaption.value as string}
-                openToDate={props.openToDate?.value as Date}
-                firstDayOfWeek={firstDayOfWeek}
-                language={language}
-                dateFormat={dateFormat}
-                required={props.required.value === true}
-                invalid={invalid}
-                maskErrorText={props.maskErrorText?.value}
-                includeInvalidChar={props.includeInvalidChar.value === true}
-                calendarIconLabel={props.calendarIconLabel.value as string}
-                navigateButtonPrefix={props.navigateButtonPrefix.value as string}
-                selectPrefix={props.selectPrefix.value as string}
-                weekPrefix={props.weekPrefix.value as string}
-                monthPrefix={props.monthPrefix.value as string}
-                monthSelectLabel={props.monthSelectLabel.value as string}
-                yearSelectLabel={props.yearSelectLabel.value as string}
-                disabledLabel={props.disabledLabel.value as string}
-                clearButtonLabel={props.clearButtonLabel.value as string}
-            />
+            {readOnly === false || props.readOnlyDisplayType === "CONTROL" ? (
+                <DatePicker
+                    {...props}
+                    tabIndex={props.tabIndex || 0}
+                    placeholder={placeholder}
+                    dateFormatEnum={props.dateFormat}
+                    showFullMonthYearPicker={props.dateFormat === "MONTH" && props.monthFormat === "FULL"}
+                    date={props.dateAttribute?.value ? (props.dateAttribute.value as Date) : null}
+                    startDate={props.startDateAttribute?.value ? (props.startDateAttribute.value as Date) : null}
+                    endDate={props.endDateAttribute?.value ? (props.endDateAttribute.value as Date) : null}
+                    setDate={onChangeHandler}
+                    readonly={readOnly}
+                    icon={props.customIcon?.value || { type: "glyph", iconClass: "glyphicon-calendar" }}
+                    minDate={props.minDate?.value ? RemoveTime(props.minDate.value) : undefined}
+                    maxDate={props.maxDate?.value ? RemoveTime(props.maxDate.value) : undefined}
+                    minTime={props.minTime ? props.minTime.value || RemoveTime(new Date()) : undefined}
+                    maxTime={maxTime}
+                    specificDays={specificDays || []}
+                    specificTimes={specificTimes || []}
+                    intervalDays={intervalDays || []}
+                    disableSunday={props.disableSunday.value === true}
+                    disableMonday={props.disableMonday.value === true}
+                    disableTuesday={props.disableTuesday.value === true}
+                    disableWednesday={props.disableWednesday.value === true}
+                    disableThursday={props.disableThursday.value === true}
+                    disableFriday={props.disableFriday.value === true}
+                    disableSaturday={props.disableSaturday.value === true}
+                    open={open}
+                    setOpen={setOpen}
+                    showTodayButton={props.showTodayButton}
+                    todayButtonText={props.todayButtonText?.value || ""}
+                    customChildren={props.useCustomContent && props.customContent}
+                    clearable={props.clearable.value === true || props.selectionType === "RANGE"}
+                    monthsToDisplay={monthsToDisplay}
+                    showWeekNumbers={props.showWeekNumbers}
+                    showPreviousMonths={props.showPreviousMonth.value === true}
+                    showInline={props.showInline.value === true}
+                    timeInterval={Number(props.timeInterval.value)}
+                    timeCaption={props.timeCaption.value as string}
+                    openToDate={props.openToDate?.value as Date}
+                    firstDayOfWeek={firstDayOfWeek}
+                    language={language}
+                    dateFormat={dateFormat}
+                    required={props.required.value === true}
+                    invalid={invalid}
+                    maskErrorText={props.maskErrorText?.value}
+                    includeInvalidChar={props.includeInvalidChar.value === true}
+                    calendarIconLabel={props.calendarIconLabel.value as string}
+                    navigateButtonPrefix={props.navigateButtonPrefix.value as string}
+                    selectPrefix={props.selectPrefix.value as string}
+                    weekPrefix={props.weekPrefix.value as string}
+                    monthPrefix={props.monthPrefix.value as string}
+                    monthSelectLabel={props.monthSelectLabel.value as string}
+                    yearSelectLabel={props.yearSelectLabel.value as string}
+                    disabledLabel={props.disabledLabel.value as string}
+                    clearButtonLabel={props.clearButtonLabel.value as string}
+                />
+            ) : (
+                <div className="form-control-static">
+                    {props.selectionType === "RANGE" ? (
+                        <Fragment>
+                            {props.startDateAttribute !== undefined && props.startDateAttribute.value !== undefined
+                                ? MxFormatter(props.startDateAttribute.value as Date, dateFormat)
+                                : ""}
+                            {(props.startDateAttribute !== undefined && props.startDateAttribute.value !== undefined) ||
+                            (props.endDateAttribute !== undefined && props.endDateAttribute.value !== undefined)
+                                ? " - "
+                                : ""}
+                            {props.endDateAttribute !== undefined && props.endDateAttribute.value !== undefined
+                                ? MxFormatter(props.endDateAttribute.value as Date, dateFormat)
+                                : ""}
+                        </Fragment>
+                    ) : props.dateAttribute !== undefined && props.dateAttribute.value !== undefined ? (
+                        MxFormatter(props.dateAttribute.value as Date, dateFormat)
+                    ) : (
+                        ""
+                    )}
+                </div>
+            )}
+
             {props.dateAttribute?.validation && <Alert>{props.dateAttribute.validation}</Alert>}
             {props.startDateAttribute?.validation && <Alert>{props.startDateAttribute.validation}</Alert>}
             {props.endDateAttribute?.validation && <Alert>{props.endDateAttribute.validation}</Alert>}

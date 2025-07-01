@@ -722,6 +722,14 @@
             </propertyGroup>
             <propertyGroup caption="Editbility">
                 <systemProperty key="Editability" />
+                <property key="readOnlyDisplayType" type="enumeration" defaultValue="CONTROL">
+                    <caption>Read only display type</caption>
+                    <description></description>
+                    <enumerationValues>
+                        <enumerationValue key="CONTROL">Control</enumerationValue>
+                        <enumerationValue key="TEXT">Text</enumerationValue>
+                    </enumerationValues>
+                </property>
             </propertyGroup>
         </propertyGroup>
     </properties>
