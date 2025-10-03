@@ -289,6 +289,21 @@
                     <description></description>
                 </property>
             </propertyGroup>
+            <propertyGroup caption="Highlight Days">
+                <property key="highlightDaysDatasource" type="datasource" isList="true"
+                    required="false">
+                    <caption>Datasource</caption>
+                    <description></description>
+                </property>
+                <property key="highlightDaysAttribute" type="attribute"
+                    dataSource="highlightDaysDatasource" required="false">
+                    <caption>Attribute</caption>
+                    <description></description>
+                    <attributeTypes>
+                        <attributeType name="DateTime" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
             <propertyGroup caption="Mask">
                 <property key="maskInput" type="boolean" defaultValue="false">
                     <caption>Mask input?</caption>

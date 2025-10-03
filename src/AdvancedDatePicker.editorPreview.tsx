@@ -23,6 +23,7 @@ export function preview(props: AdvancedDatePickerPreviewProps): ReactElement {
             maxTime={undefined}
             specificDays={[]}
             intervalDays={[]}
+            highlightDays={[]}
             disableSunday={false}
             disableMonday={false}
             disableTuesday={false}

@@ -80,6 +80,7 @@ interface DatePickerProps {
     maskInput: boolean;
     maskErrorText: string | undefined;
     includeInvalidChar: boolean;
+    highlightDays: Date[];
 
     // Accessibility
     required: boolean;
@@ -288,6 +289,7 @@ const DatePickerComp = (props: DatePickerProps): ReactElement => {
         excludeTimes: props.specificTimesMode === "EXCLUDE" ? props.specificTimes : undefined,
         includeDateIntervals: props.intervalDaysMode === "INCLUDE" ? props.intervalDays : undefined,
         excludeDateIntervals: props.intervalDaysMode === "EXCLUDE" ? props.intervalDays : undefined,
+        highlightDates: props.highlightDays,
         filterDate: date =>
             DayOfWeekSelectable(
                 date,

@@ -29,6 +29,7 @@ with your language code & translations in the following format.
 -   Further Customizations:
     -   Clearable
     -   Open to a specific date
+    -   highlight dates (pass the widget a list of dates, they get highlighted with the css class 'react-datepicker__day--highlighted')
     -   Apply an input mask, so the user doesn't need to enter spaces, dashes, or slashes (WIP)
     -   Add custom content inside the date picker (i.e. a button that sets tomorrow)
     -   Show, hide, or customize the Icon next to the text box
@@ -39,8 +40,6 @@ with your language code & translations in the following format.
     -   Align the popup to the start or end of the text box
 
 ## Planned Features
-
--   highlight dates (data source with date attr, optional tooltip text, and optional class name expression)
 -   auto-magically detect if custom date format should use Month, Quarter, or Year pickers
 
 ## Basic Usage

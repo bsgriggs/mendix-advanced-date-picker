@@ -136,7 +136,12 @@ export function getProperties(
         _values.dateFormat === "TIME" ||
         _values.dateFormat === "QUARTER"
     ) {
-        hidePropertiesIn(defaultProperties, _values, ["showTodayButton", "todayButtonText"]);
+        hidePropertiesIn(defaultProperties, _values, [
+            "showTodayButton",
+            "todayButtonText",
+            "highlightDaysDatasource",
+            "highlightDaysAttribute"
+        ]);
     }
 
     if (_values.dateFormat === "QUARTER") {

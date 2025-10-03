@@ -62,6 +62,8 @@ export interface AdvancedDatePickerContainerProps {
     openToDate?: DynamicValue<Date>;
     useCustomContent: boolean;
     customContent: ReactNode;
+    highlightDaysDatasource?: ListValue;
+    highlightDaysAttribute?: ListAttributeValue<Date>;
     maskInput: boolean;
     maskErrorText?: DynamicValue<string>;
     includeInvalidChar: DynamicValue<boolean>;
@@ -130,16 +132,14 @@ export interface AdvancedDatePickerPreviewProps {
     openToDate: string;
     useCustomContent: boolean;
     customContent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    highlightDaysDatasource: {} | { caption: string } | { type: string } | null;
+    highlightDaysAttribute: string;
     maskInput: boolean;
     maskErrorText: string;
     includeInvalidChar: string;
     showIcon: boolean;
     showIconInside: boolean;
-    customIcon:
-        | { type: "glyph"; iconClass: string }
-        | { type: "image"; imageUrl: string; iconUrl: string }
-        | { type: "icon"; iconClass: string }
-        | undefined;
+    customIcon: { type: "glyph"; iconClass: string; } | { type: "image"; imageUrl: string; iconUrl: string; } | { type: "icon"; iconClass: string; } | undefined;
     showTodayButton: boolean;
     todayButtonText: string;
     monthsToDisplay: string;

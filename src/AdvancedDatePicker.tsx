@@ -101,6 +101,14 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
         [props.intervalDaysDatasource, props.intervalDaysStart, props.intervalDaysEnd]
     );
 
+    const highlightDays = useMemo(
+        () =>
+            props.highlightDaysDatasource?.items?.map(obj =>
+                RemoveTime(props.highlightDaysAttribute?.get(obj).value as Date)
+            ),
+        [props.highlightDaysDatasource, props.highlightDaysAttribute]
+    );
+
     // Ensure the list of specific days is only retrieved if the menu is open and only get days inside the min/max range
     useEffect(() => {
         if (props.specificDaysMode !== "OFF") {
@@ -248,6 +256,7 @@ export function AdvancedDatePicker(props: AdvancedDatePickerContainerProps): Rea
                     specificDays={specificDays || []}
                     specificTimes={specificTimes || []}
                     intervalDays={intervalDays || []}
+                    highlightDays={highlightDays || []}
                     disableSunday={props.disableSunday.value === true}
                     disableMonday={props.disableMonday.value === true}
                     disableTuesday={props.disableTuesday.value === true}
